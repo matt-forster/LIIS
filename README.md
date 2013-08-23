@@ -1,5 +1,5 @@
 ## Laboratory Information Indexing System
------------------------------------------
+
 #### JORS DOI: (unassigned)
 
 #### About

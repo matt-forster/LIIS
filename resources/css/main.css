@@ -1,0 +1,323 @@
+/**
+ * Laboratory Information Indexing System
+ *
+ * An open source mini LIMS for metadata organisation and archival purposes
+ *
+ * @author      Matt Forster / @frostyforster
+ * @copyright   Copyright (c) 2013, Matthew S. Forster
+ * @license     MIT (./license.txt)
+ * @link        http://github.com/forstermatth/liis
+ * @since       Version 1.0
+ * @filesource
+ */
+
+/* ------------------------------------------------------------------------ */
+
+/**
+ * main.css
+ *
+ * the main styles that dictate the pages, context independant
+ *
+ * @category    LIIS-View
+ * @author      Matt Forster / @frostyforster
+ * @link        http://github.com/forstermatth/liis
+ */
+
+
+.log
+{
+  width:550px;
+  height:400px;
+  max-height:600px;
+  cursor:default!important;
+  overflow:scroll;
+  resize:none;
+  background-color:#f5f5f5;
+  border:2px;
+  font-family:monospace;
+}
+
+.error
+{
+  background-color:#DD9D98;
+}
+
+.success
+{
+  background-color:#ADDB94;
+}
+
+.maincontent
+{
+  margin-top:120px;
+}
+
+.maincontent .higher
+{
+  margin-top:-68px;
+}
+
+.lower
+{
+  margin-top:50px;
+}
+
+.small
+{
+  font-size:10px;
+}
+
+.center
+{
+  text-align:center;
+}
+
+.right
+{
+  text-align:right;
+}
+
+.fixed
+{
+  position:fixed;
+  background-color:#FFF;
+  z-index:9;
+}
+
+#searchbar
+{
+  padding-top:50px;
+}
+
+#selected
+{
+  margin-left:640px;
+  padding:0;
+}
+
+#omnibar
+{
+  min-width:30%;
+  width:87%;
+}
+
+#search
+{
+  margin-left:5px;
+}
+
+#filtertag
+{
+  margin-top:-10px;
+}
+
+#notes
+{
+  margin-bottom:0;
+}
+
+.widebtn
+{
+  width:50px;
+}
+
+#results
+{
+  margin-left:-20px;
+}
+
+.left
+{
+  text-align:left;
+  float:left;
+  font-size:large;
+}
+
+.head
+{
+  font-size:large;
+}
+
+.userLabel
+{
+  padding-left:1px;
+}
+
+.tBox
+{
+  width:100px;
+}
+
+.newUser
+{
+  font-size:18px;
+}
+
+#Space
+{
+  padding-top:40px;
+}
+
+#userbox
+{
+  width:420px;
+}
+
+#leftSide
+{
+  margin-top:10px;
+  padding-left:15px;
+}
+
+#rightSide
+{
+  margin-top:10px;
+  padding-left:50px;
+}
+
+#linespace
+{
+  padding-top:5%;
+  padding-left:20px;
+}
+
+#createButton
+{
+  margin-top:-10px;
+  padding-left:33px;
+}
+
+.barversion
+{
+  margin-left:-30px;
+}
+
+.navbar
+{
+  position:fixed!important;
+  width:940px;
+  z-index:1000;
+}
+
+#record-mgmt
+{
+  margin-left:635px;
+  padding:0;
+}
+
+#recordid,p
+{
+  font-size:17px;
+}
+
+#topwell
+{
+  height:350px;
+  overflow:hidden;
+}
+
+#botwell
+{
+  height:130px;
+  overflow:hidden;
+}
+
+#rcdimg
+{
+  height:150px;
+  width:500px;
+}
+
+.rdnathumb
+{
+  float:right;
+  margin-top:-110px;
+  margin-right:20px;
+  margin-bottom:20px;
+}
+
+#helpheader
+{
+  margin-left:20px;
+}
+
+#contentheader
+{
+  margin-left:40px;
+}
+
+#contentlist
+{
+  margin-left:60px;
+}
+
+.span4p
+{
+  width:340px;
+}
+
+#sidebar
+{
+  position:fixed;
+  margin-left:720px;
+  top:65px;
+  z-index:10;
+}
+
+#messagearea
+{
+  margin-top:-14px;
+}
+
+.alert
+{
+  margin-bottom:3px;
+}
+
+#liislogo
+{
+  padding-left:8px;
+}
+
+#space
+{
+  margin-top:5%;
+}
+
+#pic
+{
+  left:10px;
+  padding-top:65px;
+  position:absolute;
+  bottom:15px;
+}
+
+#loginform
+{
+  margin-left:-50px;
+}
+
+#footer
+{
+  margin-left:0;
+}
+
+.version
+{
+  margin-top:-25px;
+}
+
+#filters,#progbar
+{
+  margin-top:-15px;
+}
+
+.tBoxContainer,#userTable
+{
+  padding-top:10px;
+}
+
+.permContainer,.topContainer
+{
+  padding-top:20px;
+}

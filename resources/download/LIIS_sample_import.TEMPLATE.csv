@@ -1,0 +1,17 @@
+project_name,sample_name,collection_date,collection_time,collection_timezone,samp_store_loc,samp_period,biome,material,samp_type,feature_primary,feature_secondary,samp_lat,samp_lon,geo_loc_name,country,env_package,notes,source_subject_id,source_name_primary,source_name_secondary,source_treatment
+"* The Experiment/Project Identifcation number, identifies each experiment and the samples it owns.","* Sample Identification Number, uniquely identifies each sample within an experiment",* The date of genesis,The time of genesis,The timezone genesis occurred in,* The storage location of the sample,The period of the sample,The biome genesis occurred in,The material displaced by the sample when taken,"The primary type classification (liquid, solid, gaseous)",The site of origin,The subsite of origin,The latitude of genesis,The longitude of genesis,The description of the latitude and longitude,The country of genesis,The GSC defined environmental package,Any notes / extra observations and fields ,The identification number of the source from which the sample came from,The primary type classification of the source,The secondary type classification of the source,"The treatment of the source pertaining to the experiment (diet, controls, etc)"
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,

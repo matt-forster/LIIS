@@ -4,7 +4,7 @@
 
 #### About
 
-A Mini-LIMS for Culture Collection and Sample Annotations
+A Mini-LIMS for Culture Collection and Sample Annotations.
 LIIS is an open source, web based, metadata database for storage and archival use.
 
 Created at the *Lethbridge Research Center* in cooperation with the *Lethbridge College* and the *University of Lethbridge*, this is a student designed project.

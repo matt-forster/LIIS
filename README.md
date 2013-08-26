@@ -1,6 +1,8 @@
 ## Laboratory Information Indexing System
------------------------------------------
-#### JORS DOI: (unassigned)
+
+- **JORS DOI**: (unassigned)
+- **Figshare DOI**: [10.6084/m9.figshare.780836](http://dx.doi.org/10.6084/m9.figshare.780836)
+
 
 #### About
 

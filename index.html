@@ -31,10 +31,13 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <hr><h4>
-<a name="jors-doi-unassigned" class="anchor" href="#jors-doi-unassigned"><span class="octicon octicon-link"></span></a>JORS DOI: (unassigned)</h4>
-
-<h4>
+        <hr><ul>
+<li>
+<strong>JORS DOI</strong>: (unassigned)</li>
+<li>
+<strong>Figshare DOI</strong>: <a href="http://dx.doi.org/10.6084/m9.figshare.780836">10.6084/m9.figshare.780836</a>
+</li>
+</ul><h4>
 <a name="about" class="anchor" href="#about"><span class="octicon octicon-link"></span></a>About</h4>
 
 <p>A Mini-LIMS for Culture Collection and Sample Annotations.
@@ -75,7 +78,7 @@ LIIS is an open source, web based, metadata database for storage and archival us
 <li>Download and move the website files into the hosted directory</li>
 <li>
 <strong>Special Write permissions</strong> are required for the <code>resources/download</code> and <code>resources/upload</code> directories, to ensure that the export and picture functions operate properly. Popular permissions for these folders are 775 for the appropriate Apache and FTP users.</li>
-<li>Open <code>application/config/database.php</code> and change the appropriate settings to allow codeigniter to connect to MySQL. Make sure to change both the data and user settings.</li>
+<li>Open <code>install.php</code> and <code>application/config/database.php</code>. Change the appropriate settings to allow codeigniter to connect to MySQL. Make sure to change both the data and user database settings in database.php.</li>
 <li>Browse to <code>(website_root)/install.php</code> to install the database. If an error is shown, look over your MySQL settings to ensure connectivity.</li>
 <li>Log in to the user management with the user and password provided after successful database installation.</li>
 </ol><h4>

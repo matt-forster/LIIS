@@ -16,7 +16,7 @@ LIIS requires a webserver with rewrite capability. The application was created o
 
 **Dependancies**:
 - Not Included:
-	* Apache2 (or equivalent) 
+	* Apache 2.2+ (or equivalent) 
 	* PHP 5.3+
 	* MySQL 5.5
 - Included:

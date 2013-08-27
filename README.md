@@ -16,16 +16,16 @@ Created at the **Lethbridge Research Center** in cooperation with the **Lethbrid
 
 LIIS requires a webserver with rewrite capability. The application was created on an Apache2 webserver and has .htaccess files included in the directories.
 
-**Dependancies**:
+**Dependencies**:
 - Not Included:
-	* Apache 2.2+ (or equivalent) 
-	* PHP 5.3+
-	* MySQL 5.5
+	* Apache 2.2+ (or equivalent) 	([Apache](http://httpd.apache.org/)) 
+	* PHP 5.3+ 			([PHP](http://php.net/))
+	* MySQL 5.5 			([MySQL](http://www.mysql.com/))
 - Included:
-	* CodeIgniter 2.1.4 
-	* Parsedown 0.1.3
-	* Twitter Bootstrap 2.3.2
-	* jQuery 1.8.3
+	* CodeIgniter 2.1.4 		([EllisLab](https://github.com/EllisLab/CodeIgniter))
+	* Parsedown 0.1.3 		([Emanuil Rusev](https://github.com/erusev/parsedown))
+	* Twitter Bootstrap 2.3.2 	([Twitter](https://github.com/twbs/bootstrap))
+	* jQuery 1.8.3 			([jQuery](https://github.com/jquery/jquery))
 
 Once a proper server has been setup with a webserver, MySQL, PHP:
 

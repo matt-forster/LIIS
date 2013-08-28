@@ -83,6 +83,15 @@ class Login extends CI_Controller
         $this->data['message'] = array();
     }
     
+    /**
+    * index
+    *
+    * Function called if no parameters are passed to the controller
+    * Shows the login page
+    * 
+    * @access   public   
+    * @return   HTML Views
+    */
     public function index()
     {
         $this->load->view('templates/header', $this->data);
@@ -95,6 +104,17 @@ class Login extends CI_Controller
         $this->load->view('templates/footer', $this->data);
     }
     
+    /**
+    * do_login
+    *
+    * AJAX
+    * Uses the login data from index() to log into the application
+    *
+    * Requires POST data
+    * 
+    * @access   public   
+    * @return   HTML Views
+    */
     public function do_login()
     {
         
@@ -147,12 +167,17 @@ class Login extends CI_Controller
                 $this->load->view('templates/message', $this->data);
                 return;
             }
-        } //$type == 'user'
-        
-        
-        
+        } //$type == 'user'  
     }
     
+    /**
+    * do_logout
+    *
+    * Destroys session and redirects to login page
+    * 
+    * @access   public   
+    * @return   
+    */
     public function do_logout()
     {
         $this->session->sess_destroy();

@@ -108,46 +108,46 @@
                 </label>
                 <div id="">
                     <select onblur="" name="sample[SAMP_ENVPKG]">
-                        <option value="air">
+                        <option value="air" <?php if($preset && $record['SAMPLE']['SAMP_ENVPKG'] == 'air') echo 'selected'; ?> >
                             Air
                         </option>
-                        <option value="host-associated">
+                        <option value="host-associated" <?php if($preset && $record['SAMPLE']['SAMP_ENVPKG'] == 'host-associated') echo 'selected'; ?> >
                             Host Associated
                         </option>
-                        <option value="microbial mat/biofilm">
+                        <option value="microbial mat/biofilm" <?php if($preset && $record['SAMPLE']['SAMP_ENVPKG'] == 'microbial mat/biofilm') echo 'selected'; ?> >
                             Microbial Material / Biofilm
                         </option>
-                        <option value="plant-associated">
+                        <option value="plant-associated" <?php if($preset && $record['SAMPLE']['SAMP_ENVPKG'] == 'plant-associated') echo 'selected'; ?> >
                             Plant Associated
                         </option>
-                        <option value="sediment">
+                        <option value="sediment" <?php if($preset && $record['SAMPLE']['SAMP_ENVPKG'] == 'sediment') echo 'selected'; ?> >
                             Sediment
                         </option>
-                        <option value="soil">
+                        <option value="soil" <?php if($preset && $record['SAMPLE']['SAMP_ENVPKG'] == 'soil') echo 'selected'; ?> >
                             Soil
                         </option>
-                        <option value="wastewater/sludge">
+                        <option value="wastewater/sludge" <?php if($preset && $record['SAMPLE']['SAMP_ENVPKG'] == 'wastewater/sludge') echo 'selected'; ?> >
                             Waste Water / Sludge
                         </option>
-                        <option value="water">
+                        <option value="water" <?php if($preset && $record['SAMPLE']['SAMP_ENVPKG'] == 'water') echo 'selected'; ?> >
                             Water
                         </option>
-                        <option value="human-associated">
+                        <option value="human-associated" <?php if($preset && $record['SAMPLE']['SAMP_ENVPKG'] == 'human-associated') echo 'selected'; ?> >
                             Human Associated
                         </option>
-                        <option value="human-gut">
+                        <option value="human-gut" <?php if($preset && $record['SAMPLE']['SAMP_ENVPKG'] == 'human-gut') echo 'selected'; ?> >
                             Human Gut
                         </option>
-                        <option value="human-oral">
+                        <option value="human-oral" <?php if($preset && $record['SAMPLE']['SAMP_ENVPKG'] == 'human-oral') echo 'selected'; ?> >
                             Human Oral
                         </option>
-                        <option value="human-skin">
+                        <option value="human-skin" <?php if($preset && $record['SAMPLE']['SAMP_ENVPKG'] == 'human-skin') echo 'selected'; ?> >
                             Human Skin
                         </option>
-                        <option value="human-vaginal">
+                        <option value="human-vaginal" <?php if($preset && $record['SAMPLE']['SAMP_ENVPKG'] == 'human-vaginal') echo 'selected'; ?> >
                             Human Vaginal
                         </option>
-                        <option value="misc natural/artificial">
+                        <option value="misc natural/artificial" <?php if($preset && $record['SAMPLE']['SAMP_ENVPKG'] == 'misc natural/artificial') echo 'selected'; ?> >
                             Misc Natural or Artifical
                         </option>
                     </select>

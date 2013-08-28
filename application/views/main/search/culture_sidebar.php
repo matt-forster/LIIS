@@ -72,6 +72,10 @@
         <div data-position="left" data-intro="Use the view button to view a search result after you have selected it.<br> The Create button lets you add to the database. <br><br><strong>Click on the grey and search the wildcard, '%', then select and view a <br>record that appears!</strong>"
         data-step="5">
             <p class="muted">
+                <a href="#" id="view" class="btn btn-main btn-large  widebtn">View</a>
+                Current selected record.
+            </p>
+            <p class="muted">
                 <a href="/culture/create/" class="btn btn-main btn-large widebtn">Create</a> a new record from scratch.
             </p>
             <!-- Two dynamically colored buttons -->

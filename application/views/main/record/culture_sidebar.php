@@ -29,21 +29,16 @@
     <div class="span4">
         <div class="well" data-position="left" data-intro="Here we see either the LIIS logo or the Culture image,<br> depending on the context."
         data-step="2">
-            <?php echo (($record[ 'CULTURE'][ 'CULT_IMG_PATH'] !=N ULL) ?
-            '<a class="thumbnail" target="_blank" href="'.$record[ 'CULTURE'][ 'CULT_IMG_PATH']. '">' :
-            '<a class="thumbnail" target="_blank" href="/resources/img/liislogo.png">') ?>
-                <img <?php echo (($record[ 'CULTURE'][ 'CULT_IMG_PATH'] !=N ULL) ? 'src="'.$record[
-                'CULTURE'][ 'CULT_IMG_PATH']. '"' : 'src="/resources/img/liislogo.png"') ?>
-                alt="Culture Image or LIIS Logo" class="img-rounded" height="300px" id="rcdimg">
+            <?php echo (($record[ 'CULTURE'][ 'CULT_IMG_PATH'] !=NULL) ?
+            '<a class="thumbnail" target="_blank" href="'.$record[ 'CULTURE'][ 'CULT_IMG_PATH']. '">' : '<a class="thumbnail" target="_blank" href="/resources/img/liislogo.png">') ?>
+                <img <?php echo (($record[ 'CULTURE'][ 'CULT_IMG_PATH'] !=NULL) ? 'src="'.$record['CULTURE'][ 'CULT_IMG_PATH']. '"' : 'src="/resources/img/liislogo.png"') ?>
+                 alt="Culture Image or LIIS Logo" class="img-rounded" height="300px" id="rcdimg">
                 </a>
                 <h5 id="notes">
-                    <?php echo (($record[ 'CULTURE'][ 'CULT_IMG_PATH'] !=N ULL) ? 'Caption' : ' ');
-                    ?>
+                    <?php echo (($record[ 'CULTURE'][ 'CULT_IMG_PATH'] !=NULL) ? 'Caption' : ' '); ?>
                 </h5>
                 <div class="well">
-                    <?php echo (($record[ 'CULTURE'][ 'CULT_IMG_PATH'] !=N ULL) ? $record[ 'CULTURE'][
-                    'CULT_IMG_CAP'] :
-                    'No Culture image available. Find the thumbnails for each DNA/RNA under the dropdowns.'); ?>
+                    <?php echo (($record[ 'CULTURE'][ 'CULT_IMG_PATH'] !=NULL) ? $record[ 'CULTURE']['CULT_IMG_CAP'] : 'No Culture image available. Find the thumbnails for each DNA/RNA under the dropdowns.'); ?>
                 </div>
         </div>
         <p class="muted" data-position="left" data-intro="Hit this button to add images!"

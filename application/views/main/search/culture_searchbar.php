@@ -33,7 +33,7 @@
             <form id="searchform" class="form-search center" action="" method="post" onsubmit="return false;">
                 <!-- START SEARCH FORM -->
                 <input type="text" placeholder="Input Search Query" class="input-medium search-query"
-                id="omnibar" name="query" value="<?php echo $query; ?>">
+                id="omnibar" name="query" value="">
                 <button type="submit" class="btn btn-main" id="searchCulture">
                     Search
                 </button>

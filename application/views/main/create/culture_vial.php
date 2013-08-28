@@ -31,6 +31,7 @@
     <?php echo $vialNum; ?>
 </legend>
 <input type="hidden" name="ids[VIAL][]" value="<?php echo (($preset) ? $VIAL['VIAL_ID'] : NULL) ?>">
+<input type="hidden" name="vial[<?php echo $vialNum; ?>][vial_old_id]" value="<?php echo (($preset) ? $VIAL['VIAL_ID'] : NULL) ?>">
 <div class="row">
     <div class="span2">
         <label>

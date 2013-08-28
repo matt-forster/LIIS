@@ -31,6 +31,7 @@
     <?php echo $dnarnaNum ?>
 </legend>
 <input type="hidden" name="ids[DNARNA][]" value="<?php echo (($preset) ? $DNARNA['DNARNA_ID'] : NULL) ?>">
+<input type="hidden" name="dnarna[<?php echo $dnarnaNum ?>][dnarna_old_id]" value="<?php echo (($preset) ? $DNARNA['DNARNA_ID'] : NULL) ?>">
 <div class="row">
     <div class="span" style="width: 260px;">
         <label>

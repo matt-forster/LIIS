@@ -85,11 +85,28 @@ class Help extends CI_Controller
         
     }
     
+    /**
+    * index
+    *
+    * Function called if no parameters are passed to the controller
+    * calls the function main()
+    * 
+    * @access   public   
+    * @return   
+    */
     public function index()
     {
         $this->main();
     }
     
+    /**
+    * main
+    *
+    * Shows the main help.
+    * 
+    * @access   public   
+    * @return   HTML Views
+    */
     public function main()
     {
         $this->data['title'] = 'LIIS - Help';
@@ -112,6 +129,14 @@ class Help extends CI_Controller
         $this->load->view('templates/footer', $this->data);
     }
     
+    /**
+    * user
+    *
+    * Shows the user help.
+    * 
+    * @access   public   
+    * @return   HTML Views
+    */
     public function user()
     {
         $this->data['title'] = 'LIIS - User - Help';

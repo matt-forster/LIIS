@@ -1,4 +1,17 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+//Installation dependant variables:
+
+$db['data']['hostname'] = 'localhost';
+$db['data']['username'] = 'root';
+$db['data']['password'] = 'password';
+$db['data']['database'] = 'LIISDATA';
+
+$db['user']['hostname'] = 'localhost';
+$db['user']['username'] = 'root';
+$db['user']['password'] = 'password';
+$db['user']['database'] = 'USER';
+
 /*
 | -------------------------------------------------------------------
 | DATABASE CONNECTIVITY SETTINGS
@@ -45,13 +58,12 @@
 | the active record class
 */
 
+//Installation independant variables:
+
 $active_group = 'data';
 $active_record = TRUE;
 
-$db['data']['hostname'] = 'localhost';
-$db['data']['username'] = 'root';
-$db['data']['password'] = 'password';
-$db['data']['database'] = 'LIISDATA';
+
 $db['data']['dbdriver'] = 'mysqli';
 $db['data']['dbprefix'] = '';
 $db['data']['pconnect'] = FALSE;
@@ -64,10 +76,6 @@ $db['data']['swap_pre'] = '';
 $db['data']['autoinit'] = TRUE;
 $db['data']['stricton'] = FALSE;
 
-$db['user']['hostname'] = 'localhost';
-$db['user']['username'] = 'root';
-$db['user']['password'] = 'password';
-$db['user']['database'] = 'USER';
 $db['user']['dbdriver'] = 'mysqli';
 $db['user']['dbprefix'] = '';
 $db['user']['pconnect'] = FALSE;

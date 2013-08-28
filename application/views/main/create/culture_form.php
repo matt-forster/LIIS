@@ -48,7 +48,7 @@
                     Laboratory Number
                 </label>
                 <div id="">
-                    <input type="text" onblur="" name="culture[CULT_LABNUM]" maxlength="15" style="width:160px;"
+                    <input type="text" onblur="" name="culture[CULT_LABNUM]" maxlength="20" style="width:160px;"
                     value="<?php echo (($preset) ? $record['CULTURE']['CULT_LABNUM'] : NULL) ?>">
                 </div>
             </div>

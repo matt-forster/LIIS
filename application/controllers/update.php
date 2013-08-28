@@ -20,7 +20,7 @@ if (!defined('BASEPATH'))
 /**
  * Update Controller
  *
- * Controls the logic involved in the first installation of the LIIS
+ * Controls the logic involved in the updates after the first installation of the LIIS
  *
  * @category    LIIS-Controller
  * @author      Matt Forster / @frostyforster
@@ -82,13 +82,30 @@ class Update extends CI_Controller
 
 	}
 
+    /**
+    * index
+    *
+    * Function called if no parameters are passed to the controller
+    * 
+    * @access   public   
+    * @return   HTML Views
+    */
 	public function index()
 	{
 
 	}
 
 	
-
+    /**
+    * update
+    *
+    * Upated the database. Uses the codeigniter migration class.
+    * application/migrations/
+    * 
+    * 
+    * @access   public   
+    * @return   HTML Views
+    */
 	public function update()
 	{
 		//migration

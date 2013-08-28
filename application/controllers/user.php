@@ -111,6 +111,15 @@ class User extends CI_Controller
         );
     }
     
+    /**
+    * index
+    *
+    * Function called if no parameters are passed to the controller
+    * Shows the basic user management page with the users listed
+    * 
+    * @access   public   
+    * @return   HTML Views
+    */
     public function index()
     {
         $this->data['users'] = $this->user->listUsers();
@@ -132,17 +141,46 @@ class User extends CI_Controller
         $this->load->view('templates/footer', $this->data);
     }
     
+    /**
+    * listUsers
+    *
+    * AJAX
+    * Shows the user table with the users populated
+    * 
+    * @access   public   
+    * @return   HTML Views
+    */
     public function listUsers()
     {
         $this->data['users'] = $this->user->listUsers();
         $this->load->view('user/user_table', $this->data);
     }
     
+    /**
+    * create
+    *
+    * AJAX
+    * Loads the blank create user form
+    * 
+    * @access   public   
+    * @return   HTML Views
+    */
     public function create()
     {
         $this->load->view('user/create_user');
     }
     
+    /**
+    * do_create
+    *
+    * AJAX
+    * Tests and creates a user based on the data passed from the user form. 
+    *
+    * Required POST data
+    * 
+    * @access   public   
+    * @return   HTML Views
+    */
     public function do_create()
     {
         $this->data['create'] = $this->input->post('user');
@@ -163,6 +201,7 @@ class User extends CI_Controller
                     $user = $this->user->selectUser($value, 'USER_NAME');
                 }
                 catch (Exception $e) {
+                    echo 'Something went Wrong';
                 }
                 if (!empty($user)) {
                     setMessage('<strong>Error:</strong> The user name: ' . $value . ' is already in use.', 'error', $this->data['message']);
@@ -181,6 +220,16 @@ class User extends CI_Controller
         $this->load->view('templates/message', $this->data);
     }
     
+    /**
+    * do_delete
+    *
+    * AJAX
+    * Deletes the user record with the ID passed
+    * 
+    * @access   public   
+    * @param    id      int     The user ID to be deleted
+    * @return   HTML Views
+    */
     public function do_delete($id)
     {
         if (sizeof($this->user->listUsers()) < 2) {
@@ -197,12 +246,33 @@ class User extends CI_Controller
         $this->load->view('templates/message', $this->data);
     }
     
+    /**
+    * update
+    *
+    * AJAX
+    * Loads the user update form with the inputs filled by the user ID passed
+    * 
+    * @access   public   
+    * @param    id      int     The user ID to be updated
+    * @return   HTML Views
+    */
     public function update($id)
     {
         $this->data['user'] = reset($this->user->selectUser($id));
         $this->load->view('user/update_user', $this->data);
     }
     
+    /**
+    * do_update
+    *
+    * AJAX
+    * updates the user based on the data passed from the user form
+    *
+    * Requires POST data 
+    * 
+    * @access   public   
+    * @return   HTML Views
+    */
     public function do_update()
     {
         $this->data['update'] = $this->input->post('user');

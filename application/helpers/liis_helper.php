@@ -27,6 +27,15 @@ if (!defined('BASEPATH'))
  * @link        http://github.com/forstermatth/liis
  */
 
+/**
+* createArray
+*
+* Creates an array from a string and removes any blank elements
+* 
+* @access   public   
+* @param    post      string     The string to be exploded
+* @return   Array
+*/
 function createArray($post)
 {
     $temp = trim($post);
@@ -39,6 +48,15 @@ function createArray($post)
     return $temp;
 }
 
+/**
+* createNulls
+*
+* Recursive function that walks through an array and replaces blank strings with nulls
+* 
+* @access   public   
+* @param    &array      array     The array to be modified
+* @return   
+*/
 function createNulls(&$array)
 {
     foreach ($array as &$element) {
@@ -52,6 +70,16 @@ function createNulls(&$array)
     unset($element);
 }
 
+/**
+* remove_empty_arrays
+*
+* Walks through an array and removes any child array elements that are empty. Will not
+* remove if one or more elements are populated inside an array.
+* 
+* @access   public   
+* @param    array      array     The array to be modified
+* @return   modified array
+*/
 function remove_empty_arrays($array)
 {
     foreach ($array as $key => &$value) {
@@ -65,24 +93,53 @@ function remove_empty_arrays($array)
     return $array;
 }
 
+/**
+* isEmpty
+*
+* Tests a single array to see if it is completely empty
+* 
+* @access   public   
+* @param    array      array     The array to be tested
+* @return   TRUE if array is completely empty, FALSE if not.
+*/
 function isEmpty($array)
 {
-    $empty = true;
     foreach ($array as $key => $value) {
         if ($key == 'DNARNA_TYPE')
             continue; //special case - type is always set
         if (!empty($value)) {
-            $empty = false;
+            return FALSE;
         } //!empty($value)
     } //$array as $key => $value
-    return $empty;
+    return TRUE;
 }
 
+/**
+* checkDuplicates
+*
+* Checks an array for duplicate entries
+* 
+* @access   public   
+* @param    array      array     The array to be tested
+* @return   FALSE if no duplicates, TRUE if duplicates present
+*/
 function checkDuplicates($array)
 {
     return count($array) !== count(array_unique($array));
 }
 
+/**
+* setMessage
+*
+* Pushes an array to the array passed. keys: 'Message' and 'Type'
+* For use with the message view 'application/views/templates/mesage.php'
+* 
+* @access   public   
+* @param    message     string     the message to be pushed
+* @param    type        string     the type of message (error, warning, success)
+* @param    &array      array      the array the message should be pushed to
+* @return
+*/
 function setMessage($message, $type, &$array)
 {
     array_push($array, array(
@@ -91,6 +148,16 @@ function setMessage($message, $type, &$array)
     ));
 }
 
+/**
+* requiredError
+*
+* Prints an error message if field does not equal expected
+* 
+* @access   public   
+* @param    field       string     The string to be tested
+* @param    expected    string     The expected string
+* @return   false if not equal, true if equal
+*/
 function requiredError($field, $expected)
 {
     if ($field != $expected) {

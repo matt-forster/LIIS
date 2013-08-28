@@ -1,9 +1,29 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/* Lab Information Indexing System Config File
-	Author: Matt Forster
+/**
+ * Laboratory Information Indexing System
+ *
+ * An open source mini LIMS for metadata organisation and archival purposes
+ *
+ * @author      Matt Forster / @frostyforster
+ * @copyright   Copyright (c) 2013, Matthew S. Forster
+ * @license     MIT (./license.txt)
+ * @link        http://github.com/forstermatth/liis
+ * @since       Version 1.0
+ * @filesource
+ */
 
-*/
+// ------------------------------------------------------------------------
+
+/**
+ * Custom Settings
+ *
+ * LIIS specific settings file
+ *
+ * @category    LIIS-Config
+ * @author      Matt Forster / @frostyforster
+ * @link        http://github.com/forstermatth/liis
+ */
 
 
 $config['version'] = '0.10.0';

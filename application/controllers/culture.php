@@ -36,7 +36,7 @@ class Culture extends CI_Controller
     //Fields passed to search. See Constructor.
     protected $searchList;
     
-    //Inital page that uses the 'searchintro' view to welcome users
+    
     public function __construct()
     {
         parent::__construct();
@@ -103,12 +103,6 @@ class Culture extends CI_Controller
         //Used by: search.php, searchresults.php
         $this->data['results'] = FALSE;
         //set at the time of use	
-        
-        //Query
-        //Used by: culture_searchbar.php
-        //Holds the user query for display
-        $this->data['query'] = NULL;
-        //set at the time of use
         
         //Redirect
         //Used by: view(), views/templates/redirect
@@ -187,7 +181,15 @@ class Culture extends CI_Controller
         );
     }
     
-    //Initial Search Welcome Page
+    /**
+    * index
+    *
+    * Function called if no parameters are passed to the controller
+    * Shows the search page.
+    * 
+    * @access   public   
+    * @return   HTML Views
+    */
     public function index()
     {
         $this->data['title'] = 'LIIS - Culture - Welcome';
@@ -209,6 +211,15 @@ class Culture extends CI_Controller
         $this->load->view('templates/footer', $this->data);
     }
     
+    /**
+    * recent
+    *
+    * Shows the search page in preparation for loading the recent search. The URI of this method automatically
+    * triggers the javascript responsible for the recent search.
+    *
+    * @access   public 
+    * @return   HTML Views 
+    */
     public function recent()
     {
         $this->data['title'] = 'LIIS - Culture - Recent';
@@ -230,7 +241,17 @@ class Culture extends CI_Controller
         $this->load->view('templates/footer', $this->data);
     }
     
-    //AJAX
+    /**
+    * do_search
+    *
+    * AJAX
+    * Finds search results and then fills the search results template or shows the error template. 
+    * 
+    * Requires POST data.
+    * 
+    * @access   public    
+    * @return   HTML View - sample_results OR error
+    */
     public function do_search()
     {
         
@@ -308,6 +329,15 @@ class Culture extends CI_Controller
         }
     }
     
+    /**
+    * view
+    *
+    * Loads the record view template with a record. If no ID passed then redirects to the index.
+    *
+    * @access   public
+    * @param    id    string    The culture ID to view
+    * @return   HTML Views
+    */
     public function view($id = NULL)
     {
         $this->data['title'] = 'LIIS - Culture - View: ' . $id;
@@ -335,6 +365,17 @@ class Culture extends CI_Controller
         $this->load->view('templates/footer', $this->data);
     }
     
+    /**
+    * create
+    *
+    * Shows the create page. If passed an id, then prefills the inputs with the selected record (template).
+    * If passed TRUE for the edit function, it edits the record passed (called through edit function);
+    * 
+    * @access   public
+    * @param    id      string    The id you wish to template from
+    * @param    edit    bool      If you want to edit the record passed instead of template (called through the edit function)
+    * @return   HTML Views
+    */
     public function create($id = NULL, $edit = FALSE)
     {
         $this->data['preset'] = FALSE;
@@ -435,7 +476,18 @@ class Culture extends CI_Controller
         //perhaps use php to set that field red after submission?
     }
     
-    //AJAX
+    /**
+    * do_create
+    *
+    * AJAX
+    * Tests and Creates a record based on the POST data passed. If edit is TRUE, will edit the record passed instead of creating.
+    *
+    * Requires POST data.
+    *
+    * @access   public
+    * @param    edit    bool    trigger to edit instead of create record
+    * @return   HTML Views
+    */
     public function do_create($edit = FALSE)
     {
 
@@ -472,11 +524,11 @@ class Culture extends CI_Controller
         foreach ($this->data['create'] as $table => $fields) {
             
             $reqtable = $this->data['required'][$table];
-            
+
             if (is_array(reset($fields))) {
                 foreach ($fields as $entity) {
                     $keys = array_keys($entity);
-                    
+
                     foreach ($keys as $key) {
                         if (in_array($key, $reqtable)) {
                             if (empty($entity[$key])) {
@@ -499,7 +551,7 @@ class Culture extends CI_Controller
             }
             
         } //$this->data['create'] as $table => $fields
-        
+
         //Check for duplicate Keys
         if (isset($this->data['create']['DNARNA'])) {
             $dnarna_keys = array();
@@ -522,15 +574,13 @@ class Culture extends CI_Controller
         } //isset($this->data['create']['VIAL'])
         
         
-        //Check existing records
+        //Check for existing records
         foreach ($this->data['create'] as $table => $fields) {
             
-            
-            
             //Special Case - Culture: duplicate LABNUMS are allowed in database, but if they are the exact same record it throws an error.
-            // Enforcing unique LABNUMS reduces confusion, and if you have more than one it is suggested they have different labnums.
+            // Enforcing unique LABNUMS reduces confusion, and if you have more than one it is suggested they have different identifiers.
             // Ex. 'LABNUM01a', 'LABNUM01b'
-            //just the IDs is necessary to ensure primary key duplication errors do not surface.
+            //just the IDs are necessary to ensure primary key duplication errors do not surface.
             if ($table == 'CULTURE') {
                 
                 $keys   = 'CULT_LABNUM';
@@ -568,71 +618,69 @@ class Culture extends CI_Controller
             }
         } //$this->data['create'] as $table => $fields
         
-        //Foreign key check
-        //Culture table foreign keys: Tax
-        if (isset($exists['TAXONOMY'])) {
-            if ($edit) {
+
+        if($edit){
+
+            if (isset($exists['TAXONOMY'])) {
                 if (!in_array($exists['TAXONOMY'][0]['TAX_ID'], $this->data['editIds']['TAXONOMY'])) {
                     unset($this->data['create']['TAXONOMY']);
                     $this->data['create']['CULTURE']['TAX_ID'] = $exists['TAXONOMY'][0]['TAX_ID']; //Search returns an array of arrays
                 } //!in_array($exists['TAXONOMY'][0]['TAX_ID'], $this->data['editIds']['TAXONOMY'])
-            } //$edit
-            else {
-                unset($this->data['create']['TAXONOMY']);
-                $this->data['create']['CULTURE']['TAX_ID'] = $exists['TAXONOMY'][0]['TAX_ID']; //Search returns an array of arrays
             }
-        } //isset($exists['TAXONOMY'])
-        elseif ($edit && isset($this->data['create']['TAXONOMY'])) {
-            $this->data['create']['CULTURE']['TAX_ID'] = $this->culture->create_tax($this->data['create']['TAXONOMY']);
-            unset($this->data['create']['TAXONOMY']);
-        } //$edit && isset($this->data['create']['TAXONOMY'])
-        
-        //Explicit Error Messages
-        if (isset($exists['CULTURE'])) {
-            if ($edit) {
-                if (!in_array($exists['CULTURE']['CULT_LABNUM'], $this->data['editIds']['CULTURE'])) {
+            elseif (isset($this->data['create']['TAXONOMY']) && sizeof($this->data['message']) < 1) {
+                $this->data['create']['CULTURE']['TAX_ID'] = $this->culture->create_tax($this->data['create']['TAXONOMY']);
+                unset($this->data['create']['TAXONOMY']);
+            } //$edit && isset($this->data['create']['TAXONOMY'])
+
+            if (isset($exists['CULTURE'])) {
+                 if (!in_array($exists['CULTURE']['CULT_LABNUM'], $this->data['editIds']['CULTURE'])) {
                     setMessage("<strong>Error:</strong> The Culture: " . $exists['CULTURE']['CULT_LABNUM'] . " already exists!", 'error', $this->data['message']);
                 } //!in_array($exists['CULTURE']['CULT_LABNUM'], $this->data['editIds']['CULTURE'])
-            } //$edit
-            else {
-                setMessage("<strong>Error:</strong> The Culture: " . $exists['CULTURE']['CULT_LABNUM'] . " already exists!", 'error', $this->data['message']);
             }
-        } //isset($exists['CULTURE'])
-        elseif ($edit) {
-            $this->culture->update_culture($this->data['create']['CULTURE']['CULT_ID'], $this->data['create']['CULTURE']);
-        } //$edit
-        
-        if (isset($exists['DNARNA'])) {
-            if ($edit) {
+            elseif (isset($this->data['create']['CULTURE'])) {
+                $this->sample->update_culture($this->data['editIds']['CULTURE'][0], $this->data['editIds']['CULTURE'][1], $this->data['create']['CULTURE']);
+            } //isset($this->data['create']['CULTURE'])
+
+            if (isset($exists['DNARNA'])) {
                 foreach ($this->data['create']['DNARNA'] as $dnarna => $attributes) {
                     if (!in_array($attributes['DNARNA_ID'], $this->data['editIds']['DNARNA'])) {
-                        if (in_array($attributes['DNARNA_ID'], $exists{'DNARNA'})) {
+                        if (in_array($attributes['DNARNA_ID'], $exists['DNARNA'])) {
                             setMessage("<strong>Error:</strong> The Genetic Record: " . $attributes['DNARNA_ID'] . " already exists!", 'error', $this->data['message']);
                         } //in_array($attributes['DNARNA_ID'], $exists{'DNARNA'})
                         elseif (sizeof($this->data['message']) < 1) {
                             $attributes['CULT_ID'] = $this->data['create']['CULTURE']['CULT_ID'];
-                            $this->culture->create_dnarna($attributes);
+
+                            if(!empty($attributes['dnarna_old_id'])){
+                                $temp = $attributes['dnarna_old_id'];
+                                unset($attributes['dnarna_old_id']);
+                                $this->culture->update_dnarna($temp, $attributes);
+                            }else{
+                                unset($attributes['dnarna_old_id']);
+                                $this->culture->create_dnarna($attributes);
+                            }                            
                             unset($this->data['create']['DNARNA'][$dnarna]);
                         } //sizeof($this->data['message']) < 1
                     } //!in_array($attributes['DNARNA_ID'], $this->data['editIds']['DNARNA'])
+                    unset($this->data['create']['DNARNA'][$dnarna]['dnarna_old_id']);
                 } //$this->data['create']['DNARNA'] as $dnarna => $attributes
-            } //$edit
-            else {
-                foreach ($exists['DNARNA'] as $dnarna) {
-                    setMessage("<strong>Error:</strong> The Genetic Record: " . $dnarna['DNARNA_ID'] . " already exists!", 'error', $this->data['message']);
-                } //$exists['DNARNA'] as $dnarna
             }
-        } //isset($exists['DNARNA'])
-        elseif ($edit && isset($this->data['create']['DNARNA'])) {
-            foreach ($this->data['create']['DNARNA'] as $dnarna => $attributes) {
-                $attributes['CULT_ID'] = $this->data['create']['CULTURE']['CULT_ID'];
-                $this->culture->create_dnarna($attributes);
-            } //$this->data['create']['DNARNA'] as $dnarna => $attributes
-            unset($this->data['create']['DNARNA']);
-        } //$edit && isset($this->data['create']['DNARNA'])
-        
-        if (isset($exists['VIAL'])) {
-            if ($edit) {
+            elseif (isset($this->data['create']['DNARNA']) && (sizeof($this->data['message']) < 1)) {
+                foreach ($this->data['create']['DNARNA'] as $dnarna => $attributes) {
+                    if(!empty($attributes['dnarna_old_id'])){
+                        $temp = $attributes['dnarna_old_id'];
+                        unset($attributes['dnarna_old_id']);
+                        $this->culture->update_dnarna($temp, $attributes);
+                    }else{
+                        $attributes['CULT_ID'] = $this->data['create']['CULTURE']['CULT_ID'];
+                        unset($attributes['dnarna_old_id']);
+                        $this->culture->create_dnarna($attributes);
+                    }                            
+                    unset($this->data['create']['DNARNA'][$dnarna]);
+                } //$this->data['create']['DNARNA'] as $dnarna => $attributes
+                unset($this->data['create']['DNARNA']);
+            } //$edit && isset($this->data['create']['DNARNA'])
+
+            if (isset($exists['VIAL'])) {
                 foreach ($this->data['create']['VIAL'] as $vial => $attributes) {
                     if (!in_array($attributes['VIAL_ID'], $this->data['editIds']['VIAL'])) {
                         if (in_array($attributes['VIAL_ID'], $exists{'VIAL'})) {
@@ -640,25 +688,61 @@ class Culture extends CI_Controller
                         } //in_array($attributes['VIAL_ID'], $exists{'VIAL'})
                         elseif (sizeof($this->data['message']) < 1) {
                             $attributes['CULT_ID'] = $this->data['create']['CULTURE']['CULT_ID'];
-                            $this->culture->create_vial($attributes);
+                            
+                            if(!empty($attributes['vial_old_id'])){
+                                $temp = $attributes['vial_old_id'];
+                                unset($attributes['vial_old_id']);
+                                $this->culture->update_vial($temp, $attributes);
+                            }else{
+                                unset($attributes['vial_old_id']);
+                                $this->culture->create_vial($attributes);
+                            }                            
                             unset($this->data['create']['VIAL'][$vial]);
                         } //sizeof($this->data['message']) < 1
                     } //!in_array($attributes['VIAL_ID'], $this->data['editIds']['VIAL'])
+                    unset($this->data['create']['VIAL'][$vial]['vial_old_id']);
                 } //$this->data['create']['VIAL'] as $vial => $attributes
-            } //$edit
-            else {
+            }
+            elseif (isset($this->data['create']['VIAL']) && (sizeof($this->data['message']) < 1)) {
+                foreach ($this->data['create']['VIAL'] as $vial => $attributes) {
+                   if(!empty($attributes['vial_old_id'])){
+                        $temp = $attributes['vial_old_id'];
+                        unset($attributes['vial_old_id']);
+                        $this->culture->update_vial($temp, $attributes);
+                    }else{
+                        $attributes['CULT_ID'] = $this->data['create']['CULTURE']['CULT_ID'];
+                        unset($attributes['vial_old_id']);
+                        $this->culture->create_vial($attributes);
+                    }
+                    unset($this->data['create']['VIAL'][$vial]);                     
+                } //$this->data['create']['VIAL'] as $vial => $attributes
+                unset($this->data['create']['VIAL']);
+            } //$edit && isset($this->data['create']['VIAL'])
+        }
+
+        else{// Create
+
+            if (isset($exists['TAXONOMY'])) {
+                unset($this->data['create']['TAXONOMY']);
+                $this->data['create']['CULTURE']['TAX_ID'] = $exists['TAXONOMY'][0]['TAX_ID']; //Search returns an array of arrays
+            }
+
+            if (isset($exists['CULTURE'])) {
+                 setMessage("<strong>Error:</strong> The Culture: " . $exists['CULTURE']['CULT_LABNUM'] . " already exists!", 'error', $this->data['message']);
+            }
+
+            if (isset($exists['DNARNA'])) {
+                foreach ($exists['DNARNA'] as $dnarna) {
+                    setMessage("<strong>Error:</strong> The Genetic Record: " . $dnarna['DNARNA_ID'] . " already exists!", 'error', $this->data['message']);
+                } //$exists['DNARNA'] as $dnarna
+            }
+
+            if (isset($exists['VIAL'])) {
                 foreach ($exists['VIAL'] as $vial) {
                     setMessage("<strong>Error:</strong> The Vial: " . $vial['VIAL_ID'] . " already exists!", 'error', $this->data['message']);
                 } //$exists['VIAL'] as $vial
             }
-        } //isset($exists['VIAL'])
-        elseif ($edit && isset($this->data['create']['VIAL'])) {
-            foreach ($this->data['create']['VIAL'] as $vial => $attributes) {
-                $attributes['CULT_ID'] = $this->data['create']['CULTURE']['CULT_ID'];
-                $this->culture->create_vial($attributes);
-            } //$this->data['create']['VIAL'] as $vial => $attributes
-            unset($this->data['create']['VIAL']);
-        } //$edit && isset($this->data['create']['VIAL'])
+        }
         
         //end tests
         
@@ -678,6 +762,15 @@ class Culture extends CI_Controller
         $this->load->view('templates/message', $this->data);
     }
     
+    /**
+    * edit
+    *
+    * Calls the create function with the edit flagged as TRUE
+    *
+    * @access   public
+    * @param    id      string    The culture to edit
+    * @return   
+    */
     public function edit($id)
     {   
         if($this->session->userdata('user_auth') === 'LIMITED'){ 
@@ -687,7 +780,17 @@ class Culture extends CI_Controller
         $this->create($id, TRUE);
     }
     
-    //AJAX
+    /**
+    * do_edit
+    *
+    * AJAX
+    * Calls the do_create function with the edit flagged as TRUE
+    *
+    * Required POST data.
+    *
+    * @access   public
+    * @return   
+    */
     public function do_edit()
     {
         if($this->session->userdata('user_auth') === 'LIMITED'){ 
@@ -697,6 +800,15 @@ class Culture extends CI_Controller
         $this->do_create(TRUE);
     }
     
+    /**
+    * upload_image
+    *
+    * Calls the upload image form used to add an image to dnarna of the record passed
+    *
+    * @access   public
+    * @param    id      string    The culture to add an image to
+    * @return   HTML Views
+    */
     public function upload_image($id)
     {
         if($this->session->userdata('user_auth') === 'LIMITED'){ 
@@ -722,7 +834,17 @@ class Culture extends CI_Controller
         $this->load->view('templates/footer', $this->data);
     }
     
-    //AJAX
+    /**
+    * do_upload_image
+    *
+    * AJAX
+    * Adds the image passed to the culture or dnarna selected from upload_image
+    * 
+    * Required POST data (incl. FILES)
+    *
+    * @access   public
+    * @return   HTML Views
+    */
     public function do_upload_image()
     {
         if($this->session->userdata('user_auth') === 'LIMITED'){ 
@@ -782,6 +904,16 @@ class Culture extends CI_Controller
         } //isset($_FILES['userfile'])
     }
     
+    /**
+    * delete
+    *
+    * Deletes the record passed, whether it be a culture, taxonomy, dnarna, vial
+    *
+    * @access   public
+    * @param    table   string    The table to remove the record from
+    * @param    id      string    The culture to remove
+    * @return   Javascript history back
+    */
     public function delete($table, $id)
     {   
         if($this->session->userdata('user_auth') === 'LIMITED'){ 
@@ -799,17 +931,25 @@ class Culture extends CI_Controller
                 break;
             case 'dnarna':
                 $this->culture->delete_dnarna($id);
-                echo '<script>history.go(-1);</script>';
+                echo '<script>window.location.replace(document.referrer);</script>';
                 break;
             case 'vial':
                 $this->culture->delete_vial($id);
-                echo '<script>history.go(-1);</script>';
+                echo '<script>window.location.replace(document.referrer);</script>';
                 break;
             default:
                 throw new Exception('Class: culture Method: delete - (1) Invalid Table');
         } //$table
     }
     
+     /**
+    * import
+    *
+    * Loads the page used for importing CSV files
+    *
+    * @access   public
+    * @return   HTML Views
+    */
     public function import()
     {   
         $this->data['title'] = 'LIIS - Culture - Import CSV';
@@ -825,7 +965,17 @@ class Culture extends CI_Controller
         $this->load->view('templates/footer', $this->data);
     }
     
-    //AJAX
+    /**
+    * do_import
+    *
+    * AJAX
+    * Takes the csv file uploaded from the import() form and adds it to the database after testing
+    *
+    * Requires POST data
+    *
+    * @access   public
+    * @return   echo strings (log)
+    */
     public function do_import()
     {
         echo '<br><br><span class="success">beginning script:</span>';
@@ -1224,6 +1374,14 @@ class Culture extends CI_Controller
         echo '<br><span class="success">Complete!</span>';
     }
     
+    /**
+    * export
+    *
+    * Loads the page used for exporting CSV files
+    *
+    * @access   public
+    * @return   HTML Views
+    */
     public function export()
     {
         $this->data['title'] = 'LIIS - Culture - Export CSV';
@@ -1239,6 +1397,17 @@ class Culture extends CI_Controller
         $this->load->view('templates/footer', $this->data);
     }
     
+     /**
+    * do_export
+    *
+    * AJAX
+    * takes the selected project from export() and creates the csv file
+    *
+    * Requires POST data
+    *
+    * @access   public
+    * @return   echo strings (log)
+    */
     public function do_export()
     {
         

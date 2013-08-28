@@ -36,7 +36,7 @@ class Sample extends CI_Controller
     //Fields passed to search. See Constructor.
     protected $searchList;
     
-    //Inital page that uses the 'searchintro' view to welcome users
+    
     public function __construct()
     {
         parent::__construct();
@@ -102,11 +102,6 @@ class Sample extends CI_Controller
         //Used by: views/main/search/sampleresults.php
         $this->data['results'] = FALSE;
         
-        //Query
-        //Used by: culture_searchbar.php
-        //Holds the user query for display
-        $this->data['query'] = NULL; //FILLED WITH SESSION VARIABLE HERE	
-        
         //Record
         //Used by: view(), views/record/sample_accordian
         //Holds the record data for viewing
@@ -171,7 +166,15 @@ class Sample extends CI_Controller
         );
     }
     
-    //Initial Search Welcome Page
+    /**
+    * index
+    *
+    * Function called if no parameters are passed to the controller
+    * Shows the search page.
+    * 
+    * @access   public   
+    * @return   HTML Views
+    */
     public function index()
     {
         $this->data['title'] = 'LIIS - Sample - Search';
@@ -193,6 +196,15 @@ class Sample extends CI_Controller
         $this->load->view('templates/footer', $this->data);
     }
     
+    /**
+    * recent
+    *
+    * Shows the search page in preparation for loading the recent search. The URI of this method automatically
+    * triggers the javascript responsible for the recent search.
+    *
+    * @access   public 
+    * @return   HTML Views 
+    */
     public function recent()
     {
         $this->data['title'] = 'LIIS - Sample - Recent';
@@ -214,7 +226,17 @@ class Sample extends CI_Controller
         $this->load->view('templates/footer', $this->data);
     }
     
-    //AJAX
+    /**
+    * do_search
+    *
+    * AJAX
+    * Finds search results and then fills the search results template or shows the error template. 
+    * 
+    * Requires POST data.
+    * 
+    * @access   public    
+    * @return   HTML View - sample_results OR error
+    */
     public function do_search()
     {
         
@@ -300,6 +322,16 @@ class Sample extends CI_Controller
         }
     }
     
+    /**
+    * view
+    *
+    * Loads the record view template with a record. If no ID passed then redirects to the index.
+    *
+    * @access   public
+    * @param    proj    string  The project to view
+    * @param    id      string  The sample to view
+    * @return   HTML Views
+    */
     public function view($proj, $id = NULL)
     {
         $this->data['title'] = 'LIIS - Sample - View: ' . $proj . '/' . $id;
@@ -327,6 +359,18 @@ class Sample extends CI_Controller
         $this->load->view('templates/footer', $this->data);
     }
     
+    /**
+    * create
+    *
+    * Shows the create page. If passed a project and id, then prefills the inputs with the selected record (template).
+    * If passed TRUE for the edit function, it edits the record passed (called through edit function);
+    * 
+    * @access   public
+    * @param    proj    string    The project that you wish to template from
+    * @param    id      string    The id you wish to template from
+    * @param    edit    bool      If you want to edit the record passed instead of template (called through the edit function)
+    * @return   HTML Views
+    */
     public function create($proj = NULL, $id = NULL, $edit = FALSE)
     {
         
@@ -394,7 +438,18 @@ class Sample extends CI_Controller
         $this->load->view('templates/footer', $this->data);
     }
     
-    //AJAX
+    /**
+    * do_create
+    *
+    * AJAX
+    * Tests and Creates a record based on the POST data passed. If edit is TRUE, will edit the record passed instead of creating.
+    *
+    * Requires POST data.
+    *
+    * @access   public
+    * @param    edit    bool    trigger to edit instead of create record
+    * @return   HTML Views
+    */
     public function do_create($edit = FALSE)
     {
         
@@ -433,10 +488,7 @@ class Sample extends CI_Controller
                     foreach ($keys as $key) {
                         if (in_array($key, $reqtable)) {
                             if (empty($entity[$key])) {
-                                array_push($this->data['message'], array(
-                                    'Message' => "<strong>Required:</strong> " . $this->data['human'][$key],
-                                    'Type' => 'warning'
-                                ));
+                                setMessage("<strong>Required:</strong> " . $this->data['human'][$key], 'warning', $this->data['message']);
                             } //empty($entity[$key])
                         } //in_array($key, $reqtable)
                     } //$keys as $key
@@ -448,10 +500,7 @@ class Sample extends CI_Controller
                 foreach ($keys as $key) {
                     if (in_array($key, $reqtable)) {
                         if (empty($fields[$key])) {
-                            array_push($this->data['message'], array(
-                                'Message' => "<strong>Required:</strong> " . $this->data['human'][$key],
-                                'Type' => 'warning'
-                            ));
+                            setMessage("<strong>Required:</strong> " . $this->data['human'][$key], 'warning', $this->data['message']);
                         } //empty($fields[$key])
                     } //in_array($key, $reqtable)
                 } //$keys as $key
@@ -466,10 +515,7 @@ class Sample extends CI_Controller
                 array_push($dnarna_keys, $dnarna['DNARNA_ID']);
             } //$this->data['create']['DNARNA'] as $dnarna
             if (checkDuplicates($dnarna_keys)) {
-                array_push($this->data['message'], array(
-                    'Message' => "<strong>Error:</strong> There are duplicate DNARNA Keys!",
-                    'Type' => 'error'
-                ));
+                setMessage("<strong>Error:</strong> There are duplicate DNARNA Keys!", 'error', $this->data['message']);
             } //checkDuplicates($dnarna_keys)
         } //isset($this->data['create']['DNARNA'])
         
@@ -517,83 +563,94 @@ class Sample extends CI_Controller
                 }
             }
         } //$this->data['create'] as $table => $fields
-        
-        //Foreign key check
-        //Sample table foreign keys: Source
-        if (isset($exists['SOURCE'])) {
-            if ($edit) {
+
+        if($edit){
+
+            //foreign key
+            if (isset($exists['SOURCE'])) {
                 if (!in_array($exists['SOURCE'][0]['SOURCE_ID'], $this->data['editIds']['SOURCE'])) {
                     unset($this->data['create']['SOURCE']);
                     $this->data['create']['SAMPLE']['SOURCE_ID'] = $exists['SOURCE'][0]['SOURCE_ID'];
                 } //!in_array($exists['SOURCE'][0]['SOURCE_ID'], $this->data['editIds']['SOURCE'])
-            } //$edit
-            else {
+            }
+            elseif (isset($this->data['create']['SOURCE'])) {
+                $this->data['create']['SAMPLE']['SOURCE_ID'] = $this->sample->create_source($this->data['create']['SOURCE']);
                 unset($this->data['create']['SOURCE']);
-                $this->data['create']['SAMPLE']['SOURCE_ID'] = $exists['SOURCE'][0]['SOURCE_ID']; //Search returns an array of arrays
-            }
-        } //isset($exists['SOURCE'])
-        elseif ($edit && isset($this->data['create']['SOURCE'])) {
-            $this->data['create']['SAMPLE']['SOURCE_ID'] = $this->sample->create_source($this->data['create']['SOURCE']);
-            unset($this->data['create']['SOURCE']);
-        } //$edit && isset($this->data['create']['SOURCE'])
-        
-        //Explicit Error Messages
-        if (isset($exists['SAMPLE'])) {
-            if ($edit) {
-                if (!in_array($exists['SAMPLE']['SAMP_ID'], $this->data['editIds']['SAMPLE'])) {
-                    array_push($this->data['message'], array(
-                        'Message' => "<strong>Error:</strong> The Sample: " . $exists['SAMPLE']['SAMP_EXP_ID'] . " " . $exists['SAMPLE']['SAMP_ID'] . " already exists!",
-                        'Type' => 'error'
-                    ));
+            } //$edit && isset($this->data['create']['SOURCE'])
+
+            if (isset($exists['SAMPLE'])) {
+                 if (!in_array($exists['SAMPLE']['SAMP_ID'], $this->data['editIds']['SAMPLE'])) {
+                    setMessage("<strong>Error:</strong> The Sample: " . $exists['SAMPLE']['SAMP_EXP_ID'] . " " . $exists['SAMPLE']['SAMP_ID'] . " already exists!", 'error', $this->data['message']);
                 } //!in_array($exists['SAMPLE']['SAMP_ID'], $this->data['editIds']['SAMPLE'])
-            } //$edit
-            else {
-                array_push($this->data['message'], array(
-                    'Message' => "<strong>Error:</strong> The Sample: " . $exists['SAMPLE']['SAMP_EXP_ID'] . " " . $exists['SAMPLE']['SAMP_ID'] . " already exists!",
-                    'Type' => 'error'
-                ));
             }
-        } //isset($exists['SAMPLE'])
-        elseif ($edit && isset($this->data['create']['SAMPLE'])) {
-            $this->sample->update_sample($this->data['editIds']['SAMPLE'][0], $this->data['editIds']['SAMPLE'][1], $this->data['create']['SAMPLE']);
-        } //$edit && isset($this->data['create']['SAMPLE'])
-        
-        if (isset($exists['DNARNA'])) {
-            if ($edit) {
+            elseif (isset($this->data['create']['SAMPLE'])) {
+                $this->sample->update_sample($this->data['editIds']['SAMPLE'][0], $this->data['editIds']['SAMPLE'][1], $this->data['create']['SAMPLE']);
+            } //isset($this->data['create']['SAMPLE'])
+
+            //multiple records
+            if (isset($exists['DNARNA'])) {
                 foreach ($this->data['create']['DNARNA'] as $dnarna => $attributes) {
                     if (!in_array($attributes['DNARNA_ID'], $this->data['editIds']['DNARNA'])) {
-                        if (in_array($attributes['DNARNA_ID'], $exists{'DNARNA'})) {
-                            array_push($this->data['message'], array(
-                                'Message' => "<strong>Error:</strong> The Genetic Record: " . $attributes['DNARNA_ID'] . " already exists!",
-                                'Type' => 'error'
-                            ));
+                        if (in_array($attributes['DNARNA_ID'], $exists['DNARNA'])) {
+                            setMessage("<strong>Error:</strong> The Genetic Record: " . $attributes['DNARNA_ID'] . " already exists!", 'error', $this->data['message']);
                         } //in_array($attributes['DNARNA_ID'], $exists{'DNARNA'})
                         elseif (sizeof($this->data['message']) < 1) {
                             $attributes['SAMP_ID']     = $this->data['create']['SAMPLE']['SAMP_ID'];
                             $attributes['SAMP_EXP_ID'] = $this->data['create']['SAMPLE']['SAMP_EXP_ID'];
-                            $this->sample->create_dnarna($attributes);
+
+                            if(!empty($attributes['dnarna_old_id'])){
+                                $temp = $attributes['dnarna_old_id'];
+                                unset($attributes['dnarna_old_id']);
+                                $this->sample->update_dnarna($temp, $attributes);
+                            }else{
+                                unset($attributes['dnarna_old_id']);
+                                $this->sample->create_dnarna($attributes);
+                            }
+
                             unset($this->data['create']['DNARNA'][$dnarna]);
                         } //sizeof($this->data['message']) < 1
                     } //!in_array($attributes['DNARNA_ID'], $this->data['editIds']['DNARNA'])
+                    unset($this->data['create']['DNARNA'][$dnarna]['dnarna_old_id']);
                 } //$this->data['create']['DNARNA'] as $dnarna => $attributes
-            } //$edit
-            else {
+            }
+            elseif (isset($this->data['create']['DNARNA']) && (sizeof($this->data['message']) < 1)) {
+                foreach ($this->data['create']['DNARNA'] as $dnarna => $attributes) {
+                    $attributes['SAMP_EXP_ID'] = $this->data['create']['SAMPLE']['SAMP_EXP_ID'];
+                    $attributes['SAMP_ID']     = $this->data['create']['SAMPLE']['SAMP_ID'];
+                    if(!empty($attributes['dnarna_old_id'])){
+                        $temp = $attributes['dnarna_old_id'];
+                        unset($attributes['dnarna_old_id']);
+                        $this->sample->update_dnarna($temp, $attributes);
+                    }else{
+                        unset($attributes['dnarna_old_id']);
+                        $this->sample->create_dnarna($attributes);
+                    }                            
+                    unset($this->data['create']['DNARNA'][$dnarna]);
+                } //$this->data['create']['DNARNA'] as $dnarna => $attributes
+                unset($this->data['create']['DNARNA']);
+            } //isset($this->data['create']['DNARNA'])
+
+        }
+        else{ //Create
+
+            //foreign key
+            if (isset($exists['SOURCE'])) {
+                unset($this->data['create']['SOURCE']);
+                $this->data['create']['SAMPLE']['SOURCE_ID'] = $exists['SOURCE'][0]['SOURCE_ID']; //Search returns an array of arrays
+            }
+
+            if (isset($exists['SAMPLE'])) {
+                setMessage("<strong>Error:</strong> The Sample: " . $exists['SAMPLE']['SAMP_EXP_ID'] . " " . $exists['SAMPLE']['SAMP_ID'] . " already exists!", 'error', $this->data['message']);
+            }
+
+            //multiple records
+            if (isset($exists['DNARNA'])) {
                 foreach ($exists['DNARNA'] as $dnarna) {
-                    array_push($this->data['message'], array(
-                        'Message' => "<strong>Error:</strong> The Genetic Record: " . $dnarna['DNARNA_ID'] . " already exists!",
-                        'Type' => 'error'
-                    ));
+                    setMessage("<strong>Error:</strong> The Genetic Record: " . $dnarna['DNARNA_ID'] . " already exists!", 'error', $this->data['message']);
                 } //$exists['DNARNA'] as $dnarna
             }
-        } //isset($exists['DNARNA'])
-        elseif ($edit && isset($this->data['create']['DNARNA'])) {
-            foreach ($this->data['create']['DNARNA'] as $dnarna => $attributes) {
-                $attributes['SAMP_EXP_ID'] = $this->data['create']['SAMPLE']['SAMP_EXP_ID'];
-                $attributes['SAMP_ID']     = $this->data['create']['SAMPLE']['SAMP_ID'];
-                $this->sample->create_dnarna($attributes);
-            } //$this->data['create']['DNARNA'] as $dnarna => $attributes
-            unset($this->data['create']['DNARNA']);
-        } //$edit && isset($this->data['create']['DNARNA'])
+
+        }
         
         //end tests
         
@@ -605,21 +662,25 @@ class Sample extends CI_Controller
         
         if ($edit) {
             $this->sample->editRow($this->data['create']['SAMPLE']['SAMP_EXP_ID'], $this->data['create']['SAMPLE']['SAMP_ID'], $this->data['create']);
-            array_push($this->data['message'], array(
-                'Message' => '<strong>Success!</strong> The Sample: ' . $this->data['create']['SAMPLE']['SAMP_EXP_ID'] . ' ' . $this->data['create']['SAMPLE']['SAMP_ID'] . ' has been edited.',
-                'Type' => 'success'
-            ));
+            setMessage('<strong>Success!</strong> The Sample: ' . $this->data['create']['SAMPLE']['SAMP_EXP_ID'] . ' ' . $this->data['create']['SAMPLE']['SAMP_ID'] . ' has been edited.', 'success', $this->data['message']);
         } //$edit
         else {
             $this->sample->createRow($this->data['create']);
-            array_push($this->data['message'], array(
-                'Message' => '<strong>Success!</strong> The Sample: ' . $this->data['create']['SAMPLE']['SAMP_EXP_ID'] . ' ' . $this->data['create']['SAMPLE']['SAMP_ID'] . ' has been created.',
-                'Type' => 'success'
-            ));
+            setMessage('<strong>Success!</strong> The Sample: ' . $this->data['create']['SAMPLE']['SAMP_EXP_ID'] . ' ' . $this->data['create']['SAMPLE']['SAMP_ID'] . ' has been created.', 'success', $this->data['message']);
         }
         $this->load->view('templates/message', $this->data);
     }
     
+    /**
+    * edit
+    *
+    * Calls the create function with the edit flagged as TRUE
+    *
+    * @access   public
+    * @param    proj    string    The project to edit
+    * @param    id      string    The sample to edit
+    * @return   
+    */
     public function edit($proj, $id)
     {
         if($this->session->userdata('user_auth') === 'LIMITED'){ 
@@ -629,7 +690,17 @@ class Sample extends CI_Controller
         $this->create($proj, $id, TRUE);
     }
     
-    //AJAX
+    /**
+    * do_edit
+    *
+    * AJAX
+    * Calls the do_create function with the edit flagged as TRUE
+    *
+    * Required POST data.
+    *
+    * @access   public
+    * @return   
+    */
     public function do_edit()
     {   
         if($this->session->userdata('user_auth') === 'LIMITED'){ 
@@ -639,6 +710,16 @@ class Sample extends CI_Controller
         $this->do_create(TRUE);
     }
     
+    /**
+    * upload_image
+    *
+    * Calls the upload image form used to add an image to dnarna of the record passed
+    *
+    * @access   public
+    * @param    proj    string    The project to add an image to
+    * @param    id      string    The sample to add an image to
+    * @return   HTML Views
+    */
     public function upload_image($proj, $id)
     {
         if($this->session->userdata('user_auth') === 'LIMITED'){ 
@@ -664,7 +745,17 @@ class Sample extends CI_Controller
         $this->load->view('templates/footer', $this->data);
     }
     
-    //AJAX
+    /**
+    * do_upload_image
+    *
+    * AJAX
+    * Adds the image passed to the dnarna selected from upload_image
+    * 
+    * Required POST data (incl. FILES)
+    *
+    * @access   public
+    * @return   HTML Views
+    */
     public function do_upload_image()
     {
         if($this->session->userdata('user_auth') === 'LIMITED'){ 
@@ -710,6 +801,17 @@ class Sample extends CI_Controller
         } //isset($_FILES['userfile'])
     }
     
+    /**
+    * delete
+    *
+    * Deletes the record passed, whether it be a sample, source or dnarna
+    *
+    * @access   public
+    * @param    table   string    The table to remove the record from
+    * @param    proj    string    The project to remove the record from
+    * @param    id      string    The sample to remove
+    * @return   Javascript history back
+    */
     public function delete($table, $id, $proj = NULL)
     {
         if($this->session->userdata('user_auth') === 'LIMITED'){ 
@@ -727,13 +829,21 @@ class Sample extends CI_Controller
                 break;
             case 'dnarna':
                 $this->sample->delete_dnarna($id);
-                echo '<script>history.go(-1);</script>';
+                echo '<script>window.location.replace(document.referrer);</script>';
                 break;
             default:
                 throw new Exception('Class: sample Method: delete - (1) Invalid Table');
         } //$table
     }
     
+    /**
+    * import
+    *
+    * Loads the page used for importing CSV files
+    *
+    * @access   public
+    * @return   HTML Views
+    */
     public function import()
     {
         $this->data['title'] = 'LIIS - Sample - Import CSV';
@@ -749,7 +859,17 @@ class Sample extends CI_Controller
         $this->load->view('templates/footer', $this->data);
     }
     
-    //AJAX
+    /**
+    * do_import
+    *
+    * AJAX
+    * Takes the csv file uploaded from the import() form and adds it to the database after testing
+    *
+    * Requires POST data
+    *
+    * @access   public
+    * @return   echo strings (log)
+    */
     public function do_import()
     {
         echo '<br><br><span class="success">beginning script:</span>';
@@ -1149,6 +1269,14 @@ class Sample extends CI_Controller
         echo '<br><span class="success">Complete!</span>';
     }
     
+    /**
+    * export
+    *
+    * Loads the page used for exporting CSV files
+    *
+    * @access   public
+    * @return   HTML Views
+    */
     public function export()
     {
         $this->data['title'] = 'LIIS - Sample - Export CSV';
@@ -1170,6 +1298,17 @@ class Sample extends CI_Controller
         $this->load->view('templates/footer', $this->data);
     }
     
+    /**
+    * do_export
+    *
+    * AJAX
+    * takes the selected project from export() and creates the csv file
+    *
+    * Requires POST data
+    *
+    * @access   public
+    * @return   echo strings (log)
+    */
     public function do_export()
     {
         echo '<br><br><span class="success">beginning script:</span>';
@@ -1274,3 +1413,6 @@ class Sample extends CI_Controller
     
     
 }
+
+/* End of file sample.php */
+/* Location: ./application/controllers/sample.php */

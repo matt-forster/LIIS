@@ -13,24 +13,13 @@
  * @filesource
  */
 
-// ------------------------------------------------------------------------
-
-/**
- * Update Controller
- *
- * Controls the logic involved in the first installation of the LIIS
- *
- * @category    LIIS-Controller
- * @author      Matt Forster / @frostyforster
- * @link        http://github.com/forstermatth/liis
- */
 
 //-------------------------------------------------------------------------
 
 //SETUP
 
 //Database connection variables
-//Use the same variables here as you would in appliaction/config/database.php 
+//Use the same variables here as you would in application/config/database.php 
 $host 		= 'localhost';
 $user 		= 'root';
 $password 	= 'password';
@@ -86,11 +75,11 @@ $sql = "
         CULT_DATE DATE NOT NULL,
         CULT_RISKG INT(10) NOT NULL,
         CULT_REFNUM VARCHAR(40),
-        CULT_STOR_LOC VARCHAR(20),
-        CULT_STORED_STATE VARCHAR(20),
-        CULT_OWNER VARCHAR(20),
+        CULT_STOR_LOC VARCHAR(40),
+        CULT_STORED_STATE VARCHAR(40),
+        CULT_OWNER VARCHAR(40),
         CULT_HIST LONGTEXT,
-        CULT_ISO_SOURCE VARCHAR(20),
+        CULT_ISO_SOURCE VARCHAR(40),
         CULT_RRNA_SEQ LONGTEXT,
         CULT_EXTERN_ID VARCHAR(40),
         CULT_NOTES LONGTEXT,
@@ -132,7 +121,7 @@ $sql = "
 
     CREATE TABLE SAMPLE(
         SAMP_ID INT(10) NOT NULL,
-        SAMP_EXP_ID VARCHAR(10) NOT NULL,
+        SAMP_EXP_ID VARCHAR(20) NOT NULL,
         SAMP_DATE DATE NOT NULL,
         SAMP_TIME TIME,
         SAMP_TMZ VARCHAR(10),
@@ -161,12 +150,12 @@ $sql = "
         DNARNA_ID VARCHAR(20),
         DNARNA_TYPE CHAR(3) NOT NULL,
         DNARNA_DATE DATE NOT NULL,
-        DNARNA_VOL VARCHAR(10),
-        DNARNA_CONC VARCHAR(10),
+        DNARNA_VOL VARCHAR(20),
+        DNARNA_CONC VARCHAR(20),
         DNARNA_GBANKNUM VARCHAR(40),
         DNARNA_NOTES LONGTEXT,
         CULT_ID INT(10),
-        SAMP_EXP_ID VARCHAR(10),
+        SAMP_EXP_ID VARCHAR(20),
         SAMP_ID INT(10),
         DNARNA_USER VARCHAR(20) NOT NULL,
         DNARNA_MODDATE DATE,
@@ -190,7 +179,7 @@ $sql = "
 	}
 
 	 if(!$result = $db->multi_query($sql)){
-        die('There was an error running the query [' . $db->error . ']. <br> <strong>If you are trying to reset the LIIS database, surf to site/uninstall.php</strong>');
+        die('There was an error running the query [' . $db->error . ']. <br> <strong>If the database exists already, this script will not work.</strong>');
     }
     
     echo "<strong>The LIIS database structure has been created successfully.</strong><br>";
@@ -198,16 +187,3 @@ $sql = "
           It is advised that you change this default password, and create a user for regular use.   
          ";
     $db->close();
-
-
-
-
-
-
-
-// load data local infile 'dnarna.csv'
-// into table DNARNA
-// FIELDS TERMINATED BY ','
-// ENCLOSED BY '\"' 
-// LINES TERMINATED BY '\n' 
-// (DNARNA_ID, DNARNA_TYPE, DNARNA_DATE, DNARNA_VOL, DNARNA_CONC, DNARNA_GBANKNUM, DNARNA_NOTES, CULT_ID, SAMP_EXP_ID, SAMP_ID);

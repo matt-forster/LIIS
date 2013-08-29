@@ -53,4 +53,4 @@ Once a proper server has been setup with a webserver, MySQL, PHP:
 	* (Matt Forster, David Sinclaire, Andrew Sanders, Graham Fluet)
 	* Computer Information Technology, Lethbridge College, 2013.
 
-[1]: https://twitter.com/frostyforster
+[1]: https://twitter.com/forstermatth

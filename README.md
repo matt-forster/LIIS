@@ -41,7 +41,7 @@ Once a proper server has been setup with a webserver, MySQL, PHP:
 
 * **Current Developers:**
 
-	**Matt Forster ([@frostyforster][1])**
+	**Matt Forster ([@forstermatth][1])**
 
 	* (under supervision of Tim McAllister, Bob Forster)
 	* Lethbridge Research Center, University of Lethbridge Co-Op, 2013.

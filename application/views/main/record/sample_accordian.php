@@ -35,16 +35,16 @@ data-step="1">
                 PROJECT:
             </strong>
             <?php echo $record[ 'SAMPLE'][ 'SAMP_EXP_ID']; ?>
+            <strong>
+                SAMPLE:
+            </strong>
+            <?php echo $record[ 'SAMPLE'][ 'SAMP_ID']; ?>
+            <span class="pull-right">
                 <strong>
-                    SAMPLE:
+                    DATE:
+                    <?php echo $record[ 'SAMPLE'][ 'SAMP_DATE']; ?>
                 </strong>
-                <?php echo $record[ 'SAMPLE'][ 'SAMP_ID']; ?>
-                    <span class="pull-right">
-                        <strong>
-                            DATE:
-                            <?php echo $record[ 'SAMPLE'][ 'SAMP_DATE']; ?>
-                        </strong>
-                    </span>
+            </span>
         </p>
     </div>
     <div class="accordion" id="accordion">
@@ -64,48 +64,47 @@ data-step="1">
                             Type:
                         </strong>
                         <?php echo $record[ 'SAMPLE'][ 'SAMP_TYPE']; ?>
-                            <br>
-                            <strong>
-                                Material:
-                            </strong>
-                            <?php echo $record[ 'SAMPLE'][ 'SAMP_MAT']; ?>
-                                <br>
-                                <strong>
-                                    Location:
-                                </strong>
-                                <?php echo $record[ 'SAMPLE'][ 'SAMP_STOR_LOC']; ?>
-                                    <br>
-                                    <strong>
-                                        Period:
-                                    </strong>
-                                    <?php echo $record[ 'SAMPLE'][ 'SAMP_PERIOD']; ?>
-                                        <br>
-                                        <strong>
-                                            Material:
-                                        </strong>
-                                        <?php echo $record[ 'SAMPLE'][ 'SAMP_MAT']; ?>
-                                            <br>
-                                            <strong>
-                                                Time:
-                                            </strong>
-                                            <?php echo $record[ 'SAMPLE'][ 'SAMP_TIME']. ' '.$record[ 'SAMPLE'][ 'SAMP_TMZ'];
-                                            ?>
-                                                <br>
-                                                <strong>
-                                                    Country:
-                                                </strong>
-                                                <?php echo $record[ 'SAMPLE'][ 'SAMP_COUNTRY']; ?>
-                                                    <br>
-                                                    <strong>
-                                                        Biome:
-                                                    </strong>
-                                                    <?php echo $record[ 'SAMPLE'][ 'SAMP_BIOME']; ?>
-                                                        <br>
-                                                        <br>
-                                                        <strong>
-                                                            Environmental Package:
-                                                        </strong>
-                                                        <?php echo $record[ 'SAMPLE'][ 'SAMP_ENVPKG']; ?>
+                        <br>
+                        <strong>
+                            Material:
+                        </strong>
+                        <?php echo $record[ 'SAMPLE'][ 'SAMP_MAT']; ?>
+                        <br>
+                        <strong>
+                            Location:
+                        </strong>
+                        <?php echo $record[ 'SAMPLE'][ 'SAMP_STOR_LOC']; ?>
+                        <br>
+                        <strong>
+                            Period:
+                        </strong>
+                        <?php echo $record[ 'SAMPLE'][ 'SAMP_PERIOD']; ?>
+                        <br>
+                        <strong>
+                            Material:
+                        </strong>
+                        <?php echo $record[ 'SAMPLE'][ 'SAMP_MAT']; ?>
+                        <br>
+                        <strong>
+                            Time:
+                        </strong>
+                        <?php echo $record[ 'SAMPLE'][ 'SAMP_TIME']. ' '.$record[ 'SAMPLE'][ 'SAMP_TMZ'];?>
+                        <br>
+                        <strong>
+                            Country:
+                        </strong>
+                        <?php echo $record[ 'SAMPLE'][ 'SAMP_COUNTRY']; ?>
+                        <br>
+                        <strong>
+                            Biome:
+                        </strong>
+                        <?php echo $record[ 'SAMPLE'][ 'SAMP_BIOME']; ?>
+                        <br>
+                        <br>
+                        <strong>
+                            Environmental Package:
+                        </strong>
+                        <?php echo $record[ 'SAMPLE'][ 'SAMP_ENVPKG']; ?>
                     </p>
                 </div>
             </div>
@@ -127,21 +126,21 @@ data-step="1">
                             Number:
                         </strong>
                         <?php echo $record[ 'SOURCE'][ 'SOURCE_NUM']; ?>
-                            <br>
-                            <strong>
-                                Type:
-                            </strong>
-                            <?php echo $record[ 'SOURCE'][ 'SOURCE_TYPE']; ?>
-                                <br>
-                                <strong>
-                                    Subtype:
-                                </strong>
-                                <?php echo $record[ 'SOURCE'][ 'SOURCE_SUBTYPE']; ?>
-                                    <br>
-                                    <strong>
-                                        Treatment:
-                                    </strong>
-                                    <?php echo $record[ 'SOURCE'][ 'SOURCE_TREATMENT']; ?>
+                        <br>
+                        <strong>
+                            Type:
+                        </strong>
+                        <?php echo $record[ 'SOURCE'][ 'SOURCE_TYPE']; ?>
+                        <br>
+                        <strong>
+                            Subtype:
+                        </strong>
+                        <?php echo $record[ 'SOURCE'][ 'SOURCE_SUBTYPE']; ?>
+                        <br>
+                        <strong>
+                            Treatment:
+                        </strong>
+                        <?php echo $record[ 'SOURCE'][ 'SOURCE_TREATMENT']; ?>
                     </p>
                 </div>
             </div>
@@ -163,11 +162,11 @@ data-step="1">
                             Site:
                         </strong>
                         <?php echo $record[ 'SAMPLE'][ 'SAMP_SITE']; ?>
-                            <br>
-                            <strong>
-                                Subsite:
-                            </strong>
-                            <?php echo $record[ 'SAMPLE'][ 'SAMP_SUBSITE']; ?>
+                        <br>
+                        <strong>
+                            Subsite:
+                        </strong>
+                        <?php echo $record[ 'SAMPLE'][ 'SAMP_SUBSITE']; ?>
                     </p>
                 </div>
             </div>
@@ -189,16 +188,16 @@ data-step="1">
                             Latitude:
                         </strong>
                         <?php echo $record[ 'SAMPLE'][ 'SAMP_GEO_LAT']; ?>
-                            <br>
-                            <strong>
-                                Longitude:
-                            </strong>
-                            <?php echo $record[ 'SAMPLE'][ 'SAMP_GEO_LONG']; ?>
-                                <br>
-                                <strong>
-                                    Description:
-                                </strong>
-                                <?php echo $record[ 'SAMPLE'][ 'SAMP_GEO_DESC']; ?>
+                        <br>
+                        <strong>
+                            Longitude:
+                        </strong>
+                        <?php echo $record[ 'SAMPLE'][ 'SAMP_GEO_LONG']; ?>
+                        <br>
+                        <strong>
+                            Description:
+                        </strong>
+                        <?php echo $record[ 'SAMPLE'][ 'SAMP_GEO_DESC']; ?>
                     </p>
                 </div>
             </div>

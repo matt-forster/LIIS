@@ -149,6 +149,21 @@ class Culture extends CI_Controller
             'DNARNA_TYPE',
             'DNARNA_DATE'
         );
+
+        //Types
+        //Used by: do_create()
+        //Holds the fields that requires a specific type (not varchars ect.)
+        $this->data['types'] = array();
+        $this->data['types']['INT'] = array(
+            'CULT_ID',
+            'CULT_RISKG',
+            'TAX_ID',
+            'DNARNA_ID'
+        );
+        $this->data['types']['DATE'] = array(
+            'CULT_DATE',
+            'DNARNA_DATE'
+        );
         
         //Message
         //Used by: do_create(), views/main/create/errors
@@ -170,14 +185,14 @@ class Culture extends CI_Controller
         //Holds the human equivalants to the Database Field names.
         //Typically only needs to be set if the field is used in errors (ie. the required field errors).
         $this->data['human'] = array(
-            'CULT_LABNUM' => 'Culture Lab Number',
-            'CULT_DATE' => 'Culture Date',
-            'CULT_RISKG' => 'Culture Risk Group',
-            'VIAL_ID' => 'Vial ID',
+            'CULT_LABNUM'   => 'Culture Lab Number',
+            'CULT_DATE'     => 'Culture Date',
+            'CULT_RISKG'    => 'Culture Risk Group',
+            'VIAL_ID'       => 'Vial ID',
             'VIAL_STOR_LOC' => 'Vial Storage Location',
-            'DNARNA_ID' => 'DNARNA ID',
-            'DNARNA_TYPE' => 'DNARNA Type',
-            'DNARNA_DATE' => 'DNARNA Date'
+            'DNARNA_ID'     => 'DNARNA ID',
+            'DNARNA_TYPE'   => 'DNARNA Type',
+            'DNARNA_DATE'   => 'DNARNA Date'
         );
     }
     
@@ -382,6 +397,7 @@ class Culture extends CI_Controller
         if ($id != NULL) {
             $this->data['record'] = $this->culture->selectOne($id);
             $this->data['preset'] = TRUE;
+            createNulls($this->data['record']);
         } //$id != NULL
         
         if ($edit) {
@@ -505,6 +521,8 @@ class Culture extends CI_Controller
         
         $this->data['editIds'] = $this->input->post('ids');
         
+
+
         //TESTS
         //Unset empty arrays
         $this->data['create']['VIAL']   = remove_empty_arrays($this->data['create']['VIAL']);
@@ -520,7 +538,7 @@ class Culture extends CI_Controller
         //create nulls
         createNulls($this->data['create']);
         
-        //Check required fields
+        //Check required fields and proper types
         foreach ($this->data['create'] as $table => $fields) {
             
             $reqtable = $this->data['required'][$table];
@@ -530,11 +548,32 @@ class Culture extends CI_Controller
                     $keys = array_keys($entity);
 
                     foreach ($keys as $key) {
+                        
+                        //REQUIRED - See constructor to add fields to the arrays
                         if (in_array($key, $reqtable)) {
-                            if (empty($entity[$key])) {
+                            if(empty($entity[$key])){
                                 setMessage("<strong>Required:</strong> " . $this->data['human'][$key], 'warning', $this->data['message']);
-                            } //empty($entity[$key])
+                            }
                         } //in_array($key, $reqtable)
+
+                        if(!empty($entity[$key])){
+
+                            //TYPES - See constructor to add fields to the arrays
+                            if(in_array($key, $this->data['types']['DATE'])){
+                                if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $entity[$key], $datebit)) {
+                                    if(!checkdate($datebit[2] , $datebit[3] , $datebit[1])){
+                                         setMessage('<strong>Error:</strong> "'.$this->data['human'][$key].'" has invalid date.', 'error', $this->data['message']);
+                                    }
+                                } else {
+                                    setMessage('<strong>Error:</strong> "'.$this->data['human'][$key].'" is wrong format (yyyy-mm-dd required).', 'error', $this->data['message']);
+                                }
+                            }
+                            if(in_array($key, $this->data['types']['INT'])){
+                                if (!is_numeric($entity[$key])) {
+                                    setMessage('<strong>Error:</strong> "'.$this->data['human'][$key].'" is the wrong type (Integer expected).', 'error', $this->data['message']);
+                                }
+                            }
+                        }
                     } //$keys as $key
                 } //$fields as $entity
             } //is_array(reset($fields))
@@ -542,11 +581,32 @@ class Culture extends CI_Controller
                 $keys = array_keys($fields);
                 
                 foreach ($keys as $key) {
+                    
+                    //REQUIRED - See constructor to add fields to the arrays
                     if (in_array($key, $reqtable)) {
-                        if (empty($fields[$key])) {
+                        if(empty($fields[$key])){
                             setMessage("<strong>Required:</strong> " . $this->data['human'][$key], 'warning', $this->data['message']);
-                        } //empty($fields[$key])
+                        }
                     } //in_array($key, $reqtable)
+
+                    if(!empty($fields[$key])){
+
+                        //TYPES - See constructor to add fields to the arrays
+                        if(in_array($key, $this->data['types']['DATE'])){
+                            if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $fields[$key], $datebit)) {
+                                if(!checkdate($datebit[2] , $datebit[3] , $datebit[1])){
+                                     setMessage('<strong>Error:</strong> "'.$this->data['human'][$key].'" has invalid date.', 'error', $this->data['message']);
+                                }
+                            } else {
+                                setMessage('<strong>Error:</strong> "'.$this->data['human'][$key].'" is wrong format (yyyy-mm-dd required).', 'error', $this->data['message']);
+                            }
+                        }
+                        if(in_array($key, $this->data['types']['INT'])){
+                            if (!is_numeric($fields[$key])) {
+                                setMessage('<strong>Error:</strong> "'.$this->data['human'][$key].'" is the wrong type (Integer expected).', 'error', $this->data['message']);
+                            }
+                        }
+                    }
                 } //$keys as $key
             }
             
@@ -618,7 +678,7 @@ class Culture extends CI_Controller
             }
         } //$this->data['create'] as $table => $fields
         
-
+        //Foreign Key resolution and edit calls
         if($edit){
 
             if (isset($exists['TAXONOMY'])) {
@@ -720,6 +780,7 @@ class Culture extends CI_Controller
             } //$edit && isset($this->data['create']['VIAL'])
         }
 
+        //Duplicate record messages
         else{// Create
 
             if (isset($exists['TAXONOMY'])) {
@@ -1296,7 +1357,6 @@ class Culture extends CI_Controller
                 
                 echo '<br>' . $row . ' - resolving foreign keys';
                 $source = array(
-                    'TAX_LIFE',
                     'TAX_DOMAIN',
                     'TAX_KINGDOM',
                     'TAX_PHYLUM',
@@ -1308,7 +1368,6 @@ class Culture extends CI_Controller
                     'TAX_STRAIN'
                 );
                 $query  = array(
-                    $culture['TAX_LIFE'],
                     $culture['TAX_DOMAIN'],
                     $culture['TAX_KINGDOM'],
                     $culture['TAX_PHYLUM'],
@@ -1322,7 +1381,6 @@ class Culture extends CI_Controller
                 if ($result = $this->culture->search($query, $source, 'TAXONOMY', 'TAX_ID')) {
                     echo '<br>' . $row . ' - found existing taxonomy record';
                     $culture['TAX_ID'] = $result[0]['TAX_ID'];
-                    unset($culture['TAX_LIFE']);
                     unset($culture['TAX_DOMAIN']);
                     unset($culture['TAX_KINGDOM']);
                     unset($culture['TAX_PHYLUM']);
@@ -1335,7 +1393,6 @@ class Culture extends CI_Controller
                 } //$result = $this->culture->search($query, $source, 'TAXONOMY', 'TAX_ID')
                 else {
                     $query = array(
-                        'TAX_LIFE' => $culture['TAX_LIFE'],
                         'TAX_DOMAIN' => $culture['TAX_DOMAIN'],
                         'TAX_KINGDOM' => $culture['TAX_KINGDOM'],
                         'TAX_PHYLUM' => $culture['TAX_PHYLUM'],
@@ -1349,7 +1406,6 @@ class Culture extends CI_Controller
                     echo '<br>' . $row . ' - creating new taxonomy record';
                     $id                = $this->culture->create_tax($query);
                     $culture['TAX_ID'] = $id;
-                    unset($culture['TAX_LIFE']);
                     unset($culture['TAX_DOMAIN']);
                     unset($culture['TAX_KINGDOM']);
                     unset($culture['TAX_PHYLUM']);

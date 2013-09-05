@@ -43,8 +43,15 @@
         </div>
         <p class="muted" data-position="left" data-intro="Hit this button to add pictures!"
         data-step="3">
-           <a class="btn btn-large" id="addsampleimage"> Add Images    </a>
-             to record.
+           <?php
+                if($this->session->userdata('user_auth') === 'LIMITED'){ 
+                    echo '<a class="btn btn-large disabled"> Add Images    </a>
+                            to record.';
+                }else{
+                   echo '<a class="btn btn-large" id="addsampleimage"> Add Images    </a>
+                        to record.';
+                }
+            ?>
         </p>
         <p class="muted" data-position="left" data-intro="Hit this button to expand all the information!"
         data-step="4">
@@ -60,8 +67,7 @@
         data-step="6">
             <?php
                 if($this->session->userdata('user_auth') === 'LIMITED'){ 
-                    echo '<a href="#"
-                        class="btn disabled btn-large"> Template  </a>
+                    echo '<a class="btn disabled btn-large"> Template  </a>
                         Use for new record.';
                 }else{
                    echo '<a href="/sample/create/'.$record['SAMPLE']['SAMP_EXP_ID'].'/'.$record['SAMPLE']['SAMP_ID'].'"
@@ -75,8 +81,7 @@
         data-step="7">
              <?php
                 if($this->session->userdata('user_auth') === 'LIMITED'){ 
-                    echo ' <a href="#"
-                        class="btn disabled btn-large"> Edit </a>
+                    echo ' <a class="btn disabled btn-large"> Edit </a>
                         Change current record.';
                 }else{
                    echo ' <a href="/sample/edit/'.$record['SAMPLE']['SAMP_EXP_ID'].'/'.$record['SAMPLE']['SAMP_ID'].'"

@@ -108,6 +108,9 @@
                 </label>
                 <div id="">
                     <select onblur="" name="sample[SAMP_ENVPKG]">
+                        <option value="none" <?php if($preset && $record['SAMPLE']['SAMP_ENVPKG'] == 'none') echo 'selected'; ?> >
+                            -- None
+                        </option>
                         <option value="air" <?php if($preset && $record['SAMPLE']['SAMP_ENVPKG'] == 'air') echo 'selected'; ?> >
                             Air
                         </option>

@@ -34,7 +34,7 @@ if (!defined('BASEPATH'))
 * 
 * @access   public   
 * @param    post      string     The string to be exploded
-* @return   Array
+* @return   array created from the string
 */
 function createArray($post)
 {
@@ -63,7 +63,7 @@ function createNulls(&$array)
         if (is_array($element)) {
             createNulls($element);
         } //is_array($element)
-        if (empty($element)) {
+        if (empty($element) || ($element == ' ')) {
             $element = NULL;
         } //empty($element)
     } //$array as &$element

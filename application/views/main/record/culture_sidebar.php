@@ -43,8 +43,15 @@
         </div>
         <p class="muted" data-position="left" data-intro="Hit this button to add images!"
         data-step="3">
-                <a class="btn btn-large" id="addcultureimage"> Add Images    </a>
-                to record.
+            <?php
+                if($this->session->userdata('user_auth') === 'LIMITED'){ 
+                    echo '<a class="btn btn-large disabled"> Add Images    </a>
+                            to record.';
+                }else{
+                   echo '<a class="btn btn-large" id="addcultureimage"> Add Images    </a>
+                        to record.';
+                }
+            ?>
         </p>
         <p class="muted" data-position="left" data-intro="Hit this button to expand all the information!"
         data-step="3">
@@ -60,7 +67,7 @@
         data-step="5">
             <?php
                 if($this->session->userdata('user_auth') === 'LIMITED'){ 
-                    echo '<a href="#" class="btn disabled btn-large"> Template  </a>
+                    echo '<a class="btn disabled btn-large"> Template  </a>
                          Use for new record.';
                 }else{
                    echo '<a href="/culture/create/'.$record['CULTURE']['CULT_ID'].'" class="btn btn-main btn-large"> Template  </a>
@@ -73,7 +80,7 @@
         data-step="6">
             <?php
                 if($this->session->userdata('user_auth') === 'LIMITED'){ 
-                    echo ' <a href="#" class="btn disabled btn-large">Edit</a>
+                    echo ' <a class="btn disabled btn-large">Edit</a>
                         Change current record.';
                 }else{
                    echo ' <a href="/culture/edit/'.$record['CULTURE']['CULT_ID'].'" class="btn btn-main btn-large" id="editbtn">Edit</a>

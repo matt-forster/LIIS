@@ -116,7 +116,7 @@
                 </label>
                 <div id="">
                     <input type="text" onblur="" name="culture[CULT_EXTERN_ID]" maxlength="40" style="width:355px;"
-                    placeholder="ATTC, etc" value="<?php echo (($preset) ? $record['CULTURE']['CULT_RISKG'] : NULL) ?>">
+                    placeholder="ATTC, etc" value="<?php echo (($preset) ? $record['CULTURE']['CULT_EXTERN_ID'] : NULL) ?>">
                 </div>
             </div>
             <div class="span">
@@ -135,9 +135,7 @@
                     rRNA source
                 </label>
                 <div id="">
-                    <textarea rows="2" name="culture[CULT_RRNA_SEQ]" style="width: 686px; resize:vertical;">
-                        <?php echo (($preset) ? $record[ 'CULTURE'][ 'CULT_RRNA_SEQ'] : NULL) ?>
-                    </textarea>
+                    <textarea rows="2" name="culture[CULT_RRNA_SEQ]" style="width: 686px; resize:vertical;"><?php echo (($preset) ? $record[ 'CULTURE'][ 'CULT_RRNA_SEQ'] : NULL) ?></textarea>
                 </div>
             </div>
             <div class="span9">
@@ -145,9 +143,7 @@
                     History
                 </label>
                 <div id="">
-                    <textarea rows="2" name="culture[CULT_HIST]" style="width: 686px; resize:vertical;">
-                        <?php echo (($preset) ? $record[ 'CULTURE'][ 'CULT_HIST'] : NULL) ?>
-                    </textarea>
+                    <textarea rows="2" name="culture[CULT_HIST]" style="width: 686px; resize:vertical;"><?php echo (($preset) ? $record[ 'CULTURE'][ 'CULT_HIST'] : NULL) ?></textarea>
                 </div>
             </div>
             <div class="span9">
@@ -170,7 +166,7 @@
                 </label>
                 <div id="">
                     <input type="text" onblur="" maxlength="40" style="width:325px;" name="taxonomy[TAX_DOMAIN]"
-                    value="<?php echo (($preset) ? $record['TAXONOMY']['TAX_DOMAIN'] : NULL) ?>">
+                    value="<?php echo (($preset && is_array($record['TAXONOMY']['TAX_DOMAIN'])) ? $record['TAXONOMY']['TAX_DOMAIN'] : NULL) ?>">
                 </div>
             </div>
             <div class="span4p">
@@ -179,7 +175,7 @@
                 </label>
                 <div id="">
                     <input type="text" onblur="" maxlength="40" style="width:325px;" name="taxonomy[TAX_KINGDOM]"
-                    value="<?php echo (($preset) ? $record['TAXONOMY']['TAX_KINGDOM'] : NULL) ?>">
+                    value="<?php echo (($preset && is_array($record['TAXONOMY']['TAX_KINGDOM'])) ? $record['TAXONOMY']['TAX_KINGDOM'] : NULL) ?>">
                 </div>
             </div>
         </div>
@@ -190,7 +186,7 @@
                 </label>
                 <div id="">
                     <input type="text" onblur="" maxlength="40" style="width:325px;" name="taxonomy[TAX_PHYLUM]"
-                    value="<?php echo (($preset) ? $record['TAXONOMY']['TAX_PHYLUM'] : NULL) ?>">
+                    value="<?php echo (($preset && is_array($record['TAXONOMY']['TAX_PHYLUM'])) ? $record['TAXONOMY']['TAX_PHYLUM'] : NULL) ?>">
                 </div>
             </div>
             <div class="span4p">
@@ -199,7 +195,7 @@
                 </label>
                 <div id="">
                     <input type="text" onblur="" maxlength="40" style="width:325px;" name="taxonomy[TAX_CLASS]"
-                    value="<?php echo (($preset) ? $record['TAXONOMY']['TAX_CLASS'] : NULL) ?>">
+                    value="<?php echo (($preset && is_array($record['TAXONOMY']['TAX_CLASS'])) ? $record['TAXONOMY']['TAX_CLASS'] : NULL) ?>">
                 </div>
             </div>
         </div>
@@ -210,7 +206,7 @@
                 </label>
                 <div id="">
                     <input type="text" onblur="" maxlength="40" style="width:325px;" name="taxonomy[TAX_ORDER]"
-                    value="<?php echo (($preset) ? $record['TAXONOMY']['TAX_ORDER'] : NULL) ?>">
+                    value="<?php echo (($preset && is_array($record['TAXONOMY']['TAX_ORDER'])) ? $record['TAXONOMY']['TAX_ORDER'] : NULL) ?>">
                 </div>
             </div>
             <div class="span4p">
@@ -219,7 +215,7 @@
                 </label>
                 <div id="">
                     <input type="text" onblur="" maxlength="40" style="width:325px;" name="taxonomy[TAX_FAMILY]"
-                    value="<?php echo (($preset) ? $record['TAXONOMY']['TAX_FAMILY'] : NULL) ?>">
+                    value="<?php echo (($preset && is_array($record['TAXONOMY']['TAX_FAMILY'])) ? $record['TAXONOMY']['TAX_FAMILY'] : NULL) ?>">
                 </div>
             </div>
         </div>
@@ -230,7 +226,7 @@
                 </label>
                 <div id="">
                     <input type="text" onblur="" maxlength="40" style="width:325px;" name="taxonomy[TAX_GENUS]"
-                    value="<?php echo (($preset) ? $record['TAXONOMY']['TAX_GENUS'] : NULL) ?>">
+                    value="<?php echo (($preset && is_array($record['TAXONOMY']['TAX_GENUS'])) ? $record['TAXONOMY']['TAX_GENUS'] : NULL) ?>">
                 </div>
             </div>
             <div class="span4p">
@@ -239,7 +235,7 @@
                 </label>
                 <div id="">
                     <input type="text" onblur="" maxlength="40" style="width:325px;" name="taxonomy[TAX_SPECIES]"
-                    value="<?php echo (($preset) ? $record['TAXONOMY']['TAX_SPECIES'] : NULL) ?>">
+                    value="<?php echo (($preset && is_array($record['TAXONOMY']['TAX_SPECIES'])) ? $record['TAXONOMY']['TAX_SPECIES'] : NULL) ?>">
                 </div>
             </div>
         </div>
@@ -250,7 +246,7 @@
                 </label>
                 <div id="">
                     <input type="text" onblur="" maxlength="40" style="width:325px;" name="taxonomy[TAX_STRAIN]"
-                    id="" value="<?php echo (($preset) ? $record['TAXONOMY']['TAX_STRAIN'] : NULL) ?>">
+                    id="" value="<?php echo (($preset && is_array($record['TAXONOMY']['TAX_STRAIN'])) ? $record['TAXONOMY']['TAX_STRAIN'] : NULL) ?>">
                 </div>
             </div>
         </div>

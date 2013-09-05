@@ -31,9 +31,32 @@ if (!defined('BASEPATH'))
 class Culture_model extends CI_Model
 {
     
+    //CONSTRUCTOR
+    
+    public function __construct()
+    {
+        
+        parent::__construct();
+        
+        //Load the LIISDATA database for use (see database config 'config/database.php')
+        $this->load->database('data');
+    }
     
     //PUBLIC
+    
     //create
+
+    /**
+    * createRow
+    *
+    * Required an associative array arranged as: array(table => array(field => value, field => value, ...), table => array(...), ...)
+    * Valid tables are: CULTURE, TAXONOMY, DNARNA, VIAL 
+    * See database schema for valid fields.
+    * 
+    * @access   public   
+    * @param    data    array   The array that holds the record data.
+    * @return   1 if succesful, negative number if not. -1 taxonomy fail, -2 culture fail, -3 dnarna fail, -4 vial fail.
+    */
     public function createRow($data)
     {
         $tables = array_keys($data);
@@ -42,7 +65,9 @@ class Culture_model extends CI_Model
         
         if (in_array('TAXONOMY', $tables)) {
             
-            $id = $this->create_tax($data['TAXONOMY'], 'TAXONOMY');
+            if(!$id = $this->create_tax($data['TAXONOMY'], 'TAXONOMY')){
+                return -1;
+            }
             
             if (in_array('CULTURE', $tables)) {
                 $data['CULTURE']['TAX_ID'] = $id;
@@ -51,7 +76,9 @@ class Culture_model extends CI_Model
         
         if (in_array('CULTURE', $tables)) {
             
-            $insert = $this->create_culture($data['CULTURE']);
+            if(!$insert = $this->create_culture($data['CULTURE'])){
+                return -2;
+            }
             
             if (in_array('DNARNA', $tables) && $insert) {
                 foreach ($data['DNARNA'] as &$dnarna) {
@@ -69,16 +96,32 @@ class Culture_model extends CI_Model
         
         if (in_array('DNARNA', $tables)) {
             foreach ($data['DNARNA'] as $dnarna) {
-                $this->create_dnarna($dnarna);
+                if(!$this->create_dnarna($dnarna)){
+                    return -3;
+                }
             } //$data['DNARNA'] as $dnarna
         } //in_array('DNARNA', $tables)
         if (in_array('VIAL', $tables)) {
             foreach ($data['VIAL'] as $vial) {
-                $this->create_vial($vial);
+                if(!$this->create_vial($vial)){
+                    return -4;
+                }
             } //$data['VIAL'] as $vial
         } //in_array('VIAL', $tables)
+
+        return 1;
     }
     
+    /**
+    * create_culture
+    *
+    * Create a record in the culture table. Requires an associative array arranged as: array(field => value, field => value, ...)
+    * See database schema for valid field names and types
+    * 
+    * @access   public   
+    * @param    data    array   an associative array holding the field names and values of the data to insert.
+    * @return   Returns the record ID if successful, false if not.
+    */
     public function create_culture($data)
     {
         $data['CULT_USER']    = $this->session->userdata('user_id');
@@ -87,6 +130,16 @@ class Culture_model extends CI_Model
         return $this->create($data, 'CULTURE');
     }
     
+    /**
+    * create_tax
+    *
+    * Create a record in the taxomomy table. Requires an associative array arranged as: array(field => value, field => value, ...)
+    * See database schema for valid field names and types
+    * 
+    * @access   public   
+    * @param    data    array   an associative array holding the field names and values of the data to insert.
+    * @return   Returns the record ID if successful, false if not.
+    */
     public function create_tax($data)
     {
         $data['TAX_USER']    = $this->session->userdata('user_id');
@@ -95,22 +148,53 @@ class Culture_model extends CI_Model
         return $this->create($data, 'TAXONOMY');
     }
     
+    /**
+    * create_vial
+    *
+    * Create a record in the vial table. Requires an associative array arranged as: array(field => value, field => value, ...)
+    * See database schema for valid field names and types
+    * 
+    * @access   public   
+    * @param    data    array   an associative array holding the field names and values of the data to insert.
+    * @return   Returns true if successful, false if not.
+    */
     public function create_vial($data)
     {
         $data['VIAL_USER']    = $this->session->userdata('user_id');
         $data['VIAL_MODDATE'] = date("Y-m-d");
         
-        $this->create($data, 'VIAL');
+        return $this->create($data, 'VIAL');
     }
     
+    /**
+    * create_dnarna
+    *
+    * Create a record in the dnarna table. Requires an associative array arranged as: array(field => value, field => value, ...)
+    * See database schema for valid field names and types
+    * 
+    * @access   public   
+    * @param    data    array   an associative array holding the field name and values of the data to insert.
+    * @return   Returns true if successful, false if not.
+    */
     public function create_dnarna($data)
     {
         $data['DNARNA_USER']    = $this->session->userdata('user_id');
         $data['DNARNA_MODDATE'] = date("Y-m-d");
         
-        $this->create($data, 'DNARNA');
+        return $this->create($data, 'DNARNA');
     }
     
+    /**
+    * import
+    *
+    * Create multiple culture records. Requires a multidimensional associative array arranged as: array( array(field => value, field => value, ...), array(...), ...)
+    * See database schema for valid field names and types
+    * 
+    * @access   public   
+    * @param    data    array   an associative array holding the field name and values of the data to insert.
+    * @param    table   string  the primary table to import into
+    * @return   Returns true if successful, false if not.
+    */
     public function import($array, $table = 'CULTURE')
     {
         foreach ($array as &$culture) {
@@ -120,13 +204,31 @@ class Culture_model extends CI_Model
         
         try {
             $this->create_batch($array, $table);
+            return TRUE;
         }
         catch (Exception $e) {
-            throw $e;
+            return FALSE;
         }
     }
     
     //read
+
+    /**
+    * search
+    *
+    * Searches the specified table for the keywords against the fields. Returns the fields specified under the keys parameter.
+    * Has two types, 'like' and 'range', where like is a basic search against fields and range is a search between two points (like dates)
+    * Can be passed a custom string that will execute any custom *where* clauses you may want.
+    * 
+    * @access   public   
+    * @param    keywords    array or string   an array or comma delimited string holding the keywords to search for. eg. array('1', 'two') or '1, two'
+    * @param    fields      array or string   an array or comma delimited string holding the fields to search against. eg. array('field1', 'field2') or 'field1, field2'
+    * @param    table       string            the name of the table you want to search
+    * @param    key         string            a comma delimited string that specifies which fields to return. eg. 'field1, field2'
+    * @param    type        string            which type of search to perform. valid types are 'like' and 'range'
+    * @param    custom      string            A custom where clause to add the the query. Must be a valid MySQL comparison. eg. '`field1` is NULL'
+    * @return   Returns the array of search results if successful, false if not.
+    */
     public function search($keywords, $fields, $table = 'CULTURE', $key = 'CULT_ID', $type = 'like', $custom = NULL)
     {
         
@@ -217,6 +319,15 @@ class Culture_model extends CI_Model
         } //$type
     }
     
+    /**
+    * selectOne
+    *
+    * Selects and returns one fully resolved culture record (includes all lookup tables and other related records)
+    * 
+    * @access   public   
+    * @param    id      int (string)      the ID of the culture to select
+    * @return   Returns an array of results. (Can be elements will be false if record does not exist)
+    */
     public function selectOne($id)
     {
         $record = array();
@@ -252,6 +363,15 @@ class Culture_model extends CI_Model
         return $record;
     }
     
+    /**
+    * get_culture
+    *
+    * Selects and returns the a culture record without any resolved foreign keys
+    * 
+    * @access   public   
+    * @param    id      int (string)     the ID of the culture to select
+    * @return   Returns an array of results if successful, a message string if not.
+    */
     public function get_culture($id)
     {
         
@@ -261,13 +381,29 @@ class Culture_model extends CI_Model
         
         try {
             $results = $this->select($id, 'CULTURE');
-            return $results[0]; //should only be one element of the query array returned.
+            
         }
         catch (Exception $e) {
             return 'No Culture available. It seems as though this culture does not exist. ';
         }
+
+        if($results[0]){ //should only be one element of the query array returned.
+            return $results[0];
+        }else{
+            return 'No Culture available. It seems as though this culture does not exist. ';
+        } 
     }
+
     
+    /**
+    * get_tax
+    *
+    * Selects and returns the taxonomy record associated with the culture id passed 
+    * 
+    * @access   public   
+    * @param    id      int (string)     the ID of the **culture** record you want to resolve the taxonomy from.
+    * @return   Returns an array of results if successful, false if not.
+    */
     public function get_tax($id)
     {
         
@@ -282,19 +418,39 @@ class Culture_model extends CI_Model
         catch (Exception $e) {
             return 'No Culture available.';
         }
+
+        if($culture){
+            $taxid = $culture[0]['TAX_ID']; //element 0 should be the only one. Reduce the dimension of the array.
+        }else{
+            return 'No Culture available. It seems as though this culture does not exist. ';
+        }
         
-        $taxid = $culture[0]['TAX_ID']; //element 0 should be the only one. Reduce the dimension of the array.
+        
         
         //Second, grab the taxonomy row and return.
         try {
             $results = $this->select($taxid, 'TAXONOMY', 'TAX_ID');
-            return $results[0]; //reduce the dimension of the array returned.
         }
         catch (Exception $e) {
-            return ' No Taxonomy available.';
+            return 'No Taxonomy available.';
         }
+
+        if($results[0]){ //should only be one element of the query array returned.
+            return $results[0];
+        }else{
+            return false;
+        } 
     }
     
+    /**
+    * get_vials
+    *
+    * Selects and returns an array of all the vials associated with the culture id passed
+    * 
+    * @access   public   
+    * @param    id      int (string)     the ID of the **culture** record you want to resolve the vials from
+    * @return   Returns an array of results if successful, a message string if not.
+    */
     public function get_vials($id)
     {
         
@@ -306,12 +462,25 @@ class Culture_model extends CI_Model
             $vials = $this->select($id, 'VIAL');
         }
         catch (Exception $e) {
-            return ' No Vials available.';
+            return 'No Vials available.';
         }
         
-        return $vials; //multiple results can be expected
+        if($vials){
+            return $vials;
+        }else{
+            return 'No Vials available.';
+        }
     }
     
+    /**
+    * get_vials
+    *
+    * Selects and returns an array of all the dna/rna associated with the culture id passed
+    * 
+    * @access   public   
+    * @param    id      int (string)    the ID of the **culture** record you want to resolve the dnarna from
+    * @return   Returns an array of results if successful, a message string if not.
+    */
     public function get_dnarna($id)
     {
         
@@ -320,19 +489,34 @@ class Culture_model extends CI_Model
         } //!isset($id)
         
         try {
-            return $this->select($id, 'DNARNA'); //multiple results can be expected
+            $results = $this->select($id, 'DNARNA'); //multiple results can be expected
         }
         catch (Exception $e) {
-            return ' No DNA or RNA available.';
+            return 'No DNA / RNA information available.';
+        }
+
+        if($results){
+            return $results;
+        }else{
+            return 'No DNA / RNA information available.';
         }
     }
-    
-    public function export()
-    {
         
-    }
-    
     //update
+
+    /**
+    * editRow
+    *
+    * Updates the row id specified with the data that is passed. The data should be an associative array
+    * arranged like: array(table => array(field => name, field => name, ...), table => array(...), ...)
+    * valid tables are: CULTURE, TAXONOMY, VIAL, DNARNA
+    * See database schema for valid field names and types.
+    * 
+    * @access   public   
+    * @param    id      int (string)    the ID of the **culture** record you want to edit
+    * @param    data    array           an array holding the data you want to update the record with
+    * @return   an array of booleans, where true entries are successful updates and false entries are not.
+    */
     public function editRow($id, $data)
     {
         if (!isset($id)) {
@@ -388,6 +572,17 @@ class Culture_model extends CI_Model
         return $record;
     }
     
+    /**
+    * update_culture
+    *
+    * Updates a culture record with the fields given
+    * Fields to update should be specified in the fields array: array( field => value, field => value, ...)
+    * 
+    * @access   public   
+    * @param    id      int (string)    the id of the culture you want to update.
+    * @param    fields  array           associative array holding the field => value pairs to update the record with
+    * @return   Returns true if successful, false if not.
+    */
     public function update_culture($id, $fields)
     {
         
@@ -408,6 +603,17 @@ class Culture_model extends CI_Model
         }
     }
     
+    /**
+    * update_tax
+    *
+    * Updates a taxonomy record associated with the culture ID passed
+    * Fields to update should be specified in the fields array: array( field => value, field => value, ...)
+    * 
+    * @access   public   
+    * @param    id      int (string)    the ID of the **culture** record you want update the taxonomy for
+    * @param    fields  array           associative array holding the field => value pairs to update the record with
+    * @return   Returns true if successful, false if not.
+    */
     public function update_tax($id, $fields)
     {
         
@@ -437,6 +643,17 @@ class Culture_model extends CI_Model
         }
     }
     
+    /**
+    * update_vial
+    *
+    * Updates a single vial record with the fields passed
+    * Fields to update should be specified in the fields array: array( field => value, field => value, ...)
+    * 
+    * @access   public   
+    * @param    id      int (string)    the ID of the vial you want to update
+    * @param    fields  array           associative array holding the field => value pairs to update the record with      
+    * @return   Returns true if successful, false if not.
+    */
     public function update_vial($id, $fields)
     {
         
@@ -457,6 +674,17 @@ class Culture_model extends CI_Model
         }
     }
     
+    /**
+    * update_dnarna
+    *
+    * Updates a single dnarna record with the fields passed
+    * Fields to update should be specified in the fields array: array( field => value, field => value, ...)
+    * 
+    * @access   public   
+    * @param    id      int (string)    the ID of the dnarna record you want to update
+    * @param    fields  array           associative array holding the field => value pairs to update the record with
+    * @return   Returns true if successful, false if not.
+    */
     public function update_dnarna($id, $fields)
     {
         
@@ -478,28 +706,78 @@ class Culture_model extends CI_Model
     }
     
     //delete
-    public function delete_culture($id, $table = 'CULTURE')
+
+    /**
+    * delete_culture
+    *
+    * Deletes a culture record and the records associated with it (cascading delete in mysql)
+    * 
+    * @access   public   
+    * @param    id      int (string)    the ID of the culture you want to delete
+    * @return   Returns true if successful, false if not.
+    */
+    public function delete_culture($id)
     {
         return $this->delete($id);
     }
     
-    public function delete_tax($id, $table = 'TAXONOMY')
+    /**
+    * delete_tax
+    *
+    * Deletes a taxonomy record 
+    * 
+    * @access   public   
+    * @param    id      int (string)    the ID of the taxonomy you want to delete
+    * @return   Returns true if successful, false if not.
+    */
+    public function delete_tax($id)
     {
-        return $this->delete($id, $table, 'TAX_ID');
+        return $this->delete($id, 'TAXONOMY', 'TAX_ID');
     }
     
-    public function delete_dnarna($id, $table = 'DNARNA')
+    /**
+    * delete_dnarna
+    *
+    * Deletes a dnarna record
+    * 
+    * @access   public   
+    * @param    id      int (string)    the ID of the dnarna record you want to delete
+    * @return   Returns true if successful, false if not.
+    */
+    public function delete_dnarna($id)
     {
-        return $this->delete($id, $table, 'DNARNA_ID');
+        return $this->delete($id, 'DNARNA', 'DNARNA_ID');
     }
     
-    public function delete_vial($id, $table = 'VIAL')
+    /**
+    * delete_vial
+    *
+    * Deletes a vial record
+    * 
+    * @access   public   
+    * @param    id      int (string)    the ID of the vial you want to delete
+    * @return   Returns true if successful, false if not.
+    */
+    public function delete_vial($id)
     {
-        return $this->delete($id, $table, 'VIAL_ID');
+        return $this->delete($id, 'VIAL', 'VIAL_ID');
     }
     
+
     //PRIVATES
     
+    /**
+    * select
+    *
+    * selects records based on the id, but can be used to select other fields as well
+    * 
+    * @access   private   
+    * @param    id      string     the value of the field you want to select
+    * @param    table   string     the table you wish to select from
+    * @param    key     string     the field you wish to return (select) 
+    * @param    custom  string     a custom where clause if needed
+    * @return   Returns an array of results if successful , false if not.
+    */
     private function select($id = NULL, $table = 'CULTURE', $key = 'CULT_ID', $custom = NULL)
     {
         
@@ -513,7 +791,7 @@ class Culture_model extends CI_Model
             if ($query->num_rows() > 0) {
                 return $query->result_array();
             } //$query->num_rows() > 0
-            throw new Exception('Class: Culture_model Method: select - (1) no results returned');
+            return FALSE;
         } //$id === NULL
         
         //returns table row(s) that matches id passed
@@ -527,9 +805,25 @@ class Culture_model extends CI_Model
         if ($query->num_rows() > 0) {
             return $query->result_array();
         } //$query->num_rows() > 0
-        throw new Exception('Class: Culture_model Method: select - (2) no results returned');
+        return FALSE;
     }
     
+    /**
+    * selectLike
+    *
+    * selects records based on keywords, can be set to use OR or AND clauses
+    * $conditions is an associative array containing field => value pairs
+    * constructed like 'Field' => 'word'
+    *                   Field IS LIKE word
+    * 
+    * @access   private   
+    * @param    conditions      array      array of field => value pairs
+    * @param    table           string     the table you wish to select from
+    * @param    key             string     the field you wish to return (select)
+    * @param    custom          string     a custom where clause if needed
+    * @param    type            string     either 'or' or 'and' to select different clauses
+    * @return   Returns an array of results if successful , false if not.
+    */
     private function selectLike($conditions, $table = 'CULTURE', $key = 'CULT_ID', $custom = NULL, $type = 'or')
     {
         
@@ -606,9 +900,27 @@ class Culture_model extends CI_Model
         if ($query->num_rows > 0) {
             return $query->result_array();
         } //$query->num_rows > 0
-        throw new Exception('Class: Culture_model Method: selectLike - (2) no results returned');
+        return FALSE;
     }
     
+    /**
+    * selectRange
+    * 
+    * For dates and other values
+    * selects records between two points
+    * $conditions is an associative array containing two specific keys: 'before' and 'after'
+    * constructed like 'before' => '1', 'after' => '2'
+    *                   where field > 1
+    *                   where field < 2
+    * 
+    * @access   private   
+    * @param    range      array      array of two elements, 'before' and 'after'
+    * @param    field      string     the field you wish to select the range from
+    * @param    table      string     the table you wish to select from
+    * @param    key        string     the field you wish to return (select)
+    * @param    custom     string     a custom where clause if needed
+    * @return   Returns an array of results if successful, false if not.
+    */
     private function selectRange($range, $field = 'CULT_DATE', $table = 'CULTURE', $key = 'CULT_ID', $custom = NULL)
     {
         
@@ -639,9 +951,23 @@ class Culture_model extends CI_Model
         if ($query->num_rows > 0) {
             return $query->result_array();
         } //$query->num_rows > 0
-        throw new Exception('Class: Culture_model Method: selectRange - (2) no results returned');
+        return FALSE;
     }
     
+    /**
+    * update
+    * 
+    * updates the record specified with the fields given within $data
+    * $data should be constructed like: array(field => value, field => value, ...)
+    * 
+    * @access   private   
+    * @param    id         string     the id of the record you with to update
+    * @param    data       string     the assocative array holding field => value pairs
+    * @param    table      string     the table which holds the record to be updated
+    * @param    key        string     the field which the id matches
+    * @param    custom     string     a custom where clause if needed
+    * @return   Returns true if successful, false if not.
+    */
     private function update($id, $data, $table = 'CULTURE', $key = 'CULT_ID', $custom = NULL)
     {
         if (!is_array($data)) {
@@ -658,6 +984,17 @@ class Culture_model extends CI_Model
         return FALSE;
     }
     
+    /**
+    * create
+    * 
+    * Create a record within the table specified
+    * fields are passed through the associative array: array( field => value, field => value, ...)
+    * 
+    * @access   private   
+    * @param    data       array      associative array of field => value pairs used to create the record
+    * @param    table      string     the table to create the record in
+    * @return   if successful can return the ID of the record created (if not available, then TRUE), false if not.
+    */
     private function create($data, $table = 'CULTURE')
     {
         if (!is_array($data)) {
@@ -672,6 +1009,17 @@ class Culture_model extends CI_Model
         return FALSE;
     }
     
+    /**
+    * create_batch
+    * 
+    * Create multiple records within the table specified
+    * fields are passed through the associative data array: array( array(field => value, field => value, ...), array(...), ...)
+    * 
+    * @access   private   
+    * @param    data      array      associative array of field => value pairs used to create the record
+    * @param    table     string     table which to create the records in
+    * @return   Returns true successful, false if not.
+    */
     private function create_batch($data, $table = 'CULTURE')
     {
         if (!is_array($data)) {
@@ -684,6 +1032,17 @@ class Culture_model extends CI_Model
         return FALSE;
     }
     
+    /**
+    * delete
+    * 
+    * delete a record from the table specified
+    * 
+    * @access   private   
+    * @param    id      string     the id of the record to be deleted
+    * @param    table   string     table which to delete from
+    * @param    key     string     the field which the id belongs to
+    * @return   Returns true if successful, false if not.
+    */
     private function delete($id, $table = 'CULTURE', $key = 'CULT_ID')
     {
         if (!isset($id)) {
@@ -695,14 +1054,4 @@ class Culture_model extends CI_Model
         return $this->db->delete($table, $where);
     }
     
-    //CONSTRUCTOR
-    
-    public function __construct()
-    {
-        
-        parent::__construct();
-        
-        //Load the LIISDATA database for use (see database config 'config/database.php')
-        $this->load->database('data');
-    }
 }

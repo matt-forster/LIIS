@@ -138,6 +138,24 @@ class Sample extends CI_Controller
             'DNARNA_DATE'
         );
         
+        //Types
+        //Used by: do_create()
+        //Holds the fields that required a specific type (not varchars ect.)
+        $this->data['types'] = array();
+        $this->data['types']['INT'] = array(
+            'SAMP_ID',
+            'SAMP_PERIOD',
+            'SOURCE_ID',
+            'SOURCE_NUM'
+        );
+        $this->data['types']['DATE'] = array(
+            'SAMP_DATE',
+            'DNARNA_DATE'
+        );
+        $this->data['types']['TIME'] = array(
+            'SAMP_TIME'
+        );
+
         //Message
         //Used by: do_create(), views/main/create/errors
         //holds the errors for display
@@ -155,14 +173,15 @@ class Sample extends CI_Controller
         //Holds the human equivalants to the Database Field names.
         //Typically only needs to be set if the field is used in errors (ie. the required field errors).
         $this->data['human'] = array(
-            'SAMP_ID' => 'Sample ID',
-            'SAMP_EXP_ID' => 'Project Name',
-            'SAMP_DATE' => 'Sample Date',
+            'SAMP_ID'       => 'Sample ID',
+            'SAMP_EXP_ID'   => 'Project Name',
+            'SAMP_DATE'     => 'Sample Date',
             'SAMP_STOR_LOC' => 'Storage Location',
-            'SOURCE_NUM' => 'Source ID Number',
-            'DNARNA_ID' => 'DNARNA ID',
-            'DNARNA_TYPE' => 'DNARNA Type',
-            'DNARNA_DATE' => 'DNARNA Date'
+            'SAMP_TIME'     => 'Sample Time',
+            'SOURCE_NUM'    => 'Source ID Number',
+            'DNARNA_ID'     => 'DNARNA ID',
+            'DNARNA_TYPE'   => 'DNARNA Type',
+            'DNARNA_DATE'   => 'DNARNA Date'
         );
     }
     
@@ -476,7 +495,7 @@ class Sample extends CI_Controller
         //create nulls
         createNulls($this->data['create']);
         
-        //Check for required fields
+        //Check for required fields and proper types
         foreach ($this->data['create'] as $table => $fields) {
             
             $reqtable = $this->data['required'][$table];
@@ -486,11 +505,37 @@ class Sample extends CI_Controller
                     $keys = array_keys($entity);
                     
                     foreach ($keys as $key) {
+                        
+                        //REQUIRED - See constructor to add fields to the arrays
                         if (in_array($key, $reqtable)) {
-                            if (empty($entity[$key])) {
+                            if(empty($entity[$key])){
                                 setMessage("<strong>Required:</strong> " . $this->data['human'][$key], 'warning', $this->data['message']);
-                            } //empty($entity[$key])
+                            }
                         } //in_array($key, $reqtable)
+
+                        if(!empty($entity[$key])){
+
+                            //TYPES - See constructor to add fields to the arrays
+                            if(in_array($key, $this->data['types']['DATE'])){
+                                if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $entity[$key], $datebit)) {
+                                    if(!checkdate($datebit[2] , $datebit[3] , $datebit[1])){
+                                         setMessage('<strong>Error:</strong> "'.$this->data['human'][$key].'" has invalid date.', 'error', $this->data['message']);
+                                    }
+                                } else {
+                                    setMessage('<strong>Error:</strong> "'.$this->data['human'][$key].'" is wrong format (yyyy-mm-dd required).', 'error', $this->data['message']);
+                                }
+                            }
+                            if(in_array($key, $this->data['types']['TIME'])){
+                                if (!preg_match('/^([01]\d|2[0123]):([0-5]\d):([0-5]\d)$/', $entity[$key])) {
+                                    setMessage('<strong>Error:</strong> "'.$this->data['human'][$key].'" is wrong format (hh:mm:ss required).', 'error', $this->data['message']);
+                                } 
+                            }
+                            if(in_array($key, $this->data['types']['INT'])){
+                                if (!is_numeric($entity[$key])) {
+                                    setMessage('<strong>Error:</strong> "'.$this->data['human'][$key].'" is the wrong type (Integer expected).', 'error', $this->data['message']);
+                                }
+                            }
+                        }
                     } //$keys as $key
                 } //$fields as $entity
             } //is_array(reset($fields))
@@ -498,11 +543,37 @@ class Sample extends CI_Controller
                 $keys = array_keys($fields);
                 
                 foreach ($keys as $key) {
+                    
+                    //REQUIRED - See constructor to add fields to the arrays
                     if (in_array($key, $reqtable)) {
-                        if (empty($fields[$key])) {
+                        if(empty($fields[$key])){
                             setMessage("<strong>Required:</strong> " . $this->data['human'][$key], 'warning', $this->data['message']);
-                        } //empty($fields[$key])
+                        }
                     } //in_array($key, $reqtable)
+
+                    if(!empty($fields[$key])){
+
+                        //TYPES - See constructor to add fields to the arrays
+                        if(in_array($key, $this->data['types']['DATE'])){
+                            if (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $fields[$key], $datebit)) {
+                                if(!checkdate($datebit[2] , $datebit[3] , $datebit[1])){
+                                     setMessage('<strong>Error:</strong> "'.$this->data['human'][$key].'" has invalid date.', 'error', $this->data['message']);
+                                }
+                            } else {
+                                setMessage('<strong>Error:</strong> "'.$this->data['human'][$key].'" is wrong format (yyyy-mm-dd required).', 'error', $this->data['message']);
+                            }
+                        }
+                        if(in_array($key, $this->data['types']['TIME'])){
+                            if (!preg_match('/^([01]\d|2[0123]):([0-5]\d):([0-5]\d)$/', $fields[$key])) {
+                                setMessage('<strong>Error:</strong> "'.$this->data['human'][$key].'" is wrong format (hh:mm:ss required).', 'error', $this->data['message']);
+                            } 
+                        }
+                        if(in_array($key, $this->data['types']['INT'])){
+                            if (!is_numeric($fields[$key])) {
+                                setMessage('<strong>Error:</strong> "'.$this->data['human'][$key].'" is the wrong type (Integer expected).', 'error', $this->data['message']);
+                            }
+                        }
+                    }
                 } //$keys as $key
             }
             
@@ -564,6 +635,7 @@ class Sample extends CI_Controller
             }
         } //$this->data['create'] as $table => $fields
 
+        //Foreign Key resolution and edit calls
         if($edit){
 
             //foreign key
@@ -631,6 +703,8 @@ class Sample extends CI_Controller
             } //isset($this->data['create']['DNARNA'])
 
         }
+
+        //Duplicate record messages
         else{ //Create
 
             //foreign key

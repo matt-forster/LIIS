@@ -29,12 +29,12 @@ LIIS requires a webserver with rewrite capability. The application was created o
 
 Once a proper server has been setup with a webserver, MySQL, PHP:
 
-1. Ensure .htaccess is allowed in the appropriate directory (AllowOverride)
-2. Ensure the rewrite module is enabled in your webserver preferences
-3. Download and move the website files into the hosted directory
+1. Ensure .htaccess is allowed in the appropriate directory (Apache AllowOverride option).
+2. Ensure the rewrite module is enabled in your webserver preferences.
+3. Download and move the website files into the hosted directory.
 4. **Special Write permissions** are required for the `resources/download` and `resources/upload` directories, to ensure that the export and picture functions operate properly. Popular permissions for these folders are 775 for the appropriate Apache and PHP/FTP users.
-5. Open `install.php` and `application/config/database.php`. Change the appropriate settings to allow codeigniter to connect to MySQL. Make sure to change both the data and user database settings in database.php.
-6. Browse to `(website_root)/install.php` to install the database. If an error is shown, look over your MySQL settings to ensure connectivity.
+5. Open `install.php` and `application/config/database.php` within a text editor. Change the appropriate settings (MySQL user/password) to allow codeigniter to connect to MySQL. Make sure to change both the data and user database settings in database.php.
+6. In your browser, open to `(website_root)/install.php` to install the database. If an error is shown, look over your MySQL settings and the two files in step 5 to ensure connectivity.
 7. Log in to the user management with the user and password provided after successful database installation.
 
 #### Contributors

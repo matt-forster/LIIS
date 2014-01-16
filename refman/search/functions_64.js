@@ -7,7 +7,6 @@ var searchData=
   ['delete_5fsource',['delete_source',['../classSample__model.html#a93a2a14728780bbeb13e3eb3d0228572',1,'Sample_model']]],
   ['delete_5ftax',['delete_tax',['../classCulture__model.html#ab57baf4a2ebd203d551984758d48b3ab',1,'Culture_model']]],
   ['delete_5fvial',['delete_vial',['../classCulture__model.html#ac73313a3d95b4c7c39d4e85d4600c346',1,'Culture_model']]],
-  ['deleteuser',['deleteUser',['../classUser__model.html#ade587fa0277c8a6e2b1564f3b31e64db',1,'User_model']]],
   ['do_5fcreate',['do_create',['../classCulture.html#a55153cc08930efe9ce403c2e65ef7517',1,'Culture\do_create()'],['../classSample.html#a71253a4f66625b7003bf7f699622844b',1,'Sample\do_create()'],['../classUser.html#ab9c688d3e206a2fb00abb88a3f199893',1,'User\do_create()']]],
   ['do_5fdelete',['do_delete',['../classUser.html#add5e1c8856aba75da89d102f05cfdbb7',1,'User']]],
   ['do_5fedit',['do_edit',['../classCulture.html#ae8e45f92b2f26418d9350d13e2cd240c',1,'Culture\do_edit()'],['../classSample.html#ae4f315c9bfcb5324f2607a47f362d787',1,'Sample\do_edit()']]],

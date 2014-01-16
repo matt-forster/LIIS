@@ -42,7 +42,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -74,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -103,8 +102,6 @@ Inheritance diagram for User:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab85808b180763aae0ad612ddac38f630"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUser.html#ab85808b180763aae0ad612ddac38f630">__construct</a> ()</td></tr>
-<tr class="separator:ab85808b180763aae0ad612ddac38f630"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab514c0a3e0008d399cdb5ec2f9d46efc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classUser.html#ab514c0a3e0008d399cdb5ec2f9d46efc">index</a> ()</td></tr>
 <tr class="memdesc:ab514c0a3e0008d399cdb5ec2f9d46efc"><td class="mdescLeft">&#160;</td><td class="mdescRight">index  <a href="#ab514c0a3e0008d399cdb5ec2f9d46efc">More...</a><br/></td></tr>
 <tr class="separator:ab514c0a3e0008d399cdb5ec2f9d46efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,23 +124,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a958dd5f566df3f34016979b55426f994"><td class="mdescLeft">&#160;</td><td class="mdescRight">do_update  <a href="#a958dd5f566df3f34016979b55426f994">More...</a><br/></td></tr>
 <tr class="separator:a958dd5f566df3f34016979b55426f994"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ab85808b180763aae0ad612ddac38f630"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">User::__construct </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>$this-&gt;session-&gt;userdata('logged_in') </p>
-
-</div>
-</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="ab412465c2a5d8ae8c5f0106b83de6a6e"></a>
 <div class="memitem">
@@ -183,7 +163,6 @@ Public Member Functions</h2></td></tr>
 <p>Required POST data</p>
 <p>public </p>
 <dl class="section return"><dt>Returns</dt><dd>HTML Views </dd></dl>
-<p>empty($user) </p>
 
 </div>
 </div>
@@ -232,7 +211,6 @@ Public Member Functions</h2></td></tr>
 <p>Requires POST data</p>
 <p>public </p>
 <dl class="section return"><dt>Returns</dt><dd>HTML Views </dd></dl>
-<p>empty($this-&gt;data['update']['USER_PASS']) </p>
 
 </div>
 </div>
@@ -304,12 +282,12 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>application/controllers/<a class="el" href="user_8php.html">user.php</a></li>
+<li>application/controllers/user.php</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 16 2014 16:08:58 for LIIS - Laboratory Information Indexing System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 16 2014 16:33:05 for LIIS - Laboratory Information Indexing System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

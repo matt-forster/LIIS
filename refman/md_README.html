@@ -42,7 +42,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -66,7 +65,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -113,7 +112,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>Ensure MySQLi driver is enabled within the PHP settings.</li>
 <li>Download and move the website files into the hosted directory.</li>
 <li><b>Special Write permissions</b> are required for the <code>resources/download</code> and <code>resources/upload</code> directories, to ensure that the export and picture functions operate properly. Popular permissions for these folders are 775 for the appropriate Apache and PHP/FTP users.</li>
-<li>Open <code><a class="el" href="install_8php.html">install.php</a></code> and <code>application/config/database.php</code> within a text editor. Change the appropriate settings (MySQL user/password) to allow codeigniter to connect to MySQL. Make sure to change both the data and user database settings in database.php.</li>
+<li>Open <code>install.php</code> and <code>application/config/database.php</code> within a text editor. Change the appropriate settings (MySQL user/password) to allow codeigniter to connect to MySQL. Make sure to change both the data and user database settings in database.php.</li>
 <li>In your browser, open <code>(website_root)/install.php</code> to install the database. If an error is shown, look over your MySQL settings and the two files in step 5 to ensure connectivity.</li>
 <li>Log in to the user management with the user and password provided after successful database installation.</li>
 </ol>
@@ -141,7 +140,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 16 2014 16:08:57 for LIIS - Laboratory Information Indexing System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 16 2014 16:33:03 for LIIS - Laboratory Information Indexing System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

@@ -42,7 +42,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
-      <li><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
         <span class="left">
@@ -74,7 +73,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Pages</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -103,8 +102,6 @@ Inheritance diagram for Culture_model:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad72f3c98bca1685a4fc719126c1d2de6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCulture__model.html#ad72f3c98bca1685a4fc719126c1d2de6">__construct</a> ()</td></tr>
-<tr class="separator:ad72f3c98bca1685a4fc719126c1d2de6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45aca4296a1b3175ab17561bd492de55"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCulture__model.html#a45aca4296a1b3175ab17561bd492de55">createRow</a> ($data)</td></tr>
 <tr class="memdesc:a45aca4296a1b3175ab17561bd492de55"><td class="mdescLeft">&#160;</td><td class="mdescRight">createRow  <a href="#a45aca4296a1b3175ab17561bd492de55">More...</a><br/></td></tr>
 <tr class="separator:a45aca4296a1b3175ab17561bd492de55"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -169,22 +166,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ac73313a3d95b4c7c39d4e85d4600c346"><td class="mdescLeft">&#160;</td><td class="mdescRight">delete_vial  <a href="#ac73313a3d95b4c7c39d4e85d4600c346">More...</a><br/></td></tr>
 <tr class="separator:ac73313a3d95b4c7c39d4e85d4600c346"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ad72f3c98bca1685a4fc719126c1d2de6"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Culture_model::__construct </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="aef269db8283e8e005c3567971de13392"></a>
 <div class="memitem">
@@ -464,8 +445,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>an array of booleans, where true entries are successful updates and false entries are not. </dd></dl>
-<p>isset($id)</p>
-<p>isset($data) || !is_array($data) </p>
 
 </div>
 </div>
@@ -493,7 +472,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns an array of results if successful, a message string if not. </dd></dl>
-<p>isset($id) </p>
 
 </div>
 </div>
@@ -521,7 +499,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns an array of results if successful, a message string if not. </dd></dl>
-<p>isset($id) </p>
 
 </div>
 </div>
@@ -549,7 +526,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns an array of results if successful, false if not. </dd></dl>
-<p>isset($id) </p>
 
 </div>
 </div>
@@ -577,7 +553,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns an array of results if successful, a message string if not. </dd></dl>
-<p>isset($id) </p>
 
 </div>
 </div>
@@ -682,8 +657,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns the array of search results if successful, false if not. </dd></dl>
-<p>is_array($fields)</p>
-<p>is_array($keywords) </p>
 
 </div>
 </div>
@@ -749,8 +722,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true if successful, false if not. </dd></dl>
-<p>isset($id)</p>
-<p>isset($fields) || !is_array($fields) </p>
 
 </div>
 </div>
@@ -789,8 +760,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true if successful, false if not. </dd></dl>
-<p>isset($id)</p>
-<p>isset($fields) || !is_array($fields) </p>
 
 </div>
 </div>
@@ -829,8 +798,6 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true if successful, false if not. </dd></dl>
-<p>isset($id)</p>
-<p>isset($fields) || !is_array($fields) </p>
 
 </div>
 </div>
@@ -869,18 +836,16 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Returns true if successful, false if not. </dd></dl>
-<p>isset($id)</p>
-<p>isset($fields) || !is_array($fields) </p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>application/models/<a class="el" href="culture__model_8php.html">culture_model.php</a></li>
+<li>application/models/culture_model.php</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 16 2014 16:08:57 for LIIS - Laboratory Information Indexing System by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 16 2014 16:33:04 for LIIS - Laboratory Information Indexing System by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.3.1
 </small></address>

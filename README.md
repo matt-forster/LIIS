@@ -11,6 +11,9 @@ LIIS is an open source, web based, metadata database for storage and archival us
 
 Created at the **Lethbridge Research Center** in cooperation with the **Lethbridge College** and the **University of Lethbridge**, this is a student designed project.
 
+For detailed* Doxygen class documentation, see the refman/ folder.
+
+*Will be expanded in the future
 
 #### Installation
 

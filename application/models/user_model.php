@@ -90,7 +90,7 @@ class User_model extends CI_Model
     {
         if (!is_array($data)) {
             throw new Exception('Class: User_model Method: Create - (1) Param $data required to be array.');
-        } //!is_array($data)
+        } //is_array($data)
         
         if ($this->userdb->insert($table, $data)) {
             if ($this->userdb->insert_id())
@@ -134,10 +134,10 @@ class User_model extends CI_Model
     {
         if (!isset($id) || !isset($data)) {
             throw new Exception('Class: User_model Method: update - (1) Params $id/$data required.');
-        } //!isset($id) || !isset($data)
+        } //isset($id) || !isset($data)
         if (!is_array($data)) {
             throw new Exception('Class: User_model Method: update - (1) Param $data required to be array.');
-        } //!is_array($data)
+        } //is_array($data)
         
         $this->userdb->where($key, $id);
         if ($custom) {
@@ -153,7 +153,7 @@ class User_model extends CI_Model
     {
         if (!isset($id)) {
             throw new Exception('Class: User_model Method: update - (1) Param $id required.');
-        } //!isset($id)
+        } //isset($id)
         $where = array(
             $key => $id
         );

@@ -234,11 +234,11 @@ class Culture_model extends CI_Model
         
         if (!is_array($fields)) {
             $fields = explode(', ', $fields);
-        } //!is_array($fields)
+        } //is_array($fields)
         
         if (!is_array($keywords)) {
             $keywords = explode(', ', $keywords);
-        } //!is_array($keywords)
+        } //is_array($keywords)
         
         $conditions = array();
         
@@ -377,7 +377,7 @@ class Culture_model extends CI_Model
         
         if (!isset($id)) {
             throw new Exception('Class: Culture_model Method: get_culture - (1) id paramater required');
-        } //!isset($id)
+        } //isset($id)
         
         try {
             $results = $this->select($id, 'CULTURE');
@@ -409,7 +409,7 @@ class Culture_model extends CI_Model
         
         if (!isset($id)) {
             throw new Exception('Class: Culture_model Method: get_tax - (1) id paramater required');
-        } //!isset($id)
+        } //isset($id)
         
         //First, get taxonomy ID from the Culture table.
         try {
@@ -456,7 +456,7 @@ class Culture_model extends CI_Model
         
         if (!isset($id)) {
             throw new Exception('Class: Culture_model Method: get_vials - (1) id paramater required');
-        } //!isset($id)
+        } //isset($id)
         
         try {
             $vials = $this->select($id, 'VIAL');
@@ -486,7 +486,7 @@ class Culture_model extends CI_Model
         
         if (!isset($id)) {
             throw new Exception('Class: Culture_model Method: get_dnarna - (1) id paramater required');
-        } //!isset($id)
+        } //isset($id)
         
         try {
             $results = $this->select($id, 'DNARNA'); //multiple results can be expected
@@ -521,10 +521,10 @@ class Culture_model extends CI_Model
     {
         if (!isset($id)) {
             throw new Exception('Class: Culture_model Method: editRow - (1) Param $id required.');
-        } //!isset($id)
+        } //isset($id)
         if (!isset($data) || !is_array($data)) {
             throw new Exception('Class: Culture_model Method: editRow - (1) Param $data (Array) required.');
-        } //!isset($data) || !is_array($data)
+        } //isset($data) || !is_array($data)
         
         $record = array();
         $tables = array_keys($data);
@@ -588,10 +588,10 @@ class Culture_model extends CI_Model
         
         if (!isset($id)) {
             throw new Exception('Class: Culture_model Method: update_culture - (1) Param $id required.');
-        } //!isset($id)
+        } //isset($id)
         if (!isset($fields) || !is_array($fields)) {
             throw new Exception('Class: Culture_model Method: update_culture - (1) Param $fields (Array) required.');
-        } //!isset($fields) || !is_array($fields)
+        } //isset($fields) || !is_array($fields)
         
         try {
             $fields['CULT_USER']    = $this->session->userdata('user_id');
@@ -619,10 +619,10 @@ class Culture_model extends CI_Model
         
         if (!isset($id)) {
             throw new Exception('Class: Culture_model Method: update_culture - (1) Param $id required.');
-        } //!isset($id)
+        } //isset($id)
         if (!isset($fields) || !is_array($fields)) {
             throw new Exception('Class: Culture_model Method: update_culture - (1) Param $fields (Array) required.');
-        } //!isset($fields) || !is_array($fields)
+        } //isset($fields) || !is_array($fields)
         
         try {
             $culture = $this->select($id);
@@ -659,10 +659,10 @@ class Culture_model extends CI_Model
         
         if (!isset($id)) {
             throw new Exception('Class: Culture_model Method: update_culture - (1) Param $id required.');
-        } //!isset($id)
+        } //isset($id)
         if (!isset($fields) || !is_array($fields)) {
             throw new Exception('Class: Culture_model Method: update_culture - (1) Param $fields (Array) required.');
-        } //!isset($fields) || !is_array($fields)
+        } //isset($fields) || !is_array($fields)
         
         try {
             $fields['VIAL_USER']    = $this->session->userdata('user_id');
@@ -690,10 +690,10 @@ class Culture_model extends CI_Model
         
         if (!isset($id)) {
             throw new Exception('Class: Culture_model Method: update_culture - (1) Param $id required.');
-        } //!isset($id)
+        } //isset($id)
         if (!isset($fields) || !is_array($fields)) {
             throw new Exception('Class: Culture_model Method: update_culture - (1) Param $fields (Array) required.');
-        } //!isset($fields) || !is_array($fields)
+        } //isset($fields) || !is_array($fields)
         
         try {
             $fields['DNARNA_USER']    = $this->session->userdata('user_id');
@@ -932,7 +932,7 @@ class Culture_model extends CI_Model
         } //sizeof($range) != 2
         elseif (!isset($range['before']) || !isset($range['after'])) {
             throw new Exception('Class: Culture_model Method: selectRange - (2) $range param is required to be an array of two elements: "before" and "after"');
-        } //!isset($range['before']) || !isset($range['after'])
+        } //isset($range['before']) || !isset($range['after'])
         
         $fields = explode(', ', $field);
         //$field = NULL; //clear for future use
@@ -972,7 +972,7 @@ class Culture_model extends CI_Model
     {
         if (!is_array($data)) {
             throw new Exception('Class: Culture_model Method: update - (1) Param $data required to be array.');
-        } //!is_array($data)
+        } //is_array($data)
         
         $this->db->where($key, $id);
         if ($custom) {
@@ -999,7 +999,7 @@ class Culture_model extends CI_Model
     {
         if (!is_array($data)) {
             throw new Exception('Class: Culture_model Method: Create - (1) Param $data required to be array.');
-        } //!is_array($data)
+        } //is_array($data)
         
         if ($this->db->insert($table, $data)) {
             if ($this->db->insert_id())
@@ -1024,7 +1024,7 @@ class Culture_model extends CI_Model
     {
         if (!is_array($data)) {
             throw new Exception('Class: Culture_model Method: create_batch - (1) Param $data required to be array.');
-        } //!is_array($data)
+        } //is_array($data)
         
         if ($this->db->insert_batch($table, $data)) {
             return TRUE;
@@ -1047,7 +1047,7 @@ class Culture_model extends CI_Model
     {
         if (!isset($id)) {
             throw new Exception('Class: Culture_model Method: delete - (1) Param $id required.');
-        } //!isset($id)
+        } //isset($id)
         $where = array(
             $key => $id
         );

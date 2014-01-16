@@ -109,7 +109,7 @@ function isEmpty($array)
             continue; //special case - type is always set
         if (!empty($value)) {
             return FALSE;
-        } //!empty($value)
+        } //empty($value)
     } //$array as $key => $value
     return TRUE;
 }

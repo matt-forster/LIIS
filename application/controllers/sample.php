@@ -44,7 +44,7 @@ class Sample extends CI_Controller
         //Required Construct Variables
             if (!$this->session->userdata('logged_in')) {
                 echo '<script>window.location="/login"</script>';
-            } //!$this->session->userdata('logged_in')
+            } //$this->session->userdata('logged_in')
             
             $this->load->helper('liis');
             
@@ -643,7 +643,7 @@ class Sample extends CI_Controller
                 if (!in_array($exists['SOURCE'][0]['SOURCE_ID'], $this->data['editIds']['SOURCE'])) {
                     unset($this->data['create']['SOURCE']);
                     $this->data['create']['SAMPLE']['SOURCE_ID'] = $exists['SOURCE'][0]['SOURCE_ID'];
-                } //!in_array($exists['SOURCE'][0]['SOURCE_ID'], $this->data['editIds']['SOURCE'])
+                } //in_array($exists['SOURCE'][0]['SOURCE_ID'], $this->data['editIds']['SOURCE'])
             }
             elseif (isset($this->data['create']['SOURCE'])) {
                 $this->data['create']['SAMPLE']['SOURCE_ID'] = $this->sample->create_source($this->data['create']['SOURCE']);
@@ -653,7 +653,7 @@ class Sample extends CI_Controller
             if (isset($exists['SAMPLE'])) {
                  if (!in_array($exists['SAMPLE']['SAMP_ID'], $this->data['editIds']['SAMPLE'])) {
                     setMessage("<strong>Error:</strong> The Sample: " . $exists['SAMPLE']['SAMP_EXP_ID'] . " " . $exists['SAMPLE']['SAMP_ID'] . " already exists!", 'error', $this->data['message']);
-                } //!in_array($exists['SAMPLE']['SAMP_ID'], $this->data['editIds']['SAMPLE'])
+                } //in_array($exists['SAMPLE']['SAMP_ID'], $this->data['editIds']['SAMPLE'])
             }
             elseif (isset($this->data['create']['SAMPLE'])) {
                 $this->sample->update_sample($this->data['editIds']['SAMPLE'][0], $this->data['editIds']['SAMPLE'][1], $this->data['create']['SAMPLE']);
@@ -681,7 +681,7 @@ class Sample extends CI_Controller
 
                             unset($this->data['create']['DNARNA'][$dnarna]);
                         } //sizeof($this->data['message']) < 1
-                    } //!in_array($attributes['DNARNA_ID'], $this->data['editIds']['DNARNA'])
+                    } //in_array($attributes['DNARNA_ID'], $this->data['editIds']['DNARNA'])
                     unset($this->data['create']['DNARNA'][$dnarna]['dnarna_old_id']);
                 } //$this->data['create']['DNARNA'] as $dnarna => $attributes
             }
@@ -860,7 +860,7 @@ class Sample extends CI_Controller
             if (!$this->upload->do_upload()) {
                 setMessage($this->upload->display_errors(), 'error', $this->data['message']);
                 $this->upload_image($proj, $id);
-            } //!$this->upload->do_upload()
+            } //$this->upload->do_upload()
             else {
                 $upload                   = $this->upload->data();
                 $image['DNARNA_IMG_CAP']  = $post['SAMP_IMG_CAP'];
@@ -950,7 +950,7 @@ class Sample extends CI_Controller
         if (!$_FILES) {
             echo '<br><span class="error">  error: No file selected!</span>';
             return;
-        } //!$_FILES
+        } //$_FILES
         
         foreach ($_FILES as $file) {
             echo '<br>starting upload:';
@@ -1048,7 +1048,7 @@ class Sample extends CI_Controller
                                     if (!is_numeric($data[$i])) {
                                         echo '<br><span class="error">  error: "sample_name" on row ' . $row . ' is the wrong type.</span>';
                                         return;
-                                    } //!is_numeric($data[$i])
+                                    } //is_numeric($data[$i])
                                     
                                     $insert['SAMP_ID'] = (int) $data[$i];
                                     break;
@@ -1093,7 +1093,7 @@ class Sample extends CI_Controller
                                     if (!empty($data[$i]) && !is_numeric($data[$i])) {
                                         echo '<br><span class="error">  error: "samp_period" on row ' . $row . ' is the wrong type.</span>';
                                         return;
-                                    } //!empty($data[$i]) && !is_numeric($data[$i])
+                                    } //empty($data[$i]) && !is_numeric($data[$i])
                                     
                                     $insert['SAMP_PERIOD'] = (int) $data[$i];
                                     break;
@@ -1214,7 +1214,7 @@ class Sample extends CI_Controller
                                     if (!is_numeric($data[$i])) {
                                         echo '<br><span class="error">  error: "source_subject_id" on row ' . $row . ' is the wrong type. (integer expected)</span>';
                                         return;
-                                    } //!is_numeric($data[$i])
+                                    } //is_numeric($data[$i])
                                     
                                     $insert['SOURCE_NUM'] = (int) $data[$i];
                                     break;
@@ -1389,7 +1389,7 @@ class Sample extends CI_Controller
         if (!$project = $this->input->post('project')) {
             echo '<br><span class="error">  error: no project selected!</span>';
             return;
-        } //!$project = $this->input->post('project')
+        } //$project = $this->input->post('project')
         
         //the order in which the elements are selected matter. Template does not match the internal database unfortunately.
         $select = 'SAMP_EXP_ID, SAMP_ID, SAMP_DATE, SAMP_TIME, SAMP_TMZ, SAMP_STOR_LOC, SAMP_PERIOD, SAMP_BIOME, SAMP_MAT, SAMP_TYPE, SAMP_SITE, SAMP_SUBSITE, SAMP_GEO_LAT, SAMP_GEO_LONG, SAMP_GEO_DESC, SAMP_COUNTRY, SAMP_ENVPKG, SAMP_NOTES';
@@ -1398,7 +1398,7 @@ class Sample extends CI_Controller
         if (!$records) {
             echo '<br><span class="error">  error: no records found</span>';
             return;
-        } //!$records
+        } //$records
         
         $path     = realpath(dirname(dirname(dirname(__FILE__)))) . '/resources/download/';
         $filename = $path . $project . '_export.csv';

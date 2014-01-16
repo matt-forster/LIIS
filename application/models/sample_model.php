@@ -211,11 +211,11 @@ class Sample_model extends CI_Model
         
         if (!is_array($fields)) {
             $fields = explode(', ', $fields);
-        } //!is_array($fields)
+        } //is_array($fields)
         
         if (!is_array($keywords)) {
             $keywords = explode(', ', $keywords);
-        } //!is_array($keywords)
+        } //is_array($keywords)
         
         $conditions = array();
         
@@ -350,7 +350,7 @@ class Sample_model extends CI_Model
         
         if (!isset($proj) || !isset($id)) {
             throw new Exception('Class: Sample_model Method: get_sample - (1) project and/or id paramaters required');
-        } //!isset($proj) || !isset($id)
+        } //isset($proj) || !isset($id)
         
         try {
             $ids    = $proj . ', ' . $id;
@@ -382,7 +382,7 @@ class Sample_model extends CI_Model
         
         if (!isset($proj) || !isset($id)) {
             throw new Exception('Class: Sample_model Method: get_source - (1) project and/or id paramaters required');
-        } //!isset($proj) || !isset($id)
+        } //isset($proj) || !isset($id)
         
         try {
             $ids    = $proj . ', ' . $id;
@@ -428,7 +428,7 @@ class Sample_model extends CI_Model
         
         if (!isset($proj) || !isset($id)) {
             throw new Exception('Class: Sample_model Method: get_source - (1) project and/or id paramaters required');
-        } //!isset($proj) || !isset($id)
+        } //isset($proj) || !isset($id)
         
         try {
             $ids = $proj . ', ' . $id;
@@ -480,10 +480,10 @@ class Sample_model extends CI_Model
     {
         if (!isset($id) || !isset($proj)) {
             throw new Exception('Class: Culture_model Method: editRow - (1) Param $id/$proj required.');
-        } //!isset($id) || !isset($proj)
+        } //isset($id) || !isset($proj)
         if (!isset($data) || !is_array($data)) {
             throw new Exception('Class: Culture_model Method: editRow - (1) Param $data (Array) required.');
-        } //!isset($data) || !is_array($data)
+        } //isset($data) || !is_array($data)
         
         $record = array();
         $tables = array_keys($data);
@@ -537,10 +537,10 @@ class Sample_model extends CI_Model
         
         if (!isset($proj) || !isset($id)) {
             throw new Exception('Class: Culture_model Method: update_sample - (1) Param $proj/$id required.');
-        } //!isset($proj) || !isset($id)
+        } //isset($proj) || !isset($id)
         if (!isset($fields) || !is_array($fields)) {
             throw new Exception('Class: Culture_model Method: update_sample - (1) Param $fields (Array) required.');
-        } //!isset($fields) || !is_array($fields)
+        } //isset($fields) || !is_array($fields)
         
         $ids = $proj . ', ' . $id;
         
@@ -571,10 +571,10 @@ class Sample_model extends CI_Model
         
         if (!isset($proj) || !isset($id)) {
             throw new Exception('Class: Culture_model Method: update_source - (1) Param $id required.');
-        } //!isset($proj) || !isset($id)
+        } //isset($proj) || !isset($id)
         if (!isset($fields) || !is_array($fields)) {
             throw new Exception('Class: Culture_model Method: update_source - (1) Param $fields (Array) required.');
-        } //!isset($fields) || !is_array($fields)
+        } //isset($fields) || !is_array($fields)
         
         try {
             $ids    = $proj . ', ' . $id;
@@ -611,10 +611,10 @@ class Sample_model extends CI_Model
         
         if (!isset($id)) {
             throw new Exception('Class: Culture_model Method: update_culture - (1) Param $id required.');
-        } //!isset($id)
+        } //isset($id)
         if (!isset($fields) || !is_array($fields)) {
             throw new Exception('Class: Culture_model Method: update_culture - (1) Param $fields (Array) required.');
-        } //!isset($fields) || !is_array($fields)
+        } //isset($fields) || !is_array($fields)
         
         try {
             $fields['DNARNA_USER']    = $this->session->userdata('user_id');
@@ -849,7 +849,7 @@ class Sample_model extends CI_Model
         } //sizeof($range) != 2
         elseif (!isset($range['before']) || !isset($range['after'])) {
             throw new Exception('Class: Sample_model Method: selectRange - (2) $range param is required to be an array of two elements: "before" and "after"');
-        } //!isset($range['before']) || !isset($range['after'])
+        } //isset($range['before']) || !isset($range['after'])
         
         $fields = explode(', ', $field);
         //$field = NULL; //clear for future use
@@ -889,7 +889,7 @@ class Sample_model extends CI_Model
     {
         if (!isset($id)) {
             throw new Exception('Class: Sample_model Method: update - (1) Param $id required.');
-        } //!isset($id)
+        } //isset($id)
         
         $keys  = explode(', ', $key);
         $ids   = explode(', ', $id);
@@ -923,7 +923,7 @@ class Sample_model extends CI_Model
     {
         if (!is_array($data)) {
             throw new Exception('Class: Sample_model Method: Create - (1) Param $data required to be array.');
-        } //!is_array($data)
+        } //is_array($data)
         
         if ($this->db->insert($table, $data)) {
             
@@ -949,7 +949,7 @@ class Sample_model extends CI_Model
     {
         if (!is_array($data)) {
             throw new Exception('Class: Sample_model Method: create_batch - (1) Param $data required to be array.');
-        } //!is_array($data)
+        } //is_array($data)
         
         if ($this->db->insert_batch($table, $data)) {
             return TRUE;
@@ -972,7 +972,7 @@ class Sample_model extends CI_Model
     {
         if (!isset($id)) {
             throw new Exception('Class: Sample_model Method: delete - (1) Param $id required.');
-        } //!isset($id)
+        } //isset($id)
         
         $keys  = explode(', ', $key);
         $ids   = explode(', ', $id);

@@ -37,7 +37,7 @@ class Help extends CI_Controller
         //Required Construct Variables
             if (!$this->session->userdata('logged_in')) {
                 echo '<script>window.location="/login"</script>';
-            } //!$this->session->userdata('logged_in')
+            } //$this->session->userdata('logged_in')
             
             $this->load->helper('liis');
             

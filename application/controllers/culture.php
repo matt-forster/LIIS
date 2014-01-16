@@ -44,7 +44,7 @@ class Culture extends CI_Controller
         //Required Construct Variables
             if (!$this->session->userdata('logged_in')) {
                 echo '<script>window.location="/login"</script>';
-            } //!$this->session->userdata('logged_in')
+            } //$this->session->userdata('logged_in')
             
             $this->load->helper('liis');
             
@@ -685,7 +685,7 @@ class Culture extends CI_Controller
                 if (!in_array($exists['TAXONOMY'][0]['TAX_ID'], $this->data['editIds']['TAXONOMY'])) {
                     unset($this->data['create']['TAXONOMY']);
                     $this->data['create']['CULTURE']['TAX_ID'] = $exists['TAXONOMY'][0]['TAX_ID']; //Search returns an array of arrays
-                } //!in_array($exists['TAXONOMY'][0]['TAX_ID'], $this->data['editIds']['TAXONOMY'])
+                } //in_array($exists['TAXONOMY'][0]['TAX_ID'], $this->data['editIds']['TAXONOMY'])
             }
             elseif (isset($this->data['create']['TAXONOMY']) && sizeof($this->data['message']) < 1) {
                 $this->data['create']['CULTURE']['TAX_ID'] = $this->culture->create_tax($this->data['create']['TAXONOMY']);
@@ -695,7 +695,7 @@ class Culture extends CI_Controller
             if (isset($exists['CULTURE'])) {
                  if (!in_array($exists['CULTURE']['CULT_LABNUM'], $this->data['editIds']['CULTURE'])) {
                     setMessage("<strong>Error:</strong> The Culture: " . $exists['CULTURE']['CULT_LABNUM'] . " already exists!", 'error', $this->data['message']);
-                } //!in_array($exists['CULTURE']['CULT_LABNUM'], $this->data['editIds']['CULTURE'])
+                } //in_array($exists['CULTURE']['CULT_LABNUM'], $this->data['editIds']['CULTURE'])
             }
             elseif (isset($this->data['create']['CULTURE'])) {
                 $this->sample->update_culture($this->data['editIds']['CULTURE'][0], $this->data['editIds']['CULTURE'][1], $this->data['create']['CULTURE']);
@@ -720,7 +720,7 @@ class Culture extends CI_Controller
                             }                            
                             unset($this->data['create']['DNARNA'][$dnarna]);
                         } //sizeof($this->data['message']) < 1
-                    } //!in_array($attributes['DNARNA_ID'], $this->data['editIds']['DNARNA'])
+                    } //in_array($attributes['DNARNA_ID'], $this->data['editIds']['DNARNA'])
                     unset($this->data['create']['DNARNA'][$dnarna]['dnarna_old_id']);
                 } //$this->data['create']['DNARNA'] as $dnarna => $attributes
             }
@@ -759,7 +759,7 @@ class Culture extends CI_Controller
                             }                            
                             unset($this->data['create']['VIAL'][$vial]);
                         } //sizeof($this->data['message']) < 1
-                    } //!in_array($attributes['VIAL_ID'], $this->data['editIds']['VIAL'])
+                    } //in_array($attributes['VIAL_ID'], $this->data['editIds']['VIAL'])
                     unset($this->data['create']['VIAL'][$vial]['vial_old_id']);
                 } //$this->data['create']['VIAL'] as $vial => $attributes
             }
@@ -942,7 +942,7 @@ class Culture extends CI_Controller
             if (!$this->upload->do_upload()) {
                 setMessage($this->upload->display_errors(), 'error', $this->data['message']);
                 $this->upload_image($id);
-            } //!$this->upload->do_upload()
+            } //$this->upload->do_upload()
             else {
                 $upload = $this->upload->data();
                 if ($type == 'CULTURE') {
@@ -1043,7 +1043,7 @@ class Culture extends CI_Controller
         if (!$_FILES) {
             echo '<br><span class="error">  error: No file selected!</span>';
             return;
-        } //!$_FILES
+        } //$_FILES
         
         foreach ($_FILES as $file) {
             echo '<br>starting upload:';
@@ -1158,7 +1158,7 @@ class Culture extends CI_Controller
                                     if (!is_numeric($data[$i])) {
                                         echo '<br><span class="error">  error: "CULT_RISKG" on row ' . $row . ' is the wrong type.</span>';
                                         return;
-                                    } //!is_numeric($data[$i])
+                                    } //is_numeric($data[$i])
                                     
                                     $insert[$fields[$i]] = (int) $data[$i];
                                     break;
@@ -1471,7 +1471,7 @@ class Culture extends CI_Controller
         if (!$labnum = $this->input->post('labnum')) {
             echo '<br><span class="error">  error: No labnumber selected!</span>';
             return;
-        } //!$labnum = $this->input->post('labnum')
+        } //$labnum = $this->input->post('labnum')
         
         $wc_labnum = '%' . $labnum . '%';
         //the order in which the elements are selected matter. Template does not match the internal database unfortunately.
@@ -1481,7 +1481,7 @@ class Culture extends CI_Controller
         if (!$records) {
             echo '<br><span class="error">  error: no records found</span>';
             return;
-        } //!$records
+        } //$records
         
         $path     = realpath(dirname(dirname(dirname(__FILE__)))) . '/resources/download/';
         $filename = $path . $labnum . '_export.csv';
@@ -1491,7 +1491,7 @@ class Culture extends CI_Controller
         if (!$file = fopen($filename, 'w')) {
             echo '<br><span class="error">  error: file is busy! the server has this file open already</span>';
             return;
-        } //!$file = fopen($filename, 'w')
+        } //$file = fopen($filename, 'w')
         
         //Fields and descriptions are related directly by their order
         $fields = array(

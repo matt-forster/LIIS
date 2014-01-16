@@ -37,7 +37,7 @@ class User extends CI_Controller
         //Required Construct Variables
             if (!$this->session->userdata('logged_in') || !$this->session->userdata('usermgmt')) {
                 echo '<script>window.location="/login"</script>';
-            } //!$this->session->userdata('logged_in')
+            } //$this->session->userdata('logged_in')
             
             $this->load->helper('liis');
             
@@ -205,7 +205,7 @@ class User extends CI_Controller
                 }
                 if (!empty($user)) {
                     setMessage('<strong>Error:</strong> The user name: ' . $value . ' is already in use.', 'error', $this->data['message']);
-                } //!empty($user)
+                } //empty($user)
             } //$field == 'USER_NAME'
         } //$this->data['create'] as $field => $value
         
@@ -278,7 +278,7 @@ class User extends CI_Controller
         $this->data['update'] = $this->input->post('user');
         if (!empty($this->data['update']['USER_PASS'])) {
             $this->data['update']['USER_PASS'] = md5($this->data['update']['USER_PASS']);
-        } //!empty($this->data['update']['USER_PASS'])
+        } //empty($this->data['update']['USER_PASS'])
         else {
             unset($this->data['update']['USER_PASS']);
         }

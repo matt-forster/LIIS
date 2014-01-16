@@ -146,7 +146,7 @@ if ( ! function_exists('anchor'))
 
 		if ( ! is_array($uri))
 		{
-			$site_url = ( ! preg_match('!^\w+://! i', $uri)) ? site_url($uri) : $uri;
+			$site_url = ( ! preg_match('!^\w+:// i', $uri)) ? site_url($uri) : $uri;
 		}
 		else
 		{
@@ -187,7 +187,7 @@ if ( ! function_exists('anchor_popup'))
 	{
 		$title = (string) $title;
 
-		$site_url = ( ! preg_match('!^\w+://! i', $uri)) ? site_url($uri) : $uri;
+		$site_url = ( ! preg_match('!^\w+:// i', $uri)) ? site_url($uri) : $uri;
 
 		if ($title == '')
 		{

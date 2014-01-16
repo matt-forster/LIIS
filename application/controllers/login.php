@@ -130,7 +130,7 @@ class Login extends CI_Controller
             setMessage("Invalid User.", 'error', $this->data['message']);
             $this->load->view('templates/message', $this->data);
             return;
-        } //!$user
+        } //$user
         if ($user['USER_PASS'] != $this->data['user']['USER_PASS']) {
             setMessage("Invalid Password.", 'error', $this->data['message']);
             $this->load->view('templates/message', $this->data);

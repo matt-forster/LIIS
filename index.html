@@ -45,6 +45,10 @@ LIIS is an open source, web based, metadata database for storage and archival us
 
 <p>Created at the <strong>Lethbridge Research Center</strong> in cooperation with the <strong>Lethbridge College</strong> and the <strong>University of Lethbridge</strong>, this is a student designed project.</p>
 
+<p>For detailed* Doxygen class documentation, see the refman/ folder.</p>
+
+<p>*Will be expanded in the future</p>
+
 <h4>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h4>
 
@@ -73,13 +77,14 @@ LIIS is an open source, web based, metadata database for storage and archival us
 </ul><p>Once a proper server has been setup with a webserver, MySQL, PHP:</p>
 
 <ol>
-<li>Ensure .htaccess is allowed in the appropriate directory (AllowOverride)</li>
-<li>Ensure the rewrite module is enabled in your webserver preferences</li>
-<li>Download and move the website files into the hosted directory</li>
+<li>Ensure .htaccess is allowed in the appropriate directory (Apache AllowOverride option).</li>
+<li>Ensure the rewrite module is enabled in your webserver preferences.</li>
+<li>Ensure MySQLi driver is enabled within the PHP settings.</li>
+<li>Download and move the website files into the hosted directory.</li>
 <li>
 <strong>Special Write permissions</strong> are required for the <code>resources/download</code> and <code>resources/upload</code> directories, to ensure that the export and picture functions operate properly. Popular permissions for these folders are 775 for the appropriate Apache and PHP/FTP users.</li>
-<li>Open <code>install.php</code> and <code>application/config/database.php</code>. Change the appropriate settings to allow codeigniter to connect to MySQL. Make sure to change both the data and user database settings in database.php.</li>
-<li>Browse to <code>(website_root)/install.php</code> to install the database. If an error is shown, look over your MySQL settings to ensure connectivity.</li>
+<li>Open <code>install.php</code> and <code>application/config/database.php</code> within a text editor. Change the appropriate settings (MySQL user/password) to allow codeigniter to connect to MySQL. Make sure to change both the data and user database settings in database.php.</li>
+<li>In your browser, open <code>(website_root)/install.php</code> to install the database. If an error is shown, look over your MySQL settings and the two files in step 5 to ensure connectivity.</li>
 <li>Log in to the user management with the user and password provided after successful database installation.</li>
 </ol><h4>
 <a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h4>
@@ -88,7 +93,7 @@ LIIS is an open source, web based, metadata database for storage and archival us
 <li>
 <p><strong>Current Developers:</strong></p>
 
-<p><strong>Matt Forster (<a href="https://twitter.com/forstermatth">@forstermatth</a>)</strong></p>
+<p><strong>Matt Forster (<a href="https://twitter.com/forstermatth">@forstermatth</a> <a href="mailto:forster.matth@gmail.com">forster.matth@gmail.com</a>)</strong></p>
 
 <ul>
 <li>(under supervision of Tim McAllister, Bob Forster)</li>
@@ -112,7 +117,7 @@ LIIS is an open source, web based, metadata database for storage and archival us
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">LIIS maintained by <a href="https://github.com/forstermatth">Matt Forster</a> <a href="https://twitter.com/forstermatth">@forstermatth</a></p>
+        <p class="copyright">LIIS maintained by <a href="https://github.com/forstermatth">forstermatth</a></p>
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>

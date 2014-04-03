@@ -26,5 +26,5 @@
  */
 
 
-$config['version'] = '0.10.0';
+$config['version'] = '0.10.2';
 date_default_timezone_set('America/Edmonton');

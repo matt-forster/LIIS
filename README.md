@@ -1,6 +1,6 @@
 ## Laboratory Information Indexing System
 
-- **JORS DOI**: (unassigned)
+- **JORS DOI**: [10.5334/jors.aj](http://dx.doi.org/10.5334/jors.aj)
 - **Figshare DOI**: [10.6084/m9.figshare.780836](http://dx.doi.org/10.6084/m9.figshare.780836)
 
 
@@ -46,9 +46,6 @@ Once a proper server has been setup with a webserver, MySQL, PHP:
 * **Current Developers:**
 
 	**Matt Forster ([@forstermatth][1] [forster.matth@gmail.com][2])**
-
-	* (under supervision of Tim McAllister, Bob Forster)
-	* Lethbridge Research Center, University of Lethbridge Co-Op, 2013.
 	
 * **Alpha Development:**
 

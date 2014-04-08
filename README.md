@@ -47,11 +47,14 @@ Once a proper server has been setup with a webserver, MySQL, PHP:
 
 	**Matt Forster ([@forstermatth][1] [forster.matth@gmail.com][2])**
 	
-* **Alpha Development:**
+* **Past Development:**
+	
+	**Lethbridge Research Center, in cooperation with University of Lethbridge**
+	* Matt Forster, Robert Forster, Lyn Paterson
+	* Summer, 2013
 
-	**Align Systems Design**
-
-	* (Matt Forster, David Sinclaire, Andrew Sanders, Graham Fluet)
+	**Lethbridge College**
+	* Matt Forster, David Sinclaire, Andrew Sanders, Graham Fluet
 	* Computer Information Technology, Lethbridge College, 2013.
 
 [1]: https://twitter.com/forstermatth

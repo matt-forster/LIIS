@@ -225,38 +225,38 @@ $(document).ready(function () {
     $('#submitCulture').click(function () {
         $('#message').empty();
         var data = $('#createForm').serializeArray();
-        $('#message').load('/culture/do_create', data);
+        $('#message').load('culture/do_create', data);
     });
 
     $('#submitSample').click(function () {
         $('#message').empty();
         var data = $('#createForm').serializeArray();
-        $('#message').load('/sample/do_create', data);
+        $('#message').load('sample/do_create', data);
     });
 
     $('#editCulture').click(function () {
         $('#message').empty();
         var data = $('#createForm').serializeArray();
-        $('#message').load('/culture/do_edit/', data);
+        $('#message').load('culture/do_edit/', data);
     });
 
     $('#editSample').click(function () {
         $('#message').empty();
         var data = $('#createForm').serializeArray();
-        $('#message').load('/sample/do_edit/', data);
+        $('#message').load('sample/do_edit/', data);
     });
 
     $('#submitLogin').click(function () {
         $('#message').empty();
         var data = $('#loginForm').serializeArray();
-        $('#message').load('/login/do_login', data);
+        $('#message').load('login/do_login', data);
     });
 
     $('#submitUserLogin').click(function () {
         $('#message').empty();
         var data = $('#userForm').serializeArray();
         $('#usermgmt').modal('hide');
-        $('#message').load('/login/do_login', data);
+        $('#message').load('login/do_login', data);
     });
 
 

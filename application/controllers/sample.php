@@ -1405,6 +1405,7 @@ class Sample extends CI_Controller
         
         echo '<br>creating file: ' . $project . '_export.csv';
         $file = fopen($filename, 'w');
+        if($file == FALSE){ echo '<br><span class="error">  error: Writing to file failed!</span>'; return;}
         
         //Fields and descriptions are related directly by their order.
         $fields = array(

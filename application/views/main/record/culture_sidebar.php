@@ -31,7 +31,7 @@
         data-step="2">
             <?php echo (($record[ 'CULTURE'][ 'CULT_IMG_PATH'] !=NULL) ?
             '<a class="thumbnail" target="_blank" href="'.$record[ 'CULTURE'][ 'CULT_IMG_PATH']. '">' : '<a class="thumbnail" target="_blank" href="'.site_url('resources/img/liislogo.png').'">') ?>
-                <img <?php echo (($record[ 'CULTURE'][ 'CULT_IMG_PATH'] !=NULL) ? 'src="'.$record['CULTURE'][ 'CULT_IMG_PATH']. '"' : 'src="'.site_url('resources/img/liislogo.png')."') ?>
+                <img <?php echo (($record[ 'CULTURE'][ 'CULT_IMG_PATH'] !=NULL) ? 'src="'.$record['CULTURE'][ 'CULT_IMG_PATH']. '"' : 'src="'.site_url('resources/img/liislogo.png').'"') ?>
                  alt="Culture Image or LIIS Logo" class="img-rounded" height="300px" id="rcdimg">
                 </a>
                 <h5 id="notes">

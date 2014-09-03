@@ -17,7 +17,7 @@ For detailed* Doxygen class documentation, see the refman/ folder.
 
 #### Installation
 
-LIIS requires a webserver with rewrite capability. The application was created on an Apache2 webserver and has .htaccess files included in the directories.
+LIIS requires a webserver with rewrite capability. The application was created on an Apache2 webserver and has .htaccess files included in the directories. Because many web servers have unique setups and security preferences, there is no wizard included to install the website. Editing some base options and files is required to have the LIIS work. If you have any questions, contact the developer.
 
 **Dependencies**:
 - Not Included:
@@ -32,14 +32,15 @@ LIIS requires a webserver with rewrite capability. The application was created o
 
 Once a proper server has been setup with a webserver, MySQL, PHP:
 
-1. Ensure .htaccess is allowed in the appropriate directory (Apache AllowOverride option).
-2. Ensure the rewrite module is enabled in your webserver preferences.
-3. Ensure MySQLi driver is enabled within the PHP settings.
+1. Ensure .htaccess is allowed in the appropriate directory (Apache `AllowOverride` option). The .htaccess must be able to run in the root directory of the LIIS. This setting is typically found either in `httpd.conf` or `sites-available/default`.
+2. Ensure the rewrite module is enabled in your webserver preferences (Apache `a2enmod rewrite`.)
+3. Ensure MySQLi driver is enabled within the PHP settings. (Check your php.ini for `extension=mysqli.so` or similar.)
 4. Download and move the website files into the hosted directory.
 5. **Special Write permissions** are required for the `resources/download` and `resources/upload` directories, to ensure that the export and picture functions operate properly. Popular permissions for these folders are 775 for the appropriate Apache and PHP/FTP users.
 6. Open `install.php` and `application/config/database.php` within a text editor. Change the appropriate settings (MySQL user/password) to allow codeigniter to connect to MySQL. Make sure to change both the data and user database settings in database.php.
-7. In your browser, open `(website_root)/install.php` to install the database. If an error is shown, look over your MySQL settings and the two files in step 5 to ensure connectivity.
-8. Log in to the user management with the user and password provided after successful database installation.
+7. Open `application/config/config.php` and `.htaccess` (in the root) in a text editor. Edit the `base_url` setting to reflect the codeigniter root (ex. if installing the LIIS in `/var/www/LIIS`, then `base_url` should be '/LIIS/'). Edit the third line of the `.htaccess` to reflect the new url of `index.php`. (ex. If the LIIS is in `/var/www/LIIS`, then the third line in the .htaccess should be `RewriteRule ^(.*)$ /LIIS/index.php/$1 [L]`. Note the inclusion of `/LIIS/` in front of index.php).
+8. In your browser, open `(website_root)/install.php` to install the database. If an error is shown, look over your MySQL settings and the two files in step 5 to ensure connectivity.
+9. Log in to the user management with the user and password provided after successful database installation.
 
 #### Contributors
 

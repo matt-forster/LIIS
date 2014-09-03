@@ -70,7 +70,7 @@
                     echo '<a class="btn disabled btn-large"> Template  </a>
                         Use for new record.';
                 }else{
-                   echo '<a href="'site_url('sample/create/').$record['SAMPLE']['SAMP_EXP_ID'].'/'.$record['SAMPLE']['SAMP_ID'].'"
+                   echo '<a href="'.site_url('sample/create/').$record['SAMPLE']['SAMP_EXP_ID'].'/'.$record['SAMPLE']['SAMP_ID'].'"
                         class="btn btn-main btn-large"> Template  </a>
                         Use for new record.';
                 }

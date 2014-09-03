@@ -70,7 +70,7 @@
                     echo '<a class="btn disabled btn-large"> Template  </a>
                         Use for new record.';
                 }else{
-                   echo '<a href="'.site_url('sample/create/').$record['SAMPLE']['SAMP_EXP_ID'].'/'.$record['SAMPLE']['SAMP_ID'].'"
+                   echo '<a href="'.site_url('sample/create/').'/'.$record['SAMPLE']['SAMP_EXP_ID'].'/'.$record['SAMPLE']['SAMP_ID'].'"
                         class="btn btn-main btn-large"> Template  </a>
                         Use for new record.';
                 }
@@ -84,7 +84,7 @@
                     echo ' <a class="btn disabled btn-large"> Edit </a>
                         Change current record.';
                 }else{
-                   echo ' <a href="'.site_url('sample/edit/').$record['SAMPLE']['SAMP_EXP_ID'].'/'.$record['SAMPLE']['SAMP_ID'].'"
+                   echo ' <a href="'.site_url('sample/edit/').'/'.$record['SAMPLE']['SAMP_EXP_ID'].'/'.$record['SAMPLE']['SAMP_ID'].'"
                         class="btn btn-main btn-large" id="editbtn"> Edit </a>
                         Change current record.';
                 }
@@ -101,7 +101,7 @@
                     Danger
                 </h5>
                 <p class="muted">
-                    <a href="'.site_url('sample/delete/sample/').$record['SAMPLE']['SAMP_ID'].'/'.$record['SAMPLE']['SAMP_EXP_ID'].'"
+                    <a href="'.site_url('sample/delete/sample/').'/'.$record['SAMPLE']['SAMP_ID'].'/'.$record['SAMPLE']['SAMP_EXP_ID'].'"
                     class="btn btn-danger">Delete</a> record.
                 </p>
             </div>

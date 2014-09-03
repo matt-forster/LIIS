@@ -70,7 +70,7 @@
                     echo '<a class="btn disabled btn-large"> Template  </a>
                          Use for new record.';
                 }else{
-                   echo '<a href='.site_url('culture/create/').$record['CULTURE']['CULT_ID'].'" class="btn btn-main btn-large"> Template  </a>
+                   echo '<a href='.site_url('culture/create/').'/'.$record['CULTURE']['CULT_ID'].'" class="btn btn-main btn-large"> Template  </a>
                          Use for new record.';
                 }
             ?>
@@ -83,7 +83,7 @@
                     echo ' <a class="btn disabled btn-large">Edit</a>
                         Change current record.';
                 }else{
-                   echo ' <a href="'.site_url('culture/edit/').$record['CULTURE']['CULT_ID'].'" class="btn btn-main btn-large" id="editbtn">Edit</a>
+                   echo ' <a href="'.site_url('culture/edit/').'/'.$record['CULTURE']['CULT_ID'].'" class="btn btn-main btn-large" id="editbtn">Edit</a>
                         Change current record.';
                 }
             ?>
@@ -97,7 +97,7 @@
                     Danger
                 </h5>
                 <p class="muted">
-                    <a href="'.site_url('culture/delete/culture/').$record['CULTURE']['CULT_ID'].'" class="btn btn-danger">Delete</a>
+                    <a href="'.site_url('culture/delete/culture/').'/'.$record['CULTURE']['CULT_ID'].'" class="btn btn-danger">Delete</a>
                     record.
                 </p>
             </div>

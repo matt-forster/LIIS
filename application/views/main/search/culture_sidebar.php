@@ -62,7 +62,7 @@
                         </strong>
                         :St,Sp,Ge,Fa,Or,Cl,Ph,Ki,Do,Li
                         <br>
-                        <a href="#">See Help</a>
+                        <a href="<?php echo site_url('help'); ?>">See Help</a>
                         for more info.
                     </small>
                 </div>

@@ -67,7 +67,7 @@
                         </strong>
                         : Site,SSite
                         <br>
-                        <a href="#">See Help</a>
+                        <a href="<?php echo site_url('help'); ?>">See Help</a>
                         for more info.
                     </small>
                 </div>

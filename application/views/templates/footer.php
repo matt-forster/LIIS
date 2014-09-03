@@ -23,7 +23,7 @@
  * @link        http://github.com/forstermatth/liis
  */
  -->
-
-<script type="text/javascript" src="/resources/js/main.js"></script>
+<script type="text/javascript"> $siteurl = "<?php echo site_url(); ?>"</script>
+<script type="text/javascript" src="<?php echo site_url('resources/js/main.js'); ?>"></script>
 </body>
 </html>

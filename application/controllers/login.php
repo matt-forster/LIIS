@@ -147,7 +147,7 @@ class Login extends CI_Controller
             );
             
             $this->session->set_userdata($session);
-            echo '<script>window.location="sample"</script>';
+            echo '<script>window.location="'.site_url('sample/').'"</script>';
         } //$type == 'main'
         elseif ($type == 'user') {
             if ($user['USER_AUTH'] == 'ADMIN') {
@@ -160,7 +160,7 @@ class Login extends CI_Controller
                     'usermgmt' => TRUE
                 );
                 $this->session->set_userdata($session);
-                echo '<script>window.location="user"</script>';
+                echo '<script>window.location="/user/"</script>';
             } //$user['USER_AUTH'] == 'ADMIN'
             else {
                 setMessage('Unauthorized.', 'error', $this->data['message']);
@@ -181,7 +181,7 @@ class Login extends CI_Controller
     public function do_logout()
     {
         $this->session->sess_destroy();
-        echo '<script>window.location="login"</script>';
+        echo '<script>window.location="/login"</script>';
     }
     
 }

@@ -43,12 +43,12 @@ $(document).ready(function () {
     $('#addsampleimage').click(function () {
         proj = document.getElementById('samp_exp_id').value;
         id = document.getElementById('samp_id').value
-        window.open('/sample/upload_image/' + proj + '/' + id, '', 'left=500,top=500,width=400px,height=400px,location=no,menubar=no,resizeable=no,scrollbars=no,titlebar=no,status=no,toolbar=no');
+        window.open($siteurl+'sample/upload_image/' + proj + '/' + id, '', 'left=500,top=500,width=400px,height=400px,location=no,menubar=no,resizeable=no,scrollbars=no,titlebar=no,status=no,toolbar=no');
     });
 
     $('#addcultureimage').click(function () {
         id = document.getElementById('cult_id').value;
-        window.open('/culture/upload_image/' + id, '', 'left=500,top=500,width=400px,height=400px,location=no,menubar=no,resizeable=no,scrollbars=no,titlebar=no,status=no,toolbar=no');
+        window.open($siteurl+'culture/upload_image/' + id, '', 'left=500,top=500,width=400px,height=400px,location=no,menubar=no,resizeable=no,scrollbars=no,titlebar=no,status=no,toolbar=no');
     });
 
 
@@ -56,7 +56,7 @@ $(document).ready(function () {
     $('#searchCulture').click(function () {
         $('#results').empty();
         var data = $('#searchform').serializeArray();
-        $('#results').load('/culture/do_search', data, function () {
+        $('#results').load($siteurl+'culture/do_search', data, function () {
             sessionStorage.setItem('stored', 1);
             sessionStorage.setItem('cultquery', $('#omnibar').val());
             sessionStorage.setItem('cultfilter', $('input[name=filter]:checked').val());
@@ -66,14 +66,14 @@ $(document).ready(function () {
     $('#searchSample').click(function () {
         $('#results').empty();
         var data = $('#searchform').serializeArray();
-        $('#results').load('/sample/do_search', data, function () {
+        $('#results').load($siteurl+'sample/do_search', data, function () {
             sessionStorage.setItem('stored', 1);
             sessionStorage.setItem('sampquery', $('#omnibar').val());
             sessionStorage.setItem('sampfilter', $('input[name=filter]:checked').val());
         });
     });
 
-    if (sessionStorage.stored && (location.pathname == '/culture/' || location.pathname == '/sample/' || location.pathname == '/culture' || location.pathname == '/sample')) {
+    if (sessionStorage.stored && (location.pathname == $siteurl+'culture/' || location.pathname == $siteurl+'sample/' || location.pathname == $siteurl+'culture' || location.pathname == $siteurl+'sample')) {
         var href = window.location.pathname;
         href = href.split('/');
         $('#results').empty();
@@ -84,7 +84,7 @@ $(document).ready(function () {
                 'query': sessionStorage.cultquery,
                 'filter': sessionStorage.cultfilter
             };
-            $('#results').load('/' + href[1] + '/do_search', data, function () {
+            $('#results').load($siteurl + href[1] + '/do_search', data, function () {
                 $('#progbar').hide();
             });
             $('#omnibar').val(sessionStorage.cultquery);
@@ -94,7 +94,7 @@ $(document).ready(function () {
                 'query': sessionStorage.sampquery,
                 'filter': sessionStorage.sampfilter
             };
-            $('#results').load('/' + href[1] + '/do_search', data, function () {
+            $('#results').load($siteurl + href[1] + '/do_search', data, function () {
                 $('#progbar').hide();
             });
             $('#omnibar').val(sessionStorage.sampquery);
@@ -102,7 +102,7 @@ $(document).ready(function () {
         }
     }
 
-    if (location.pathname == '/culture/recent/' || location.pathname == '/sample/recent/' || location.pathname == '/culture/recent' || location.pathname == '/sample/recent') {
+    if (location.pathname == $siteurl+'culture/recent/' || location.pathname == $siteurl+'sample/recent/' || location.pathname == $siteurl+'culture/recent' || location.pathname == $siteurl+'sample/recent') {
         var href = window.location.pathname;
         href = href.split('/');
         $('#results').empty();
@@ -111,7 +111,7 @@ $(document).ready(function () {
             'query': 'none',
             'filter': 'recent'
         };
-        $('#results').load('/' + href[1] + '/do_search', data, function () {
+        $('#results').load($siteurl + href[1] + '/do_search', data, function () {
             $('#progbar').hide();
         });
     }
@@ -225,38 +225,38 @@ $(document).ready(function () {
     $('#submitCulture').click(function () {
         $('#message').empty();
         var data = $('#createForm').serializeArray();
-        $('#message').load('culture/do_create', data);
+        $('#message').load($siteurl+'culture/do_create', data);
     });
 
     $('#submitSample').click(function () {
         $('#message').empty();
         var data = $('#createForm').serializeArray();
-        $('#message').load('sample/do_create', data);
+        $('#message').load($siteurl+'sample/do_create', data);
     });
 
     $('#editCulture').click(function () {
         $('#message').empty();
         var data = $('#createForm').serializeArray();
-        $('#message').load('culture/do_edit/', data);
+        $('#message').load($siteurl+'culture/do_edit/', data);
     });
 
     $('#editSample').click(function () {
         $('#message').empty();
         var data = $('#createForm').serializeArray();
-        $('#message').load('sample/do_edit/', data);
+        $('#message').load($siteurl+'sample/do_edit/', data);
     });
 
     $('#submitLogin').click(function () {
         $('#message').empty();
         var data = $('#loginForm').serializeArray();
-        $('#message').load('login/do_login', data);
+        $('#message').load($siteurl+'login/do_login', data);
     });
 
     $('#submitUserLogin').click(function () {
         $('#message').empty();
         var data = $('#userForm').serializeArray();
         $('#usermgmt').modal('hide');
-        $('#message').load('login/do_login', data);
+        $('#message').load($siteurl+'login/do_login', data);
     });
 
 
@@ -267,7 +267,7 @@ $(document).ready(function () {
 
         var data = $('#projectform').serialize();
         $.ajax({
-            url: '/' + href[1] + '/do_export',
+            url: $siteurl + href[1] + '/do_export',
             data: data,
             type: 'POST',
             success: function (html) {
@@ -289,7 +289,7 @@ $(document).ready(function () {
         });
 
         $.ajax({
-            url: '/' + href[1] + '/do_import',
+            url: $siteurl + href[1] + '/do_import',
             data: data,
             cache: false,
             contentType: false,
@@ -305,7 +305,7 @@ $(document).ready(function () {
 
     //User Management ----------------------------------------------
     $("#clear-btn").click(function () {
-        $("#userbox").load("/user/create");
+        $("#userbox").load($siteurl+"user/create");
     });
 
 });
@@ -322,7 +322,7 @@ function highlightCell(row) {
     var href = window.location.pathname;
     href = href.split('/');
     var a = document.getElementById('view');
-    a.href = "/" + $.trim(href[1]) + "/view/" + row.id;
+    a.href = $siteurl + $.trim(href[1]) + "/view/" + row.id;
     $("#view").removeClass('disabled');
     $("#view").addClass('btn-main');
 }
@@ -334,11 +334,11 @@ function selectUser(row) {
     $(".highlight").removeClass("highlight");
     $(row).addClass("highlight");
     id = $(row).attr('id');
-    $("#userbox").load("/user/update/" + id);
+    $("#userbox").load($siteurl+"user/update/" + id);
 }
 
 function clearForm() {
-    $("#userbox").load('/user/create');
+    $("#userbox").load($siteurl+'user/create');
 }
 
 function clearFeedback() {
@@ -349,8 +349,8 @@ function createUser() {
     clearFeedback();
     var data = $("form").serializeArray();
 
-    $("#userfeedback").load("/user/do_create", data, function () {
-        $("#userTable").load("/user/listUsers");
+    $("#userfeedback").load($siteurl+"user/do_create", data, function () {
+        $("#userTable").load($siteurl+"user/listUsers");
     });
 }
 
@@ -358,15 +358,15 @@ function updateUser() {
     clearFeedback();
     var data = $("form").serializeArray();
 
-    $("#userfeedback").load("/user/do_update", data);
-    $("#userTable").load("/user/listUsers");
+    $("#userfeedback").load($siteurl+"user/do_update", data);
+    $("#userTable").load($siteurl+"user/listUsers");
 }
 
 function deleteUser() {
     clearFeedback();
     var id = $('.highlight').attr('id');
-    $("#userfeedback").load("/user/do_delete/" + id, function () {
-        $("#userTable").load("/user/listUsers");
+    $("#userfeedback").load($siteurl+"user/do_delete/" + id, function () {
+        $("#userTable").load($siteurl+"user/listUsers");
     });
     clearForm();
 }

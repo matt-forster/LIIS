@@ -41,7 +41,7 @@
             data-step="5">Cancel</a>
             <span style="">
             </span>
-            <a class="btn btn-info" href="/sample/recent/" type="button" data-position="left"
+            <a class="btn btn-info" href="<?php echo site_url('/sample/recent/'); ?>" type="button" data-position="left"
             data-intro="Click this button to view the entries you made today!" data-step="6">Recent</a>
         </div>
     </div>

@@ -45,7 +45,7 @@
             data-step="5">Cancel</a>
             <span style="">
             </span>
-            <a class="btn btn-info" href="/culture/recent/" data-position="left" data-intro="Click this button to view the entries you made today!"
+            <a class="btn btn-info" href="<?php echo site_url('culture/recent/'); ?>" data-position="left" data-intro="Click this button to view the entries you made today!"
             data-step="6">Recent</a>
         </div>
     </div>

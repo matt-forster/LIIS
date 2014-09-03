@@ -29,7 +29,7 @@
     <div class="span4">
         <div class="well" data-position="left" data-intro="Here we see either the LIIS logo or the Culture image,<br> depending on the context."
         data-step="2">
-            <img src="/resources/img/liislogo.png" class="img-rounded" alt="LIIS Logo" height="300px"
+            <img src="<?php echo site_url('resources/img/liislogo.png'); ?>" class="img-rounded" alt="LIIS Logo" height="300px"
             id="rcdimg">
             <h5 id="notes">
             </h5>
@@ -70,7 +70,7 @@
                     echo '<a class="btn disabled btn-large"> Template  </a>
                         Use for new record.';
                 }else{
-                   echo '<a href="/sample/create/'.$record['SAMPLE']['SAMP_EXP_ID'].'/'.$record['SAMPLE']['SAMP_ID'].'"
+                   echo '<a href="'site_url('sample/create/').$record['SAMPLE']['SAMP_EXP_ID'].'/'.$record['SAMPLE']['SAMP_ID'].'"
                         class="btn btn-main btn-large"> Template  </a>
                         Use for new record.';
                 }
@@ -84,7 +84,7 @@
                     echo ' <a class="btn disabled btn-large"> Edit </a>
                         Change current record.';
                 }else{
-                   echo ' <a href="/sample/edit/'.$record['SAMPLE']['SAMP_EXP_ID'].'/'.$record['SAMPLE']['SAMP_ID'].'"
+                   echo ' <a href="'.site_url('sample/edit/').$record['SAMPLE']['SAMP_EXP_ID'].'/'.$record['SAMPLE']['SAMP_ID'].'"
                         class="btn btn-main btn-large" id="editbtn"> Edit </a>
                         Change current record.';
                 }
@@ -101,7 +101,7 @@
                     Danger
                 </h5>
                 <p class="muted">
-                    <a href="/sample/delete/sample/'.$record['SAMPLE']['SAMP_ID'].'/'.$record['SAMPLE']['SAMP_EXP_ID'].'"
+                    <a href="'.site_url('sample/delete/sample/').$record['SAMPLE']['SAMP_ID'].'/'.$record['SAMPLE']['SAMP_EXP_ID'].'"
                     class="btn btn-danger">Delete</a> record.
                 </p>
             </div>

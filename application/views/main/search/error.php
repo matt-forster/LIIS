@@ -32,7 +32,7 @@
         Enter your search in the bar above.
         <br>
         For instructions on use, please
-        <a href="/help/main">visit the help page.</a>
+        <a href="<?php echo site_url('help/main'); ?>">visit the help page.</a>
     </p>
 </div>
 </div>

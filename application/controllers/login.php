@@ -181,7 +181,7 @@ class Login extends CI_Controller
     public function do_logout()
     {
         $this->session->sess_destroy();
-        echo '<script>window.location="/login"</script>';
+        echo '<script>window.location="'.site_url('login').'"</script>';
     }
     
 }

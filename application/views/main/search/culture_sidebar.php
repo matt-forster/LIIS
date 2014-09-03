@@ -30,7 +30,7 @@
     <div class="span4">
         <div class="well" id="topwell">
             <div id="imgnotes">
-                <img src="/resources/img/liislogo.png" class="img-rounded" alt="record-img" id="rcdimg">
+                <img src="<?php echo site_url('resources/img/liislogo.png'); ?>" class="img-rounded" alt="record-img" id="rcdimg">
                 <h5 id="notes">
                     Quick Reference:
                 </h5>
@@ -76,7 +76,7 @@
                 Current selected record.
             </p>
             <p class="muted">
-                <a href="/culture/create/" class="btn btn-main btn-large widebtn">Create</a> a new record from scratch.
+                <a href="<?php echo site_url('culture/create/'); ?>" class="btn btn-main btn-large widebtn">Create</a> a new record from scratch.
             </p>
             <!-- Two dynamically colored buttons -->
             <p class="muted">
@@ -85,7 +85,7 @@
                         echo '<a href="#" class="btn btn-large widebtn disabled">Import</a>
                                 records from a csv.';
                     }else{
-                       echo '<a href="/culture/import/" class="btn btn-large widebtn">Import</a>
+                       echo '<a href="'.site_url('/culture/import/').'" class="btn btn-large widebtn">Import</a>
                                 records from a csv.';
                     }
                 ?>
@@ -98,7 +98,7 @@
                     echo '<a href="#" class="btn btn-large widebtn disabled">Export</a>
                             a project to a csv.';
                 }else{
-                   echo ' <a href="/culture/export/" class="btn btn-large widebtn">Export</a>
+                   echo ' <a href="'.site_url('/culture/export/').'" class="btn btn-large widebtn">Export</a>
                             a project to a csv.';
                 }
             ?>

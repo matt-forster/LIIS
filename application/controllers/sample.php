@@ -864,7 +864,7 @@ class Sample extends CI_Controller
             else {
                 $upload                   = $this->upload->data();
                 $image['DNARNA_IMG_CAP']  = $post['SAMP_IMG_CAP'];
-                $image['DNARNA_IMG_PATH'] = '/resources/upload/' . $upload['raw_name'] . $upload['file_ext'];
+                $image['DNARNA_IMG_PATH'] = site_url().'resources/upload/' . $upload['raw_name'] . $upload['file_ext'];
                 $image['DNARNA_MODDATE']  = date('Y-m-d');
                 $image['DNARNA_USER']     = $this->session->userdata('USER_ID');
                 $this->sample->update_dnarna($post['DNARNA_ID'], $image);
@@ -1337,9 +1337,6 @@ class Sample extends CI_Controller
             
         } //$_FILES as $file
         
-        
-        
-        // echo '<span class="error">  Error: blahdy blah blah</span>';
         echo '<br><span class="success">Complete!</span>';
     }
     
@@ -1357,9 +1354,11 @@ class Sample extends CI_Controller
         
         $raw_projects           = $this->sample->select_field('SAMP_EXP_ID');
         $this->data['projects'] = array();
-        foreach ($raw_projects as $project) {
-            array_push($this->data['projects'], $project['SAMP_EXP_ID']);
-        } //$raw_projects as $project
+        if($raw_projects == NULL){}else{
+            foreach ($raw_projects as $project) {
+                array_push($this->data['projects'], $project['SAMP_EXP_ID']);
+            } //$raw_projects as $project
+        }
         
         $this->load->view('templates/header', $this->data);
         $this->load->view('templates/navbar', $this->data);

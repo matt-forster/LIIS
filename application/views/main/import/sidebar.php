@@ -35,8 +35,8 @@
         </form>
         <div>
             <p class="small">Download import template: 
-                <a href="/resources/download/LIIS_sample_import.TEMPLATE.csv" target="_blank">sample</a> or
-                <a href="/resources/download/LIIS_culture_import.TEMPLATE.csv" target="_blank">culture</a>
+                <a href="<?php echo site_url('resources/download/LIIS_sample_import.TEMPLATE.csv'); ?>" target="_blank">sample</a> or
+                <a href="<?php echo site_url('resources/download/LIIS_culture_import.TEMPLATE.csv'); ?>" target="_blank">culture</a>
         </div>
     </div>
     <div class="progress progress-striped active" id="progbar">

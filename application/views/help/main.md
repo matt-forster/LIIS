@@ -121,10 +121,7 @@ Edit takes the record you are viewing and moves it to a form. The **form can the
 
 Importing records can be done from each of the main search pages of the application. Please note that each context (sample, culture) imports that type of record exclusively.
 
-The template for importing can be found on the import page, and it is important not to alter it.
-
-- [Culture Import Template](/resources/download/LIIS_culture_import.TEMPLATE.csv)
-- [Sample Import Template](/resources/download/LIIS_sample_import.TEMPLATE.csv)
+The template for importing can be found on the import page, and it is important not to alter the headings.
 
 As a rule, the fields are required to be unaltered for the import function to accept them, and the second line of the file is always ignored as it is reserved for the field descriptions.
 

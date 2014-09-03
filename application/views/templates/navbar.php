@@ -27,19 +27,19 @@
 <div class="container">
     <div class="navbar">
         <div class="navbar-inner">
-            <?php echo '<a class="brand" href="/'. (($sample=='active' ) ? 'sample/' :
+            <?php echo '<a class="brand" href="'.site_url().(($sample=='active' ) ? 'sample/' :
             'culture/') . '">LIIS</a>';?>
                 <ul class="nav">
-                    <?php echo '<li class="muted barversion"><a href="/'. (($sample=='active' ) ?
+                    <?php echo '<li class="muted barversion"><a href="'.site_url().(($sample=='active' ) ?
                     'sample/' : 'culture/') . '">'.$version. '</a></li>'; ?>
                 </ul>
                 <!-- Right Menu -- -->
                 <ul class="nav pull-right">
                     <li class="<?php echo $sample; ?>" id="">
-                        <a href="/sample/">Sample</a>
+                        <a href="<?php echo site_url('sample/'); ?>">Sample</a>
                     </li>
                     <li class="<?php echo $culture; ?>" id="culture">
-                        <a href="/culture/">Culture</a>
+                        <a href="<?php echo site_url('culture/'); ?>">Culture</a>
                     </li>
                     <li class="divider-vertical">
                     </li>
@@ -48,11 +48,11 @@
                     </li>
                     <!-- Link to Main Help Page-->
                     <li class="small">
-                        <a href="/help/main">Help</a>
+                        <a href="<?php echo site_url('help/main'); ?>">Help</a>
                     </li>
                     <!-- Link to Logout Script-->
                     <li class="small" id="logout">
-                        <a href="/login/do_logout">Logout</a>
+                        <a href="<?php echo site_url('login/do_logout'); ?>">Logout</a>
                     </li>
                 </ul>
         </div>

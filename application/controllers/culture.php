@@ -947,14 +947,14 @@ class Culture extends CI_Controller
                 $upload = $this->upload->data();
                 if ($type == 'CULTURE') {
                     $image['CULT_IMG_CAP']  = $post['CULT_IMG_CAP'];
-                    $image['CULT_IMG_PATH'] = '/resources/upload/' . $upload['raw_name'] . $upload['file_ext'];
+                    $image['CULT_IMG_PATH'] = site_url().'resources/upload/' . $upload['raw_name'] . $upload['file_ext'];
                     $image['CULT_MODDATE']  = date('Y-m-d');
                     $image['CULT_USER']     = $this->session->userdata('USER_ID');
                     $this->culture->update_culture($id, $image);
                 } //$type == 'CULTURE'
                 elseif ($type == 'DNARNA') {
                     $image['DNARNA_IMG_CAP']  = $post['CULT_IMG_CAP'];
-                    $image['DNARNA_IMG_PATH'] = '/resources/upload/' . $upload['raw_name'] . $upload['file_ext'];
+                    $image['DNARNA_IMG_PATH'] = site_url().'resources/upload/' . $upload['raw_name'] . $upload['file_ext'];
                     $image['DNARNA_MODDATE']  = date('Y-m-d');
                     $image['DNARNA_USER']     = $this->session->userdata('USER_ID');
                     $this->culture->update_dnarna($post['DNARNA_ID'], $image);

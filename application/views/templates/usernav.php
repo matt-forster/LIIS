@@ -27,16 +27,16 @@
 <div class="container">
     <div class="navbar">
         <div class="navbar-inner">
-            <?php echo '<a class="brand" href="/'. (($sample=='active' ) ? 'sample/' :
+            <?php echo '<a class="brand" href="'.site_url().(($sample=='active' ) ? 'sample/' :
             'culture/') . '">LIIS</a>';?>
                 <ul class="nav">
-                    <?php echo '<li class="muted barversion"><a href="/'. (($sample=='active' ) ?
+                    <?php echo '<li class="muted barversion"><a href="'.site_url().(($sample=='active' ) ?
                     'sample/' : 'culture/') . '">'.$version. '</a></li>'; ?>
                 </ul>
                 <!-- Right Menu -- -->
                 <ul class="nav pull-right">
                     <li class="active" id="">
-                        <a href="/user">User Management</a>
+                        <a href="<?php echo site_url('user'); ?>">User Management</a>
                     </li>
                     <li class="divider-vertical">
                     </li>
@@ -45,11 +45,11 @@
                     </li>
                     <!-- Link to Main Help Page-->
                     <li class="small">
-                        <a href="/help/user">Help</a>
+                        <a href="<?php echo site_url('help/user'); ?>">Help</a>
                     </li>
                     <!-- Link to Logout Script-->
                     <li class="small" id="logout">
-                        <a href="/login/do_logout">Logout</a>
+                        <a href="<?php echo site_url('login/do_logout'); ?>">Logout</a>
                     </li>
                 </ul>
         </div>

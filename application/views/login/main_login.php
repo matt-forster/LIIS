@@ -32,7 +32,7 @@
     <div class='row center'>
         <div class='span12'>
             <div id="liislogo">
-                <img src='/resources/img/liislogo.png' alt='LIIS Logo' width='60%' height='60%'>
+                <img src='<?php echo site_url('resources/img/liislogo.png'); ?>' alt='LIIS Logo' width='60%' height='60%'>
             </div>
         </div>
     </div>

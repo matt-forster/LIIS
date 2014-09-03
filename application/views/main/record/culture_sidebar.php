@@ -30,8 +30,8 @@
         <div class="well" data-position="left" data-intro="Here we see either the LIIS logo or the Culture image,<br> depending on the context."
         data-step="2">
             <?php echo (($record[ 'CULTURE'][ 'CULT_IMG_PATH'] !=NULL) ?
-            '<a class="thumbnail" target="_blank" href="'.$record[ 'CULTURE'][ 'CULT_IMG_PATH']. '">' : '<a class="thumbnail" target="_blank" href="/resources/img/liislogo.png">') ?>
-                <img <?php echo (($record[ 'CULTURE'][ 'CULT_IMG_PATH'] !=NULL) ? 'src="'.$record['CULTURE'][ 'CULT_IMG_PATH']. '"' : 'src="/resources/img/liislogo.png"') ?>
+            '<a class="thumbnail" target="_blank" href="'.$record[ 'CULTURE'][ 'CULT_IMG_PATH']. '">' : '<a class="thumbnail" target="_blank" href="'.site_url('resources/img/liislogo.png').'">') ?>
+                <img <?php echo (($record[ 'CULTURE'][ 'CULT_IMG_PATH'] !=NULL) ? 'src="'.$record['CULTURE'][ 'CULT_IMG_PATH']. '"' : 'src="'.site_url('resources/img/liislogo.png')."') ?>
                  alt="Culture Image or LIIS Logo" class="img-rounded" height="300px" id="rcdimg">
                 </a>
                 <h5 id="notes">
@@ -70,7 +70,7 @@
                     echo '<a class="btn disabled btn-large"> Template  </a>
                          Use for new record.';
                 }else{
-                   echo '<a href="/culture/create/'.$record['CULTURE']['CULT_ID'].'" class="btn btn-main btn-large"> Template  </a>
+                   echo '<a href='.site_url('culture/create/').$record['CULTURE']['CULT_ID'].'" class="btn btn-main btn-large"> Template  </a>
                          Use for new record.';
                 }
             ?>
@@ -83,7 +83,7 @@
                     echo ' <a class="btn disabled btn-large">Edit</a>
                         Change current record.';
                 }else{
-                   echo ' <a href="/culture/edit/'.$record['CULTURE']['CULT_ID'].'" class="btn btn-main btn-large" id="editbtn">Edit</a>
+                   echo ' <a href="'.site_url('culture/edit/').$record['CULTURE']['CULT_ID'].'" class="btn btn-main btn-large" id="editbtn">Edit</a>
                         Change current record.';
                 }
             ?>
@@ -97,7 +97,7 @@
                     Danger
                 </h5>
                 <p class="muted">
-                    <a href="/culture/delete/culture/'.$record['CULTURE']['CULT_ID'].'" class="btn btn-danger">Delete</a>
+                    <a href="'.site_url('culture/delete/culture/').$record['CULTURE']['CULT_ID'].'" class="btn btn-danger">Delete</a>
                     record.
                 </p>
             </div>

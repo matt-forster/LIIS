@@ -341,8 +341,12 @@ function highlightCell(row) {
     $(row).addClass("highlight");
     var href = window.location.pathname;
     href = href.split('/');
+    var id = 0;
+    jQuery.each(href,function(i, path) {
+       if(path === "sample" || path === "culture") {id = i; return false;}
+    });
     var a = document.getElementById('view');
-    a.href = siteurl + $.trim(href[1]) + "/view/" + row.id;
+    a.href = siteurl + $.trim(href[id]) + "/view/" + row.id;
     $("#view").removeClass('disabled');
     $("#view").addClass('btn-main');
 }

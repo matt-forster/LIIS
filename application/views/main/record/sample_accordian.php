@@ -228,7 +228,7 @@ data-step="1">
                             session->userdata('user_auth') === 'SPRUSER' || $this->session->userdata('user_auth')
                             === 'ADMIN'){ echo '
                             <div class="pull-right" style="margin-top: -29px; margin-right: 5px;">
-                                <a href="'.site_url('sample/delete/dnarna/').$tube['DNARNA_ID'].'" class="btn btn-danger btn-mini">Delete</a>
+                                <a href="'.site_url('sample/delete/dnarna/').'/'.$tube['DNARNA_ID'].'" class="btn btn-danger btn-mini">Delete</a>
                             </div>
                             '; } echo '
                 </div>

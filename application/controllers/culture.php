@@ -1572,7 +1572,7 @@ class Culture extends CI_Controller
         fclose($file);
         
         echo '<br><span class="success">Complete!</span>';
-        echo '<br>download file: <a target="_blank" href="'.$downloadpath.'">'. $labnum . '_export.csv'.'</a>';
+        echo '<br>download file: <a target="_blank" href="'.site_url().$downloadpath.'">'. $labnum . '_export.csv'.'</a>';
     }
     
     

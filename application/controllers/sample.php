@@ -1482,7 +1482,7 @@ class Sample extends CI_Controller
         fclose($file);
         
         echo '<br><span class="success">Complete!</span>';
-        echo '<br>download file: <a target="_blank" href="'.$downloadpath.'">'. $project . '_export.csv'.'</a>';
+        echo '<br>download file: <a target="_blank" href="'.site_url().$downloadpath.'">'. $project . '_export.csv'.'</a>';
     }
     
     

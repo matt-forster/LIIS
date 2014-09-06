@@ -160,7 +160,7 @@ class Login extends CI_Controller
                     'usermgmt' => TRUE
                 );
                 $this->session->set_userdata($session);
-                echo '<script>window.location="/user/"</script>';
+                echo '<script>window.location="'.site_url('user/').'"</script>';
             } //$user['USER_AUTH'] == 'ADMIN'
             else {
                 setMessage('Unauthorized.', 'error', $this->data['message']);

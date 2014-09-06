@@ -64,6 +64,8 @@ class User_model extends CI_Model
         $data['USER_FNAME'] = $name[0];
         if (isset($name[1])) {
             $data['USER_LNAME'] = $name[1];
+        } else {
+            $data['USER_LNAME'] = ' ';
         } //isset($name[1])
         unset($data['NAME']);
         return $this->create($data);
